@@ -1,9 +1,7 @@
 \name{graphVertexComplexity}
 \alias{graphVertexComplexity}
 %- Also NEED an '\alias' for EACH other topic documented here.
-\title{Graph Vertex Complexity
-%%  ~~function to do ... ~~
-}
+\title{Graph Vertex Complexity}
 \description{This method calculates the Graph Vertex Complexity.
 %%  ~~ A concise (1-5 lines) description of what the function does. ~~
 }
@@ -12,17 +10,17 @@ graphVertexComplexity(g, dist = NULL)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
-  \item{g}{
+  \item{g}{a graph as a graphNEL object.
 %%     ~~Describe \code{g} here~~
 }
-  \item{dist}{
+  \item{dist}{the distance matrix of the graph. If the parameter is empty the distance matrix will be calculated within the function.
 %%     ~~Describe \code{dist} here~~
 }
 }
 \details{
 %%  ~~ If necessary, more details than the description above ~~
 }
-\value{
+\value{This method returns the Graph Vertex Complexity.
 %%  ~Describe the value returned
 %%  If it is a LIST, use
 %%  \item{comp1 }{Description of 'comp1'}
@@ -30,9 +28,10 @@ graphVertexComplexity(g, dist = NULL)
 %% ...
 }
 \references{
-%% ~put references to the literature/web site here ~
+R. Todeschini and V. Consonni and R. Mannhold, Handbook of Molecular Descriptors, Wiley-VCH, Weinheim, Germany, 2002
+
 }
-\author{
+\author{Laurin Mueller
 %%  ~~who you are~~
 }
 \note{
@@ -45,33 +44,13 @@ graphVertexComplexity(g, dist = NULL)
 %% ~~objects to See Also as \code{\link{help}}, ~~~
 }
 \examples{
-##---- Should be DIRECTLY executable !! ----
-##-- ==>  Define data, use random,
-##--	or do  help(data=index)  for the standard data sets.
 
-## The function is currently defined as
-function (g, dist = NULL) 
-{
-    if (class(g)[1] != "graphNEL") {
-        stop("'g' must be a 'graphNEL' object")
-    }
-    if (is.null(dist)) {
-        dist = distanceMatrix(g)
-    }
-    nam <- nodes(g)
-    nV <- numNodes(g)
-    distd <- lapply(nam, function(n) {
-        table(dist[n, ])
-    })
-    names(distd) <- nam
-    vic <- sapply(distd, function(dd) {
-        pis <- dd/nV
-        sum(pis * log2(pis))
-    })
-    return(sum(vic))
-  }
+library(RBGL)
+library(Rgraphviz)
+set.seed(123)
+g <- randomGraph(1:8, 1:5, 0.36)
+plot(g,"neato")
+
+graphVertexComplexity(g)
 }
-% Add one or more standard keywords, see file 'KEYWORDS' in the
-% R documentation directory.
-\keyword{ ~kwd1 }
-\keyword{ ~kwd2 }% __ONLY ONE__ keyword per line
+\keyword{graphs}

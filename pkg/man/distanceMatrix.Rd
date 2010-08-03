@@ -1,35 +1,31 @@
 \name{distanceMatrix}
 \alias{distanceMatrix}
-%- Also NEED an '\alias' for EACH other topic documented here.
 \title{Distance Matrix
-%%  ~~function to do ... ~~
 }
 \description{This method calculates the distance Matrix of a given graph.
-%%  ~~ A concise (1-5 lines) description of what the function does. ~~
 }
 \usage{
 distanceMatrix(g)
 }
-%- maybe also 'usage' for other objects documented here.
 \arguments{
-  \item{g}{
+  \item{g}{a graph as a graphNEL object.
 %%     ~~Describe \code{g} here~~
 }
 }
 \details{
 %%  ~~ If necessary, more details than the description above ~~
 }
-\value{
+\value{This method returns the distance Matrix of a given graph.
 %%  ~Describe the value returned
 %%  If it is a LIST, use
 %%  \item{comp1 }{Description of 'comp1'}
 %%  \item{comp2 }{Description of 'comp2'}
 %% ...
 }
-\references{
+\references{R. Todeschini and V. Consonni and R. Mannhold, Handbook of Molecular Descriptors, Wiley-VCH, Weinheim, Germany, 2002
 %% ~put references to the literature/web site here ~
 }
-\author{
+\author{Laurin Mueller
 %%  ~~who you are~~
 }
 \note{
@@ -41,21 +37,15 @@ distanceMatrix(g)
 \seealso{
 %% ~~objects to See Also as \code{\link{help}}, ~~~
 }
-\examples{
-##---- Should be DIRECTLY executable !! ----
-##-- ==>  Define data, use random,
-##--	or do  help(data=index)  for the standard data sets.
 
-## The function is currently defined as
-function (g) 
-{
-    if (class(g)[1] != "graphNEL") {
-        stop("'g' has to be a 'graphNEL' object")
-    }
-    johnson.all.pairs.sp(g)
-  }
+\examples{
+
+library(RBGL)
+library(Rgraphviz)
+set.seed(123)
+g <- randomGraph(1:8, 1:5, 0.36)
+plot(g,"neato")
+
+degreeDistribution(g)
 }
-% Add one or more standard keywords, see file 'KEYWORDS' in the
-% R documentation directory.
-\keyword{ ~kwd1 }
-\keyword{ ~kwd2 }% __ONLY ONE__ keyword per line
+\keyword{graphs}

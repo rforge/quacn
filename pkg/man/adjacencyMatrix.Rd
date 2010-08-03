@@ -17,10 +17,11 @@ A graph as a graphNEL object.
 \details{
 }
 \value{
-Returns a matrix with "1" between connected vertices and "0" between not connected ones.
+Returns a matrix with "1" between connected vertices and "0" between not
+connected ones.
 }
 \references{
-%TODO: references
+  F. Harary. Graph Theory. Addison Wesley Publishing Company, 1969. Reading, MA, USA.
 }
 \author{
 Laurin Mueller
@@ -50,7 +51,5 @@ vec.degree <- graph::degree(g)
 ska.dia <- diameter(g)
 ska.dia <- diameter(g,mat.dist)
 }
-% Add one or more standard keywords, see file 'KEYWORDS' in the
-% R documentation directory.
-\keyword{ ~kwd1 }
-\keyword{ ~kwd2 }
+\keyword{ graphs }
+

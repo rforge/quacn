@@ -1,9 +1,7 @@
 \name{hyperDistancePathIndex}
 \alias{hyperDistancePathIndex}
 %- Also NEED an '\alias' for EACH other topic documented here.
-\title{Hyper Distance Path Index
-%%  ~~function to do ... ~~
-}
+\title{Hyper Distance Path Index}
 \description{This method calculates the Hyper Distance Path Index.
 %%  ~~ A concise (1-5 lines) description of what the function does. ~~
 }
@@ -12,30 +10,30 @@ hyperDistancePathIndex(g, dist = NULL, wien = NULL)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
-  \item{g}{
+  \item{g}{a graph as a graphNEL object.
 %%     ~~Describe \code{g} here~~
 }
-  \item{dist}{
+  \item{dist}{the distance matrix of the graph. If the parameter is empty the distance matrix will be calculated within the function.
 %%     ~~Describe \code{dist} here~~
 }
-  \item{wien}{
+  \item{wien}{the wiener index of g.
 %%     ~~Describe \code{wien} here~~
 }
 }
 \details{
 %%  ~~ If necessary, more details than the description above ~~
 }
-\value{
+\value{This method returns the Hyper Distance Path Index.
 %%  ~Describe the value returned
 %%  If it is a LIST, use
 %%  \item{comp1 }{Description of 'comp1'}
 %%  \item{comp2 }{Description of 'comp2'}
 %% ...
 }
-\references{
+\references{R. Todeschini and V. Consonni and R. Mannhold, Handbook of Molecular Descriptors, Wiley-VCH, Weinheim, Germany, 2002
 %% ~put references to the literature/web site here ~
 }
-\author{
+\author{Laurin Mueller
 %%  ~~who you are~~
 }
 \note{
@@ -48,27 +46,12 @@ hyperDistancePathIndex(g, dist = NULL, wien = NULL)
 %% ~~objects to See Also as \code{\link{help}}, ~~~
 }
 \examples{
-##---- Should be DIRECTLY executable !! ----
-##-- ==>  Define data, use random,
-##--	or do  help(data=index)  for the standard data sets.
+library(RBGL)
+library(Rgraphviz)
+set.seed(123)
+g <- randomGraph(1:8, 1:5, 0.36)
+plot(g,"neato")
 
-## The function is currently defined as
-function (g, dist = NULL, wien = NULL) 
-{
-    require("combinat")
-    if (class(g)[1] != "graphNEL") {
-        stop("'g' must be a 'graphNEL' object")
-    }
-    if (is.null(dist)) {
-        dist <- distanceMatrix(g)
-    }
-    if (is.null(wien)) {
-        wien <- wiener(g)
-    }
-    wien + sum(nCm(dist, 2))/2
-  }
+degreeDistribution(g)
 }
-% Add one or more standard keywords, see file 'KEYWORDS' in the
-% R documentation directory.
-\keyword{ ~kwd1 }
-\keyword{ ~kwd2 }% __ONLY ONE__ keyword per line
+\keyword{graphs}

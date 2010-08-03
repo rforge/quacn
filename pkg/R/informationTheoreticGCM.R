@@ -1,4 +1,5 @@
-infoTheoreticGCM <- function(g, dist=NULL, coeff="lin", infofunct="sphere", lamda=1000){
+infoTheoreticGCM <- function(g, dist=NULL, coeff="lin", infofunct="sphere", lamda=1000, custCoeff=NULL){
+  require("graph")
   allowed.coeff <-  c("lin","quad","exp","const","cust")
   allowed.functionals <-  c("sphere","pathlength","localprop")
   # check if g is a graphNEL object
@@ -45,7 +46,8 @@ infoTheoreticGCM <- function(g, dist=NULL, coeff="lin", infofunct="sphere", lamd
   itgcm <- list()
   itgcm[["entropy"]] <- (-sum(pis*log2(pis)))
   itgcm[["distance"]] <- (lamda*(log2(length(pis)) - itgcm[["entropy"]]))
- 
+  itgcm[["pis"]] <- pis
+  itgcm[["fvis"]] <- fvi
   return (itgcm)
 }  
 
@@ -61,7 +63,7 @@ infoTheoreticGCM <- function(g, dist=NULL, coeff="lin", infofunct="sphere", lamd
   })
   names(Sj) <- nam
   
-  fvi <- sapply(Sj,function(s,pc=ci,a=alpha){
+  fvi <- sapply(Sj,function(s,pc=ci){
      sum(s*ci[1:length(s)])
   })
   names(fvi) <- nam
@@ -76,6 +78,7 @@ infoTheoreticGCM <- function(g, dist=NULL, coeff="lin", infofunct="sphere", lamd
   vs <- V(ig)
   lvs <- length(vs$name)
   fvi <- rep(0,lvs)
+  nam <- nodes(g)
   #determine number of all possible shortest path
   for(n in 1:lvs){
     f <- vs[vs$name==n] 
@@ -83,7 +86,7 @@ infoTheoreticGCM <- function(g, dist=NULL, coeff="lin", infofunct="sphere", lamd
     lvi <- table(sapply(asp,length)-1,exclude=0)
     fvi[n] <- sum(lvi*ci[1:length(lvi)])
   }
-
+  names(fvi) <- nam
   return (fvi)
 }
 
@@ -94,6 +97,7 @@ infoTheoreticGCM <- function(g, dist=NULL, coeff="lin", infofunct="sphere", lamd
   vs <- V(ig)
   lvs <- length(vs$name)
   fvi <- rep(0,lvs)
+  nam <- nodes(g)
   #determine number of all possible shortest path
   for(n in 1:lvs){
     f <- vs[vs$name==n] 
@@ -105,5 +109,6 @@ infoTheoreticGCM <- function(g, dist=NULL, coeff="lin", infofunct="sphere", lamd
     betai <- 1/tmp.sum*lvi
     fvi[n] <- sum(betai*ci[1:length(lvi)])
   }
+  names(fvi) <- nam
   return (fvi)
 }

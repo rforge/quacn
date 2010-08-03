@@ -1,12 +1,8 @@
 \name{konstantinova}
 \alias{konstantinova}
 %- Also NEED an '\alias' for EACH other topic documented here.
-\title{Konstantinova
-%%  ~~function to do ... ~~
-}
-\description{This method calculates the Konstantinova index.
-%%  ~~ A concise (1-5 lines) description of what the function does. ~~
-}
+\title{Konstantinova}
+\description{This method calculates the Konstantinova index}
 \usage{
 konstantinova(g, dist = NULL)
 }

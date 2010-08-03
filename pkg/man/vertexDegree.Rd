@@ -1,9 +1,7 @@
 \name{vertexDegree}
 \alias{vertexDegree}
 %- Also NEED an '\alias' for EACH other topic documented here.
-\title{Vertex degree equality-based information index.
-%%  ~~function to do ... ~~
-}
+\title{Vertex degree equality-based information index.}
 \description{This method calculates the vertex degree equality-based information index
 %%  ~~ A concise (1-5 lines) description of what the function does. ~~
 }
@@ -12,59 +10,37 @@ vertexDegree(g, deg = NULL)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
-  \item{g}{
+  \item{g}{a graph as a graphNEL object.
 %%     ~~Describe \code{g} here~~
 }
-  \item{deg}{
+  \item{deg}{the degree of each node of g.
 %%     ~~Describe \code{deg} here~~
 }
 }
 \details{
 %%  ~~ If necessary, more details than the description above ~~
 }
-\value{
-%%  ~Describe the value returned
-%%  If it is a LIST, use
-%%  \item{comp1 }{Description of 'comp1'}
-%%  \item{comp2 }{Description of 'comp2'}
-%% ...
+\value{This method returns the Vertex degree equality-based information index.
 }
 \references{
-%% ~put references to the literature/web site here ~
+R. Todeschini and V. Consonni and R. Mannhold, Handbook of Molecular Descriptors, Wiley-VCH, Weinheim, Germany, 2002
 }
-\author{
-%%  ~~who you are~~
+\author{Laurin Mueller
 }
 \note{
-%%  ~~further notes~~
 }
 
-%% ~Make other sections like Warning with \section{Warning }{....} ~
 
 \seealso{
-%% ~~objects to See Also as \code{\link{help}}, ~~~
 }
 \examples{
-##---- Should be DIRECTLY executable !! ----
-##-- ==>  Define data, use random,
-##--	or do  help(data=index)  for the standard data sets.
 
-## The function is currently defined as
-function (g, deg = NULL) 
-{
-    require("graph")
-    if (class(g)[1] != "graphNEL") {
-        stop("'g' must be a 'graphNEL' object")
-    }
-    if (is.null(deg)) {
-        deg <- graph::degree(g)
-    }
-    Nikv <- table(deg)
-    pis <- Nikv/numNodes(g)
-    return((-1) * sum(pis * log2(pis)))
-  }
+library(RBGL)
+library(Rgraphviz)
+set.seed(123)
+g <- randomGraph(1:8, 1:5, 0.36)
+plot(g,"neato")
+
+vertexDegree(g)
 }
-% Add one or more standard keywords, see file 'KEYWORDS' in the
-% R documentation directory.
-\keyword{ ~kwd1 }
-\keyword{ ~kwd2 }% __ONLY ONE__ keyword per line
+\keyword{graphs}

@@ -25,8 +25,7 @@ matrix will be calculated within the function.
 \value{
 It returns the Balaban J index.
 }
-\references{
-xxx
+\references{A. T. Balaban. Highly discriminating distance-based topological index. Chem.Phys.Lett., 89:383-397, 1991
 }
 \author{
 Laurin Mueller
@@ -48,14 +47,9 @@ set.seed(123)
 g <- randomGraph(1:8, 1:5, 0.36)
 plot(g,"neato")
 
-balabanJ(g)
-
 #calculate Distance Matrix
 mat.dist <- distanceMatrix(g)
 
-balabanJ(g,mat.dist)
+balabanJ(g)
 }
-% Add one or more standard keywords, see file 'KEYWORDS' in the
-% R documentation directory.
-\keyword{ ~kwd1 }
-\keyword{ ~kwd2 }% __ONLY ONE__ keyword per line
+\keyword{graphs}

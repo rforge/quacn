@@ -18,15 +18,16 @@ matrix will be calculated within the function.
 %%     ~~Describe \code{dist} here~~
 }
 }
-\details{This method calculates the BALABAN-like information index U(G):
-  xxx
+\details{This method calculates the BALABAN-like information index U(G).
 %%  ~~ If necessary, more details than the description above ~~
 }
 \value{
 It return the BALABAN-like information index X(G).
 }
-\references{
-xxx
+\references{ A. T. Balaban and T. S. Balaban, New Vertex Invariants and
+  Topological Indices of Chemical Graphs Based on Information on
+  Distances., J. Math. Chem., 1991, 8:383-397
+  
 }
 \author{
 Laurin Mueller
@@ -41,9 +42,16 @@ Laurin Mueller
 %% ~~objects to See Also as \code{\link{help}}, ~~~
 }
 \examples{
+library(graph)
+library(RBGL)
+library(Rgraphviz)
+set.seed(123)
+g <- randomGraph(1:8, 1:5, 0.36)
+plot(g,"neato")
 
+#calculate Distance Matrix
+mat.dist <- distanceMatrix(g)
+
+balabanlike2(g,mat.dist)
 }
-% Add one or more standard keywords, see file 'KEYWORDS' in the
-% R documentation directory.
-\keyword{ ~kwd1 }
-\keyword{ ~kwd2 }% __ONLY ONE__ keyword per line
+\keyword{graphs}

@@ -1,9 +1,7 @@
 \name{bonchev1}
 \alias{bonchev1}
-%- Also NEED an '\alias' for EACH other topic documented here.
-\title{Magnitude-based information index by Bonchev I_D(G)
-%%  ~~function to do ... ~~
-}
+
+\title{Magnitude-based information index by Bonchev I_D(G)}
 \description{This method calculates the magnitude-based information index by Bonchev I_D(G).
 %%  ~~ A concise (1-5 lines) description of what the function does. ~~
 }
@@ -13,10 +11,11 @@ bonchev1(g, dist = NULL)
 %- maybe also 'usage' for other objects documented here.
 \arguments{
   \item{g}{
-%%     ~~Describe \code{g} here~~
+    a graph as a graphNEL object.
 }
-  \item{dist}{
-%%     ~~Describe \code{dist} here~~
+\item{dist}{
+  the distance matrix of the graph. If the parameter is empty the distance
+matrix will be calculated within the function.
 }
 }
 \details{
@@ -30,43 +29,28 @@ bonchev1(g, dist = NULL)
 %% ...
 }
 \references{
-%% ~put references to the literature/web site here ~
+  D. Bonchev and N. Trinajstic, Information theory, distance
+matrix and molecular branching, J. Chem. Phys., 67:4517-4533, 1977
 }
 \author{
-%%  ~~who you are~~
+Laurin Mueller
 }
 \note{
-%%  ~~further notes~~
 }
-
-%% ~Make other sections like Warning with \section{Warning }{....} ~
 
 \seealso{
-%% ~~objects to See Also as \code{\link{help}}, ~~~
 }
 \examples{
-##---- Should be DIRECTLY executable !! ----
-##-- ==>  Define data, use random,
-##--	or do  help(data=index)  for the standard data sets.
+library(graph)
+library(RBGL)
+library(Rgraphviz)
+set.seed(123)
+g <- randomGraph(1:8, 1:5, 0.36)
+plot(g,"neato")
 
-## The function is currently defined as
-function (g, dist = NULL) 
-{
-    if (class(g)[1] != "graphNEL") {
-        stop("'g' must be a 'graphNEL' object")
-    }
-    if (is.null(dist)) {
-        dist <- distanceMatrix(g)
-    }
-    rho <- max(dist)
-    ki <- table(dist)[2:(rho + 1)]
-    nV <- numNodes(g)
-    pis <- 2 * ki/nV^2
-    In <- (pis * log2(pis))
-    return(((-1)/nV) * log2(1/nV) - sum(In))
-  }
+#calculate Distance Matrix
+mat.dist <- distanceMatrix(g)
+
+bonchev1(g,mat.dist)
 }
-% Add one or more standard keywords, see file 'KEYWORDS' in the
-% R documentation directory.
-\keyword{ ~kwd1 }
-\keyword{ ~kwd2 }% __ONLY ONE__ keyword per line
+\keyword{graphs}
