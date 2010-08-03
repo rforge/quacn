@@ -1,4 +1,4 @@
-%\VignetteIndexEntry{vignette}
+%\VignetteIndexEntry{QuACN}
 \documentclass[a4paper]{article}
 \usepackage{hyperref} 
 \usepackage[hmargin=.75in,vmargin=1in]{geometry}
@@ -15,7 +15,6 @@
 
 \title{Using QuACN to analyze complex biological networks}
 \author{Laurin M\"uller}
-\usepackage{Sweave}
 \begin{document}
 \maketitle
 \tableofcontents
@@ -28,30 +27,28 @@ Chapter \ref{sec:nw} will give you an idea how to import already exiting network
 
 \section{Networks}
 \label{sec:nw}
+<<echo=FALSE>>=
+library("graph")
+library("RBGL")
+library("Rgraphviz")
+@ 
 
-\begin{Schunk}
-\begin{Sinput}
-> library("QuACN")
-> set.seed(666)
-> g <- randomGraph(1:8, 1:5, 0.36)
-> plot(g, "neato")
-> g
-\end{Sinput}
-\begin{Soutput}
-A graphNEL graph with undirected edges
-Number of Nodes = 8 
-Number of Edges = 16 
-\end{Soutput}
-\end{Schunk}
+<<label=randGraph,include=FALSE>>=
+library("QuACN")
+set.seed(666)
+g <- randomGraph(1:8, 1:5, 0.36)
+plot(g,"neato")
+g
+@ 
 We generate a random graph with 8 nodes.  We will use this graph to explain the implemented methods. To analyze a network the network has to be represented by a \textit{graphNEL}-object, what is part of the Bioconductor \textit{graph} package.
 
-\begin{figure}
-\begin{center}
-\includegraphics[width=.5\linewidth]{vignette-randGraph}
-\end{center}
-\caption{A Random graph to show the functionality of the methods.}
-\label{fig:randGraph}
-\end{figure}
+%\begin{figure}
+%\begin{center}
+%\includegraphics[width=.5\linewidth]{Rplots.pdf}
+%\end{center}
+%\caption{A Random graph to show the functionality of the methods.}
+%\label{fig:randGraph}
+%\end{figure}
 
 If you have already created networks that you want to analyze with QuACN, R offers several ways to import them. It is important to know that networks have to be represented by \textit{graphNEL}-objects. Note that there is no general procedure to get your networks into an R-workspace. Find some possibilities to import network data listed below:
 
@@ -68,15 +65,13 @@ If you have already created networks that you want to analyze with QuACN, R offe
 This section will give a overview of the network descriptors \cite{bonchev_book_2005,dehmer_varmuza_2009,dehmer_plos1_2009,todeschini_2002} that are included in the QuACN package. Here we describe the respective descriptor and how to call it in R.
 
 Note that every descriptor has at least two parameters, the \textit{graphNEL}-object and the distance matrix representing the network. It is not necessary to pass the distance matrix to a function. If the paramater stays emty or is set to \textit{NULL} the distance matrix will be estimated within each function. But if you want to calculate more than one descriptor, it is recomended to calculate the distance matrix separately and pass it to each method. Some of the methods need the degree of each node or the adjacency matrix to calculate their results. If they were calculated once they should have kept for later use. Specially with large networks it can save a lot of time, not to calculate these parameters for each descriptor again, and will enhance the performance of your script.
-\begin{Schunk}
-\begin{Sinput}
-> mat.adj <- adjacencyMatrix(g)
-> mat.dist <- distanceMatrix(g)
-> vec.degree <- graph::degree(g)
-> ska.dia <- diameter(g)
-> ska.dia <- diameter(g, mat.dist)
-\end{Sinput}
-\end{Schunk}
+<<>>=
+mat.adj <- adjacencyMatrix(g)
+mat.dist <- distanceMatrix(g)
+vec.degree <- graph::degree(g)
+ska.dia <- diameter(g)
+ska.dia <- diameter(g,mat.dist)
+@ 
 \subsection{Descriptors Based on Distances in a Graph} \label{sec:dist}
 This section describes network measures based on distances in the network.
 \subsubsection*{ Wiener Index}
@@ -86,148 +81,63 @@ W(G):= \frac{1}{2} \sum_{i=1}^{|N|}\sum_{j=1}^{|N|}d(v_i,v_j),
 where $|N(G)|:=|N|$ denotes the number of Nodes of the complex network.
 $d(v_i,v_j)$ stands for shortest distances between $v_i,v_j \in V$.
 
-\begin{Schunk}
-\begin{Sinput}
-> wien <- wiener(g)
-> wiener(g, mat.dist)
-\end{Sinput}
-\begin{Soutput}
-[1] 43
-\end{Soutput}
-\end{Schunk}
+<<>>=
+wien <- wiener(g)
+wiener(g,mat.dist)
+@ 
 
 \subsubsection*{Hararay Index}
 \begin{equation}
 H(G):= \frac{1}{2} \sum_{i=1}^{|N|}\sum_{j=1}^{|N|}(d(v_i,v_j))^{-1}, \quad i \ne j
 \end{equation}
-\begin{Schunk}
-\begin{Sinput}
-> harary(g)
-\end{Sinput}
-\begin{Soutput}
-[1] 21.16667
-\end{Soutput}
-\begin{Sinput}
-> harary(g, mat.dist)
-\end{Sinput}
-\begin{Soutput}
-[1] 21.16667
-\end{Soutput}
-\end{Schunk}
+<<>>=
+harary(g)
+harary(g,mat.dist)
+@ 
 \subsubsection*{Balaban J Index}
 \begin{equation}
 J(G):= \frac{|E|}{\mu + 1} \sum_{(v_i,v_j) \in E} [DS{_i}DS{_j}]^{- \frac{1}{2}},
 \end{equation}
-\begin{Schunk}
-\begin{Sinput}
-> balabanJ(g)
-\end{Sinput}
-\begin{Soutput}
-[1] 2.414364
-\end{Soutput}
-\begin{Sinput}
-> balabanJ(g, mat.dist)
-\end{Sinput}
-\begin{Soutput}
-[1] 2.414364
-\end{Soutput}
-\end{Schunk}
+<<>>=
+balabanJ(g)
+balabanJ(g,mat.dist)
+@ 
 where $|E(G)|:= |E|$ denotes the number of edges of the complex network, $DS_i$ denotes the distance sum (row sum) of $v_i$ and $\mu := |E| + 1 - |N|$ denotes the cyclomatic number.
-\begin{Schunk}
-\begin{Sinput}
-> meanDistanceDeviation(g)
-\end{Sinput}
-\begin{Soutput}
-[1] 1.6875
-\end{Soutput}
-\begin{Sinput}
-> meanDistanceDeviation(g, mat.dist)
-\end{Sinput}
-\begin{Soutput}
-[1] 1.6875
-\end{Soutput}
-\end{Schunk}
+<<>>=
+meanDistanceDeviation(g)
+meanDistanceDeviation(g,mat.dist)
+@ 
 
 \subsubsection*{Compactness}
 \begin{equation}
 C(G):= \frac{4W}{|N|(|N|-1)}.
 \end{equation}
-\begin{Schunk}
-\begin{Sinput}
-> compactness(g)
-\end{Sinput}
-\begin{Soutput}
-[1] 3.071429
-\end{Soutput}
-\begin{Sinput}
-> compactness(g, mat.dist)
-\end{Sinput}
-\begin{Soutput}
-[1] 3.071429
-\end{Soutput}
-\begin{Sinput}
-> compactness(g, mat.dist, wiener(g, mat.dist))
-\end{Sinput}
-\begin{Soutput}
-[1] 3.071429
-\end{Soutput}
-\end{Schunk}
+<<>>=
+compactness(g)
+compactness(g,mat.dist)
+compactness(g,mat.dist,wiener(g,mat.dist))
+@ 
 \subsubsection*{Product of Row Sums index}
 \begin{equation}
 \text{PRS}(G)= \prod_{i=1}^{|N|} \mu(v_i) \quad \mbox{or} \quad   \log \big(\text{PRS}(G)\big)= \log\left( \prod_{i=1}^{|N|} \mu(v_i) \right).
 \end{equation}
 
-\begin{Schunk}
-\begin{Sinput}
-> productOfRowSums(g, log = FALSE)
-\end{Sinput}
-\begin{Soutput}
-[1] 157464000
-\end{Soutput}
-\begin{Sinput}
-> productOfRowSums(g, log = TRUE)
-\end{Sinput}
-\begin{Soutput}
-[1] 27.23045
-\end{Soutput}
-\begin{Sinput}
-> productOfRowSums(g, mat.dist, log = FALSE)
-\end{Sinput}
-\begin{Soutput}
-[1] 157464000
-\end{Soutput}
-\begin{Sinput}
-> productOfRowSums(g, mat.dist, log = TRUE)
-\end{Sinput}
-\begin{Soutput}
-[1] 27.23045
-\end{Soutput}
-\end{Schunk}
+<<>>=
+productOfRowSums(g,log=FALSE)
+productOfRowSums(g,log=TRUE)
+productOfRowSums(g,mat.dist,log=FALSE)
+productOfRowSums(g,mat.dist,log=TRUE)
+@ 
 \subsubsection*{Hyper-distance-path index}
 \begin{equation}
 D_P(G):= \frac{1}{2} \sum_{i=1}^{|N|} \sum_{j=1}^{|N|} d(v_i,v_j) +  \frac{1}{2} \sum_{i=1}^{|N|} \sum_{j=1}^{|N|}  {d(v_i,v_j) \choose 2}.
 \end{equation}
 
-\begin{Schunk}
-\begin{Sinput}
-> hyperDistancePathIndex(g)
-\end{Sinput}
-\begin{Soutput}
-[1] 60
-\end{Soutput}
-\begin{Sinput}
-> hyperDistancePathIndex(g, mat.dist)
-\end{Sinput}
-\begin{Soutput}
-[1] 60
-\end{Soutput}
-\begin{Sinput}
-> hyperDistancePathIndex(g, mat.dist, wiener(g, mat.dist))
-\end{Sinput}
-\begin{Soutput}
-[1] 60
-\end{Soutput}
-\end{Schunk}
+<<>>=
+hyperDistancePathIndex(g)
+hyperDistancePathIndex(g,mat.dist)
+hyperDistancePathIndex(g,mat.dist,wiener(g,mat.dist))
+@ 
 
 
 \subsection{Descriptors Based on Other Graph-Invariants}
@@ -239,20 +149,10 @@ This section describes network measures based on other invariants than distances
 \begin{equation}
 A(G):= \frac{1}{2} \sum_{i=1}^{|N|}\sum_{j=1}^{|N|}a_{ij},
 \end{equation}
-\begin{Schunk}
-\begin{Sinput}
-> totalAdjacency(g)
-\end{Sinput}
-\begin{Soutput}
-[1] 17
-\end{Soutput}
-\begin{Sinput}
-> totalAdjacency(g, mat.adj)
-\end{Sinput}
-\begin{Soutput}
-[1] 17
-\end{Soutput}
-\end{Schunk}
+<<>>=
+totalAdjacency(g)
+totalAdjacency(g,mat.adj)
+@ 
 
 \subsubsection*{Zagreb group indices}
 \begin{equation}
@@ -262,51 +162,21 @@ where $k_{v_i}$ is the degree of the node $v_i$.
 \begin{equation}
 Z_2(G):= \sum_{(v_i,v_j) \in E} k_{v_i} k_{v_j}
 \end{equation}
-\begin{Schunk}
-\begin{Sinput}
-> zagreb1(g)
-\end{Sinput}
-\begin{Soutput}
-[1] 32
-\end{Soutput}
-\begin{Sinput}
-> zagreb1(g, vec.degree)
-\end{Sinput}
-\begin{Soutput}
-[1] 32
-\end{Soutput}
-\begin{Sinput}
-> zagreb2(g)
-\end{Sinput}
-\begin{Soutput}
-[1] 298
-\end{Soutput}
-\begin{Sinput}
-> zagreb2(g, vec.degree)
-\end{Sinput}
-\begin{Soutput}
-[1] 298
-\end{Soutput}
-\end{Schunk}
+<<>>=
+zagreb1(g)
+zagreb1(g,vec.degree)
+zagreb2(g)
+zagreb2(g,vec.degree)
+@ 
 
 \subsubsection*{Randi\'{c} index}
 \begin{equation}
 R(G):= \sum_{(v_i,v_j) \in E} [k_{v_i} k_{v_j}]^{- \frac{1}{2}}
 \end{equation}
-\begin{Schunk}
-\begin{Sinput}
-> randic(g)
-\end{Sinput}
-\begin{Soutput}
-[1] 3.602215
-\end{Soutput}
-\begin{Sinput}
-> randic(g, vec.degree)
-\end{Sinput}
-\begin{Soutput}
-[1] 3.602215
-\end{Soutput}
-\end{Schunk}
+<<>>=
+randic(g)
+randic(g,vec.degree)
+@ 
 
 \subsubsection*{The complexity index $B$}
 \begin{equation}
@@ -314,44 +184,19 @@ B(G):= \sum_{i=1}^{|N|} \frac{k_{v_i}}{\mu(v_i)}.
 \end{equation}
   
 
-\begin{Schunk}
-\begin{Sinput}
-> complexityIndexB(g)
-\end{Sinput}
-\begin{Soutput}
-[1] 3.255556
-\end{Soutput}
-\begin{Sinput}
-> complexityIndexB(g, mat.dist)
-\end{Sinput}
-\begin{Soutput}
-[1] 3.255556
-\end{Soutput}
-\begin{Sinput}
-> complexityIndexB(g, mat.dist, vec.degree)
-\end{Sinput}
-\begin{Soutput}
-[1] 3.255556
-\end{Soutput}
-\end{Schunk}
+<<>>=
+complexityIndexB(g)
+complexityIndexB(g,mat.dist)
+complexityIndexB(g,mat.dist,vec.degree)
+@ 
 \subsubsection*{Normalized edge complexity}
 \begin{equation}
 E_N(G):=\frac{A(G)}{|N|^2}
 \end{equation}
-\begin{Schunk}
-\begin{Sinput}
-> normalizedEdgeComplexity(g)
-\end{Sinput}
-\begin{Soutput}
-[1] 0.265625
-\end{Soutput}
-\begin{Sinput}
-> normalizedEdgeComplexity(g, totalAdjacency(g, mat.adj))
-\end{Sinput}
-\begin{Soutput}
-[1] 0.265625
-\end{Soutput}
-\end{Schunk}
+<<>>=
+normalizedEdgeComplexity(g)
+normalizedEdgeComplexity(g,totalAdjacency(g,mat.adj))
+@ 
 
 \subsection{Classical entropy based descriptors}
 \label{sec:clE}
@@ -364,26 +209,11 @@ I^V_{orb}(G) := -  \sum_{i=1}^{k} \frac{|N^V_i|}{|N|} \log \left( \frac{|N^V_i|}
 \end{equation}
 %
 $|N^V_i|$ denotes the number of vertices belonging to the $i$-th vertex orbit.
-\begin{Schunk}
-\begin{Sinput}
-> topologicalInfoContent(g)
-\end{Sinput}
-\begin{Soutput}
-[1] 2.25
-\end{Soutput}
-\begin{Sinput}
-> topologicalInfoContent(g, mat.dist)
-\end{Sinput}
-\begin{Soutput}
-[1] 2.25
-\end{Soutput}
-\begin{Sinput}
-> topologicalInfoContent(g, mat.dist, vec.degree)
-\end{Sinput}
-\begin{Soutput}
-[1] 2.25
-\end{Soutput}
-\end{Schunk}
+<<>>=
+topologicalInfoContent(g)
+topologicalInfoContent(g,mat.dist)
+topologicalInfoContent(g,mat.dist,vec.degree)
+@ 
 
 \subsubsection*{Bonchev - Trinajsti\'{c} indices}
 \begin{equation}
@@ -394,40 +224,15 @@ I^W_D(G) := W(G) \log(W(G)) -  \sum_{i=1}^{\rho(G)} i k_i \log(i).
 \end{equation}
 %
 $k_i$ is the occurrence of a distance possessing value $i$ in the distance matrix of $G$.
-\begin{Schunk}
-\begin{Sinput}
-> #I_D(G)
-> bonchev1(g)
-\end{Sinput}
-\begin{Soutput}
-[1] 1.208931
-\end{Soutput}
-\begin{Sinput}
-> bonchev1(g,mat.dist)
-\end{Sinput}
-\begin{Soutput}
-[1] 1.208931
-\end{Soutput}
-\begin{Sinput}
-> #I^W_D(G)
-> bonchev2(g)
-\end{Sinput}
-\begin{Soutput}
-[1] 170.3098
-\end{Soutput}
-\begin{Sinput}
-> bonchev2(g,mat.dist)
-\end{Sinput}
-\begin{Soutput}
-[1] 170.3098
-\end{Soutput}
-\begin{Sinput}
-> bonchev2(g,mat.dist,wiener(g))
-\end{Sinput}
-\begin{Soutput}
-[1] 170.3098
-\end{Soutput}
-\end{Schunk}
+<<keep.source=TRUE>>=
+#I_D(G)
+bonchev1(g)
+bonchev1(g,mat.dist)
+#I^W_D(G)
+bonchev2(g)
+bonchev2(g,mat.dist)
+bonchev2(g,mat.dist,wiener(g))
+@
 \subsubsection*{BERTZ complexity index}
 \begin{equation}\label{eq_total_information_bertz}
 C(G):= 2N \log(|N|) - \sum_{i=1}^{k} |N_i| \log \left( |N_i| \right).
@@ -435,66 +240,31 @@ C(G):= 2N \log(|N|) - \sum_{i=1}^{k} |N_i| \log \left( |N_i| \right).
 %
 $|N_i|$ are the cardinalities of the vertex orbits as defined in Eqn.~(\ref{eq_mean_information_trucco}).
 
-\begin{Schunk}
-\begin{Sinput}
-> bertz(g)
-\end{Sinput}
-\begin{Soutput}
-[1] 42
-\end{Soutput}
-\begin{Sinput}
-> bertz(g, mat.dist)
-\end{Sinput}
-\begin{Soutput}
-[1] 42
-\end{Soutput}
-\begin{Sinput}
-> bertz(g, mat.dist, vec.degree)
-\end{Sinput}
-\begin{Soutput}
-[1] 42
-\end{Soutput}
-\end{Schunk}
+<<>>=
+bertz(g)
+bertz(g,mat.dist)
+bertz(g,mat.dist,vec.degree)
+@ 
 \subsubsection*{Radial centric information index}
 \begin{equation}\label{radial_index}
 I_{C,R}(G) := \sum_{i=1}^{k} \frac{|N^e_i|}{|N|} \log \left( \frac{|N^e_i|}{|N|} \right).
 \end{equation}
 %
 $|N^e_i|$ is the number of vertices having the same eccentricity.
-\begin{Schunk}
-\begin{Sinput}
-> radialCentric(g)
-\end{Sinput}
-\begin{Soutput}
-[1] 0.954434
-\end{Soutput}
-\begin{Sinput}
-> radialCentric(g, mat.dist)
-\end{Sinput}
-\begin{Soutput}
-[1] 0.954434
-\end{Soutput}
-\end{Schunk}
+<<>>=
+radialCentric(g)
+radialCentric(g,mat.dist)
+@ 
 \subsubsection*{Vertex degree equality-based information index}
 \begin{equation}
 I_{deg}(G) := \sum_{i=1}^{\bar{k}} \frac{|N^{k_v}_i|}{|N|} \log \left( \frac{|N^{k_v}_i|}{|N|} \right).
 \end{equation}
 %
 $|N^{k_v}_i|$ is the number of vertices with degree equal to $i$ and $\bar{k}:= \max_{v\in V}k_v$.
-\begin{Schunk}
-\begin{Sinput}
-> vertexDegree(g)
-\end{Sinput}
-\begin{Soutput}
-[1] 2.25
-\end{Soutput}
-\begin{Sinput}
-> vertexDegree(g, vec.degree)
-\end{Sinput}
-\begin{Soutput}
-[1] 2.25
-\end{Soutput}
-\end{Schunk}
+<<>>=
+vertexDegree(g)
+vertexDegree(g,vec.degree)
+@ 
 \subsubsection*{Balaban-like information indices}
 \begin{eqnarray}
 U(G):= \frac{|E|}{\mu +1} \sum_{(v_i,v_j) \in E} [u(v_i)u(v_j)]^{- \frac{1}{2}}, \label{eq_balaban_U_index} \\
@@ -510,34 +280,14 @@ y_i &:=& \sum_{j=1}^{\sigma(v_i) } j|S_j(v_i,G)| \log(j),\\
 \mu(v_i) &:=& \sum_{j=1}^{|N|}d(v_i,v_j) = \sum_{j=1}^{|N|} j|S_j(v_i,G)|.
 \end{eqnarray}
 
-\begin{Schunk}
-\begin{Sinput}
-> #Balaban-like information index U(G)
-> balabanlike1(g)
-\end{Sinput}
-\begin{Soutput}
-[1] 8.831362
-\end{Soutput}
-\begin{Sinput}
-> balabanlike1(g,mat.dist)
-\end{Sinput}
-\begin{Soutput}
-[1] 8.831362
-\end{Soutput}
-\begin{Sinput}
-> #Balaban-like information index X(G)
-> balabanlike2(g)
-\end{Sinput}
-\begin{Soutput}
-[1] 0.8436946
-\end{Soutput}
-\begin{Sinput}
-> balabanlike2(g,mat.dist)
-\end{Sinput}
-\begin{Soutput}
-[1] 0.8436946
-\end{Soutput}
-\end{Schunk}
+<<keep.source=TRUE>>=
+#Balaban-like information index U(G)
+balabanlike1(g)
+balabanlike1(g,mat.dist)
+#Balaban-like information index X(G)
+balabanlike2(g)
+balabanlike2(g,mat.dist)
+@
 
 \subsubsection*{Vertex degree equality-based information indes}
 \begin{equation}
@@ -545,20 +295,10 @@ y_i &:=& \sum_{j=1}^{\sigma(v_i) } j|S_j(v_i,G)| \log(j),\\
 \end{equation}
 %
 $|N^{k_v}_i|$ is the number of vertices with degree equal to $i$ and $\bar{k}:= \max_{v\in V}k_v$.
-\begin{Schunk}
-\begin{Sinput}
-> graphVertexComplexity(g)
-\end{Sinput}
-\begin{Soutput}
-[1] -12.08022
-\end{Soutput}
-\begin{Sinput}
-> graphVertexComplexity(g, mat.dist)
-\end{Sinput}
-\begin{Soutput}
-[1] -12.08022
-\end{Soutput}
-\end{Schunk}
+<<>>=
+graphVertexComplexity(g)
+graphVertexComplexity(g,mat.dist)
+@ 
 
 \subsection{Parametric Graph Entropy Measures}
 \label{sec:dE}
@@ -652,55 +392,15 @@ The method returns a list with following entries:
 \end{itemize}
 
 
-\begin{Schunk}
-\begin{Sinput}
-> l1 <- infoTheoreticGCM(g)
-> l2 <- infoTheoreticGCM(g, mat.dist, coeff = "lin", infofunct = "sphere", 
-+     lamda = 1000)
-> l3 <- infoTheoreticGCM(g, mat.dist, coeff = "exp", infofunct = "sphere", 
-+     lamda = 1000)
-> l4 <- infoTheoreticGCM(g, mat.dist, coeff = "const", infofunct = "pathlength", 
-+     lamda = 4000)
-> l5 <- infoTheoreticGCM(g, mat.dist, coeff = "quad", infofunct = "localprop", 
-+     lamda = 1000)
-> l1
-\end{Sinput}
-\begin{Soutput}
-$entropy
-[1] 2.990011
-
-$distance
-[1] 9.9892
-
-$pis
-        1         2         3         4         5         6         7         8 
-0.1376812 0.1304348 0.1304348 0.1376812 0.1376812 0.0942029 0.1159420 0.1159420 
-
-$fvis
- 1  2  3  4  5  6  7  8 
-19 18 18 19 19 13 16 16 
-\end{Soutput}
-\begin{Sinput}
-> l5
-\end{Sinput}
-\begin{Soutput}
-$entropy
-[1] 2.924897
-
-$distance
-[1] 75.10322
-
-$pis
-         1          2          3          4          5          6          7 
-0.16666667 0.12851406 0.12851406 0.16666667 0.15160643 0.04518072 0.10642570 
-         8 
-0.10642570 
-
-$fvis
-       1        2        3        4        5        6        7        8 
-55.33333 42.66667 42.66667 55.33333 50.33333 15.00000 35.33333 35.33333 
-\end{Soutput}
-\end{Schunk}
+<<>>=
+l1 <- infoTheoreticGCM(g)
+l2 <- infoTheoreticGCM(g,mat.dist,coeff="lin",infofunct="sphere",lamda=1000)
+l3 <- infoTheoreticGCM(g,mat.dist,coeff="exp",infofunct="sphere",lamda=1000)
+l4 <- infoTheoreticGCM(g,mat.dist,coeff="const",infofunct="pathlength",lamda=4000)
+l5 <- infoTheoreticGCM(g,mat.dist,coeff="quad",infofunct="localprop",lamda=1000)
+l1
+l5
+@ 
 
 \bibliographystyle{IEEEtran}
 \bibliography{muellerl_biocomp10}
