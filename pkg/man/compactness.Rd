@@ -19,10 +19,10 @@ compactness(g, dist = NULL, wien = NULL)
 \value{This returns the compactness of the graph.
 }
 \references{
-  R. Todeschini and V. Consonni and R. Mannhold, Handbook of Molecular Descriptors, Wiley-VCH, Weinheim, Germany, 2002
+R. Todeschini and V. Consonni and R. Mannhold, Handbook of Molecular Descriptors, Wiley-VCH, Weinheim, Germany, 2002
 }
 \author{
-  Laurin Mueller
+  Laurin Mueller <laurin@eigenlab.net>
 }
 \note{
 }

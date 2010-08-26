@@ -1,7 +1,7 @@
 infoTheoreticGCM <- function(g, dist=NULL, coeff="lin", infofunct="sphere", lamda=1000, custCoeff=NULL){
   require("graph")
   allowed.coeff <-  c("lin","quad","exp","const","cust")
-  allowed.functionals <-  c("sphere","pathlength","localprop")
+  allowed.functionals <-  c("sphere","pathlength","vertcent")
   # check if g is a graphNEL object
   if(class(g)[1]!="graphNEL"){
     stop("'g' must be a 'graphNEL' object")
@@ -36,7 +36,7 @@ infoTheoreticGCM <- function(g, dist=NULL, coeff="lin", infofunct="sphere", lamd
     fvi <- .functionalJSphere(g,dist=dist,ci=ci)
   }else  if(infofunct==allowed.functionals[2]){#"pathlength"
     fvi <- .functionalPathlength(g,dist=dist,ci=ci)
-  }else  if(infofunct==allowed.functionals[3]){#"localprop"
+  }else  if(infofunct==allowed.functionals[3]){#"vertcent"
     fvi <- .functionalLocalProperty(g,dist=dist,ci=ci)
   }
 
@@ -81,8 +81,8 @@ infoTheoreticGCM <- function(g, dist=NULL, coeff="lin", infofunct="sphere", lamd
   nam <- nodes(g)
   #determine number of all possible shortest path
   for(n in 1:lvs){
-    f <- vs[vs$name==n] 
-    asp <- get.all.shortest.paths(ig,from=f)
+    #f <- vs[vs$name==n] 
+    asp <- get.all.shortest.paths(ig,from=(n-1))
     lvi <- table(sapply(asp,length)-1,exclude=0)
     fvi[n] <- sum(lvi*ci[1:length(lvi)])
   }
@@ -100,10 +100,10 @@ infoTheoreticGCM <- function(g, dist=NULL, coeff="lin", infofunct="sphere", lamd
   nam <- nodes(g)
   #determine number of all possible shortest path
   for(n in 1:lvs){
-    f <- vs[vs$name==n] 
-    asp <- get.all.shortest.paths(ig,from=f)
+    #f <- vs[vs$name==n] 
+    asp <- get.all.shortest.paths(ig,from=(n-1))
     lvi <- table(sapply(asp,length)-1,exclude=0)
-    tmp.sum <- sapply(1:max(names(lvi)),function(lpl){
+    tmp.sum <- sapply(1:max(as.numeric(names(lvi))),function(lpl){
       sum(1:lpl)
     })
     betai <- 1/tmp.sum*lvi

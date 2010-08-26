@@ -24,7 +24,7 @@ connected ones.
   F. Harary. Graph Theory. Addison Wesley Publishing Company, 1969. Reading, MA, USA.
 }
 \author{
-Laurin Mueller
+Laurin Mueller <laurin@eigenlab.net>
 }
 \note{
 }

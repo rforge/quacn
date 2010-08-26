@@ -20,7 +20,7 @@ diameter(g, dist = NULL)
 \references{
 }
 \author{
-  Laurin Mueller
+  Laurin Mueller <laurin@eigenlab.net>
 }
 \note{
 }

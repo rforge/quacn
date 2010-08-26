@@ -21,7 +21,7 @@ degreeDistribution(g, deg = NULL)
 
 }
 \author{
-Laurin Mueller
+Laurin Mueller <laurin@eigenlab.net>
 }
 \note{
 }

@@ -27,7 +27,7 @@ R. Todeschini and V. Consonni and R. Mannhold, Handbook of Molecular Descriptors
 
 }
 \author{
-  Laurin Mueller
+  Laurin Mueller <laurin@eigenlab.net>
 }
 \note{
 }

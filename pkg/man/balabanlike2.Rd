@@ -30,7 +30,7 @@ It return the BALABAN-like information index X(G).
   
 }
 \author{
-Laurin Mueller
+Laurin Mueller <laurin@eigenlab.net>
 }
 \note{
 %%  ~~further notes~~

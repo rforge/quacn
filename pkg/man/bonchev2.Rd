@@ -38,7 +38,7 @@ matrix and molecular branching, J. Chem. Phys., 67:4517-4533, 1977
 %% ~put references to the literature/web site here ~
 }
 \author{
- Laurin Mueller
+ Laurin Mueller <laurin@eigenlab.net>
 }
 \note{
 %%  ~~further notes~~

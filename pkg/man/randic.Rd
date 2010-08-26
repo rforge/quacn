@@ -23,7 +23,7 @@ randic(g, deg = NULL)
 \references{
 R. Todeschini and V. Consonni and R. Mannhold, Handbook of Molecular Descriptors, Wiley-VCH, Weinheim, Germany, 2002
 }
-\author{Laurin Mueller
+\author{Laurin Mueller <laurin@eigenlab.net>
 }
 \note{
 }

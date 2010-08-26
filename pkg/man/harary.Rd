@@ -29,7 +29,7 @@ harary(g, dist = NULL)
   R. Todeschini and V. Consonni and R. Mannhold, Handbook of Molecular Descriptors, Wiley-VCH, Weinheim, Germany, 2002
 %% ~put references to the literature/web site here ~
 }
-\author{Laurin Mueller
+\author{Laurin Mueller <laurin@eigenlab.net>
 %%  ~~who you are~~
 }
 \note{

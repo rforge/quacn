@@ -8,10 +8,10 @@ konstantinova(g, dist = NULL)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
-  \item{g}{
+  \item{g}{a graphNEL object
 %%     ~~Describe \code{g} here~~
 }
-  \item{dist}{
+  \item{dist}{the Distance Matrix of the graph g (optional)
 %%     ~~Describe \code{dist} here~~
 }
 }
@@ -25,10 +25,14 @@ konstantinova(g, dist = NULL)
 %%  \item{comp2 }{Description of 'comp2'}
 %% ...
 }
-\references{
-%% ~put references to the literature/web site here ~
+\references{  E. V. Konstantinova and A. A. Paleev. Sensitivity of topological
+  indices of polycyclic graphs. Vychisl. Sistemy, 136:38-48, 1990, In
+  Russion.
 }
 \author{
+  Andreas Dander <andreas.dander@umit.at>
+  
+  Laurin Mueller <laurin@eigenlab.net>
 %%  ~~who you are~~
 }
 \note{
@@ -41,25 +45,17 @@ konstantinova(g, dist = NULL)
 %% ~~objects to See Also as \code{\link{help}}, ~~~
 }
 \examples{
-##---- Should be DIRECTLY executable !! ----
-##-- ==>  Define data, use random,
-##--	or do  help(data=index)  for the standard data sets.
 
-## The function is currently defined as
-function (g, dist = NULL) 
-{
-    if (class(g)[1] != "graphNEL") {
-        stop("'g' must be a 'graphNEL' object")
-    }
-    if (is.null(dist)) {
-        dist = distanceMatrix(g)
-    }
-    V = numNodes(g)
-    d <- rowSums(dist)
-    p <- unlist(dist/d)
-    p <- p[p != 0]
-    return(-sum(p * log2(p)))
-  }
+library(QuACN)
+library(Rgraphviz)
+set.seed(123)
+g <- randomGraph(1:8, 1:5, 0.36)
+mat.dist <- distanceMatrix(g)
+plot(g,"neato")
+
+konstantinova(g)
+konstantinova(g,dist=mat.dist)
+
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.

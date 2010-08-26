@@ -21,7 +21,7 @@ lamda = 1000, custCoeff=NULL)
     parameter custCoeff.
 }
   \item{infofunct}{specifies the information functional. Possible values
-    are "sphere" (default), "pathlength" or "localprop"
+    are "sphere" (default), "pathlength" or "vertcent"
 .
 }
   \item{lamda}{specifies the scaling constant for the distance
@@ -46,7 +46,7 @@ lamda = 1000, custCoeff=NULL)
 M. Dehmer, Information processing in complex networks: Graph entropy and
 information functionals, Applied Mathematics and Computation, 202:82-94, 2008
 }
-\author{Laurin Mueller
+\author{Laurin Mueller <laurin@eigenlab.net>
 }
 \note{
 }
@@ -66,6 +66,6 @@ infoTheoreticGCM(g)
 infoTheoreticGCM(g,mat.dist,coeff="lin",infofunct="sphere",lamda=1000)
 infoTheoreticGCM(g,mat.dist,coeff="exp",infofunct="sphere",lamda=1000)
 infoTheoreticGCM(g,mat.dist,coeff="const",infofunct="pathlength",lamda=4000)
-infoTheoreticGCM(g,mat.dist,coeff="quad",infofunct="localprop",lamda=1000)
+infoTheoreticGCM(g,mat.dist,coeff="quad",infofunct="vertcent",lamda=1000)
 }
 \keyword{graphs}

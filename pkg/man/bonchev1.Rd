@@ -33,7 +33,7 @@ matrix will be calculated within the function.
 matrix and molecular branching, J. Chem. Phys., 67:4517-4533, 1977
 }
 \author{
-Laurin Mueller
+Laurin Mueller <laurin@eigenlab.net>
 }
 \note{
 }

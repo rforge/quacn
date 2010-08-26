@@ -31,7 +31,7 @@ It return the BALABAN-like information index U(G).
   
 }
 \author{
-Laurin Mueller
+Laurin Mueller <laurin@eigenlab.net>
 }
 \note{
 %%  ~~further notes~~

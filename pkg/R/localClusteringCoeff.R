@@ -8,6 +8,6 @@ localClusteringCoeff <- function(g, deg=NULL){
     deg <- graph::degree(g)
   }
   lcc <- (2*numEdges(g))/(deg*(deg-1))
-  names(lcc) <- deg
+  names(lcc) <- nodes(g)
   return(lcc)
 }

@@ -22,25 +22,10 @@ LazyLoad: \tab yes\cr
 }
 \author{
 Laurin Mueller, laurin.mueller@umit.at
-Maintainer: Laurin Mueller <laurin.mueller@umit.at>
+Maintainer: Laurin Mueller <laurin@eigenlab.net>
 }
-\references{D. Bonchev and D. H. Rouvray, Complexity in Chemistry, Biology, and Ecology, ser. Mathematical and
-Computational Chemistry. Springer, 2005, New York, NY, USA.
-9
+\references{
 
-M. Dehmer, K. Varmuza, S. Borgert, and F. Emmert-Streib,  On entropy-based molecular descriptors: Sta-
-tistical analysis of real and synthetic chemical structures,  J. Chem. Inf. Model., vol. 49, pp. 1655 1663,
-2009.
-
-M. Dehmer, N. Barbarini, K. Varmuza, and A. Graber,  A large scale analysis of information-theoretic network
-complexity measures using chemical structures,  PLoS ONE, vol. 4, no. 12, 2009.
-
-R. Todeschini, V. Consonni, and R. Mannhold, Handbook of Molecular Descriptors.
-weinheim, Germany.
-Wiley-VCH, 2002,
-
-M. Dehmer,  Information processing in complex networks: Graph entropy and information functionals, 
-Applied Mathematics and Computation, vol. 201, pp. 82 94, 2008.
 
 }
 \keyword{ package }
@@ -154,5 +139,5 @@ infoTheoreticGCM(g)
 infoTheoreticGCM(g,mat.dist,coeff="lin",infofunct="sphere",lamda=1000)
 infoTheoreticGCM(g,mat.dist,coeff="exp",infofunct="sphere",lamda=1000)
 infoTheoreticGCM(g,mat.dist,coeff="const",infofunct="pathlength",lamda=4000)
-infoTheoreticGCM(g,mat.dist,coeff="quad",infofunct="localprop",lamda=1000)
+infoTheoreticGCM(g,mat.dist,coeff="quad",infofunct="vertcent",lamda=1000)
 }
