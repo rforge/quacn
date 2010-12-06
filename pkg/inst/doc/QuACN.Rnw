@@ -14,7 +14,7 @@
 \usepackage{booktabs}
 
 \title{Using QuACN to Analyze Complex Biological Networks}
-\author{Laurin M\"uller}
+\author{Laurin AJ Mueller, Matthias Dehmer}
 \begin{document}
 \maketitle
 \tableofcontents
@@ -368,7 +368,7 @@ We implemented 4 different settings (as example settings) of the weighting param
 \begin{enumerate}
 \item constant
 \begin{equation}
-\label{eq:lin}
+\label{eq:const}
 c_1:= 1,\, c_2:=  1, \ldots, \, c_{\rho(G)}:= 1.
 \end{equation}
 
