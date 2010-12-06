@@ -1,4 +1,4 @@
-infoTheoreticGCM <- function(g, dist=NULL, coeff="lin", infofunct="sphere", lamda=1000, custCoeff=NULL){
+infoTheoreticGCM <- function(g, dist=NULL, coeff="lin", infofunct="sphere", lambda=1000, custCoeff=NULL){
   require("graph")
   allowed.coeff <-  c("lin","quad","exp","const","cust")
   allowed.functionals <-  c("sphere","pathlength","vertcent")
@@ -45,7 +45,7 @@ infoTheoreticGCM <- function(g, dist=NULL, coeff="lin", infofunct="sphere", lamd
   pis <- fvi/fvi.sum
   itgcm <- list()
   itgcm[["entropy"]] <- (-sum(pis*log2(pis)))
-  itgcm[["distance"]] <- (lamda*(log2(length(pis)) - itgcm[["entropy"]]))
+  itgcm[["distance"]] <- (lambda*(log2(length(pis)) - itgcm[["entropy"]]))
   itgcm[["pis"]] <- pis
   itgcm[["fvis"]] <- fvi
   return (itgcm)
