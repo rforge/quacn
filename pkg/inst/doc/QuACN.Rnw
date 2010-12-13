@@ -400,7 +400,7 @@ It has following input parameters:
 \item \textup{coeff}: specifies the weighting parameter: "const", "lin", "quad", "exp", "const" or "cust" are available constants. If it is set to
     "cust" you have to specify your customized weighting schema with the parameter \textit{custCoeff}.
 \item \textit{infofunct}: specifies the information functional: "sphere", "pathlength" or "vertcent" are available settings.
-\item \textit{lamda}: scaling constant for the distance, default set to 1000.
+\item \textit{lambda}: scaling constant for the distance, default set to 1000.
 \item \textit{custCoeff}: specifies the customized weighting schema. To use it you need to set \textit{coeff}="const".
 \end{itemize}
 
@@ -415,10 +415,10 @@ The method returns a list with following entries:
 
 <<>>=
 l1 <- infoTheoreticGCM(g)
-l2 <- infoTheoreticGCM(g,mat.dist,coeff="lin",infofunct="sphere",lamda=1000)
-l3 <- infoTheoreticGCM(g,mat.dist,coeff="exp",infofunct="sphere",lamda=1000)
-l4 <- infoTheoreticGCM(g,mat.dist,coeff="const",infofunct="pathlength",lamda=4000)
-l5 <- infoTheoreticGCM(g,mat.dist,coeff="quad",infofunct="vertcent",lamda=1000)
+l2 <- infoTheoreticGCM(g,mat.dist,coeff="lin",infofunct="sphere",lambda=1000)
+l3 <- infoTheoreticGCM(g,mat.dist,coeff="exp",infofunct="sphere",lambda=1000)
+l4 <- infoTheoreticGCM(g,mat.dist,coeff="const",infofunct="pathlength",lambda=4000)
+l5 <- infoTheoreticGCM(g,mat.dist,coeff="quad",infofunct="vertcent",lambda=1000)
 l1
 l5
 @ 

@@ -8,7 +8,7 @@
 }
 \usage{
 infoTheoreticGCM(g, dist = NULL, coeff = "lin", infofunct = "sphere",
-lamda = 1000, custCoeff=NULL)
+lambda = 1000, custCoeff=NULL)
 }
 \arguments{
   \item{g}{a graph as a graphNEL object.
@@ -24,7 +24,7 @@ lamda = 1000, custCoeff=NULL)
     are "sphere" (default), "pathlength" or "vertcent"
 .
 }
-  \item{lamda}{specifies the scaling constant for the distance
+  \item{lambda}{specifies the scaling constant for the distance
     measures. The default value is 1000.
 }
   \item{custCoeff}{specifies the customized weighting schema. To use it you
@@ -63,9 +63,9 @@ mat.dist <- distanceMatrix(g)
 plot(g,"neato")
 
 infoTheoreticGCM(g)
-infoTheoreticGCM(g,mat.dist,coeff="lin",infofunct="sphere",lamda=1000)
-infoTheoreticGCM(g,mat.dist,coeff="exp",infofunct="sphere",lamda=1000)
-infoTheoreticGCM(g,mat.dist,coeff="const",infofunct="pathlength",lamda=4000)
-infoTheoreticGCM(g,mat.dist,coeff="quad",infofunct="vertcent",lamda=1000)
+infoTheoreticGCM(g,mat.dist,coeff="lin",infofunct="sphere",lambda=1000)
+infoTheoreticGCM(g,mat.dist,coeff="exp",infofunct="sphere",lambda=1000)
+infoTheoreticGCM(g,mat.dist,coeff="const",infofunct="pathlength",lambda=4000)
+infoTheoreticGCM(g,mat.dist,coeff="quad",infofunct="vertcent",lambda=1000)
 }
 \keyword{graphs}
