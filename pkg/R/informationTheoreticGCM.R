@@ -1,4 +1,4 @@
-infoTheoreticGCM <- function(g, dist=NULL, coeff="lin", infofunct="sphere", lambda=1000, custCoeff=NULL){
+infoTheoreticGCM <- function(g, dist=NULL, coeff="lin", infofunct="sphere", lambda=1000, custCoeff=NULL, alpha=0.5){
   require("graph")
   allowed.coeff <-  c("lin","quad","exp","const","cust")
   allowed.functionals <-  c("sphere","pathlength","vertcent","degree")
@@ -33,19 +33,22 @@ infoTheoreticGCM <- function(g, dist=NULL, coeff="lin", infofunct="sphere", lamb
   }
   ##calc functional
   if(infofunct==allowed.functionals[1]){#"sphere"
-    fvi <- .functionalJSphere(g,dist=dist,ci=ci)
+    fvi <- .functionalJSphere(g, dist=dist, ci=ci)
   }else  if(infofunct==allowed.functionals[2]){#"pathlength"
-    fvi <- .functionalPathlength(g,dist=dist,ci=ci)
+    fvi <- .functionalPathlength(g, dist=dist, ci=ci)
   }else  if(infofunct==allowed.functionals[3]){#"vertcent"
-    fvi <- .functionalLocalProperty(g,dist=dist,ci=ci)
+    fvi <- .functionalLocalProperty(g, dist=dist, ci=ci)
   }else  if(infofunct==allowed.functionals[4]){#"degree"
-    fvi<-.functionalDegreeDegree(g,dist=dist,ci=ci)
+    fvi <- .functionalDegreeDegree(g, dist=dist, ci=ci, alpha=alpha)
   }
   ##calcualte the entrpy and the distance
   fvi.sum <- sum(fvi)
   pis <- fvi/fvi.sum
   itgcm <- list()
   itgcm[["entropy"]] <- (-sum(pis*log2(pis)))
+  if(is.nan(itgcm[["entropy"]])){
+     warning("Entropy returned not a number (NaN): check your parameters")
+  }
   itgcm[["distance"]] <- (lambda*(log2(length(pis)) - itgcm[["entropy"]]))
   itgcm[["pis"]] <- pis
   itgcm[["fvis"]] <- fvi
@@ -114,74 +117,48 @@ infoTheoreticGCM <- function(g, dist=NULL, coeff="lin", infofunct="sphere", lamb
   return (fvi)
 }
 
-.functionalDegreeDegree <- function(g, dist, ci){
-  fdelta <- list()
-  nodes <- 1:length(nodes(g))
-  names(nodes) <- nodes(g)
-  deg <- graph::degree(g)
-  for(v in 1:numNodes(g)){
-    ## calculate P (shortest paths)
-    P=list(v) # calculate P for each vertex v (shortest paths)
-    change = 1
-    oldIndex = 1 # old index (beginning of the last iteration) (e.g. shortest path = 2)
-    while(change != 0){
-      change = 0; # has something changed (means is one list added to P nad how much)
-      newIndex = length(P)+1 # index of the beginning iteration (e.g. shortest path = 3)
-      # generate list with all paths
-      while(oldIndex<newIndex){ # for every index betwwen old and new create paths for all neighbors
-        lastVertex = P[[oldIndex]][length(P[[oldIndex]])] # last vertex in list of P[oldIndex]
-        #
-        lastVertex = names(nodes[lastVertex])
-        #
-        neighbors = grep(lastVertex,edges(g)) # find all neighbors of the last vertex in the path of P[oldIndex]
-       
-        for(n in 1:length(neighbors)){ # for every neigbor
-          temp = c(P[oldIndex],neighbors[n]) # add neigbour to path of oldIndex
-          for(t in 2: length(temp)){ # generate one list in temp[[1]]
-            temp[[1]][length(temp[[1]])+1] <- temp[[t]][1]
-          }
-          if((length(temp[[1]]) - 1) == dist[v,neighbors[n]]){ # only if the length of temp is the shortest path
-            change = change + 1 # somthing changed (a new path is added)
-            P[length(P)+1] <- temp[1] # write new path in the end of P (even wrong paths are written into P (wrong paths are paths to verteses where shorter paths exist!))
-          }
-        }
-        oldIndex = oldIndex+1 # go to the next index until new Index was reached
-      }
-      oldIndex = newIndex # the new index is th new old one
-    }
-    ## generate S ## 
-    S = list(deg[v])
-    names(S[[1]]) <- NULL
-    for(i in 2:length(P)){
-      S[[i]] <- deg[v]
-      for(j in 2:length(P[[i]])){
-        S[[i]][j] = deg[P[[i]][j]]
-      }
-      names(S[[i]]) <- NULL
-    }
-    ## calc fdelta
-    Scopy = S
-    Scopy[[1]] <- NULL
-    fdelta[[v]] <- -1
-    maxSize = length(Scopy[[length(Scopy)]])
-    for(size in 2:maxSize){
-      sum = 0
-      for(i in length(Scopy):1){
-        if(length(Scopy[[i]]) == size){
-          for(j in 1:(size-1)){
-            sum = sum + abs(Scopy[[i]][j]-Scopy[[i]][j+1])
-          }
-   
-         # Scopy[[i]] <- NULL
-        }
-      }
-      fdelta[[v]][size-1] = sum
-    }
-  }
+.functionalDegreeDegree <- function(g, dist, ci, alpha){
+  require("igraph")
 
-  fvi=vector("numeric",length=length(fdelta))
-  for(i in 1:length(fdelta)){
-     fvi[i] = sum(fdelta[[i]] * ci[1:length(fdelta[[i]])])
-  }
-  return(fvi)
+  ig <- igraph.from.graphNEL(g)
+  deg <- igraph::degree(ig)
+  vs <- V(ig)
+  lvs <- length(vs$name)
+  fvi <- rep(0,lvs)
+  nam <- nodes(g)
+  #determine number of all possible shortest path
+  deltaG <- sapply(1:lvs,function(n){
+    asp <- get.all.shortest.paths(ig,from=(n-1))
+#      lvi <- table(sapply(asp,length)-1,exclude=0)
+#      tmp.sum <- sapply(1:max(as.numeric(names(lvi))),function(lpl){
+#        sum(1:lpl)
+#  })
+    lsp <- sapply(asp,length)
+    deltaGvi <- sapply(2:max(lsp),function(j){
+      Pj <- asp[lsp==j]
+      sj <- lapply(Pj, function(pjh){
+         deg[pjh+1]
+      })
+      deltaGvij <- lapply(sj, function(dd){
+         ddl<-length(dd)
+         abs(dd[1:(ddl-1)]-dd[2:ddl])
+      })
+          sum(unlist(deltaGvij))
+  })
+     deltaGvi 
+  })
+
+  fvi <- sapply(deltaG, function(deltaGvi){
+     sum(deltaGvi*ci[1:length(deltaGvi)])
+  })
+  names(fvi) <- nam
+  #TODO: add names to vi
+  ret <- alpha^fvi
+#  if(is.nan(ret)){
+#     warning("Result is Not a Number (NaN) -> value was set to -999")
+#     return (-999)
+#  }else{
+#     return(ret)
+#  }
 }
+

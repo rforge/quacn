@@ -5,10 +5,11 @@
 \description{Measures of this group assign a probability value to each
   vertex of the network using a so-called information functional f which
   captures structural information of the network g.
+  Note that some combinations of the settings can cause the descriptor to retrun NaN. In that case you have to check for warnings.
 }
 \usage{
 infoTheoreticGCM(g, dist = NULL, coeff = "lin", infofunct = "sphere",
-lambda = 1000, custCoeff=NULL)
+lambda = 1000, custCoeff=NULL, alpha=0.5)
 }
 \arguments{
   \item{g}{a graph as a graphNEL object.
@@ -21,7 +22,7 @@ lambda = 1000, custCoeff=NULL)
     parameter custCoeff.
 }
   \item{infofunct}{specifies the information functional. Possible values
-    are "sphere" (default), "pathlength" or "vertcent"
+    are "sphere" (default), "pathlength", "vertcent" or "degree"
 .
 }
   \item{lambda}{specifies the scaling constant for the distance
@@ -29,6 +30,8 @@ lambda = 1000, custCoeff=NULL)
 }
   \item{custCoeff}{specifies the customized weighting schema. To use it you
     need to set coeff="const".
+}
+  \item{alpha}{alpha for degree degree association.
 }
 }
 \details{For details see the vignette.
