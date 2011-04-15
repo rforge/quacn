@@ -14,7 +14,7 @@
 \usepackage{booktabs}
 
 \title{Using QuACN to Analyze Complex Biological Networks}
-\author{Laurin AJ Mueller, Matthias Dehmer}
+\author{Laurin AJ Mueller, Karl G Kugler, Matthias Dehmer}
 \begin{document}
 \maketitle
 \tableofcontents
@@ -59,6 +59,15 @@ If you have already created networks that you want to analyze with QuACN, R offe
 \item \textbf{System Biology Markup Language(SBML) \cite{Hucka2003}}: With the \textit{RSBML}-package it is possible to import SBML-Models.
 \item \textbf{igrah-package}: Networks created with the \textit{igraph}-package can be converted into graphNEL objects.
 \end{itemize}
+
+\subsection{Extract the Largest Connected Subgraph}
+Many of the topological network descriptors that are implemented in \texttt{QuACN} only work on connected graphs. Often this is not the case with biological networks, so that the largest connected component (LCC) has to be extracted first. For extracting the LCC we provide the method \texttt{getLargestSubgraph(g)}, as shown in \cite{Hahne2008}:
+<<>>=
+g2 <- randomGraph(paste("A",1:100, sep=""), 1:4, p=0.03)
+lcc <- getLargestSubgraph(g2)
+lcc
+
+@
 
 \section{Network Descriptors}
 \label{sec:desc}
