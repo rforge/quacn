@@ -9,7 +9,7 @@
 }
 \usage{
 infoTheoreticGCM(g, dist = NULL, coeff = "lin", infofunct = "sphere",
-lambda = 1000, custCoeff=NULL, alpha=0.5)
+lambda = 1000, custCoeff=NULL, alpha=0.5, prec=53)
 }
 \arguments{
   \item{g}{a graph as a graphNEL object.
@@ -32,6 +32,11 @@ lambda = 1000, custCoeff=NULL, alpha=0.5)
     need to set coeff="const".
 }
   \item{alpha}{alpha for degree degree association.
+}
+  \item{prec}{specifies the floating-point precision to use (currently
+    only implemented for degree-degree association).  Values up to 53
+    are handled with the built-in double data type; larger values
+    trigger the usage of Rmpfr.
 }
 }
 \details{For details see the vignette.
