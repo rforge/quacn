@@ -439,6 +439,25 @@ l1
 l5
 @ 
 
+\subsection{Eigenvalue-based Descriptors}
+This class contains Eigenvalue-based Descriptors proposed in Dehmer et. al [xxxcite]. With this function it is possible to calculate 5 descriptors ($H_{M_s(G)}$, $S_{M_s(G)}$ , $IS_{M_s(G)}$, $P_{M_s(G)}$, $IP_{M_s(G)}$) for 10 different matrices:
+
+\begin{enumerate}
+\item Adjacency matrix
+\item Laplacian matrix
+\item Distance matrix
+\item Distance path Matrix
+\item Augmented vertex degree matrix
+\item Extended adjacency matrix
+\item Connectivity matrix 
+\item Random Walk Markov matrix 
+\item Weighted structure function matrix $IM_1$
+\item Weighted structure function matrix $IM_2$
+\end{enumerate}
+
+For a detailed descripton of this classs see Dehmer et. al [xxxcite].
+
+
 \section{Session Info}
 <<>>=
 sessionInfo()

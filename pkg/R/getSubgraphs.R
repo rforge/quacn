@@ -1,4 +1,5 @@
 getLargestSubgraph <- function(g){
+  require("RBGL")
   if(class(g) != "graphNEL"){
     stop("g needs to be of type graphNEL")
   }
