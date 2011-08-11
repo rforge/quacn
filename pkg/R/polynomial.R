@@ -8,6 +8,7 @@ polynomial <- function(g, matrix_function, s=1){
   M <- do.call(matrix_function,list(g))
 
   EV <- as.double(abs(eigen(M,only.values=TRUE)$values));
+  EV <- EV[EV != 0];
   EVs <- EV^(1/s)
   sumEVs <- sum(EVs)
   pi<- EVs/sumEVs
@@ -15,12 +16,7 @@ polynomial <- function(g, matrix_function, s=1){
   result <- list()
 
   ##Expression (2)
-  if (any(sapply(pi, function(x) x == 0))) {
-    warning("Matrix has a zero eigenvalue -> value was set to 0")
-    result[["HMs"]] <- 0
-  }
-  else
-    result[["HMs"]] <- (-1) * sum(pi*log2(pi))
+  result[["HMs"]] <- (-1) * sum(pi*log2(pi))
 
   ##Expression (3)
   result[["SMs"]] <- sumEVs
