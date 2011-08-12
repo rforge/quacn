@@ -1,4 +1,4 @@
-polynomial <- function(g, matrix_function, s=1){  
+eigenvalueBased <- function(g, matrix_function, s=1){  
   require("graph")
   # check if g is a graphNEL object
   if(class(g)[1]!="graphNEL"){
