@@ -47,5 +47,6 @@ echo $contents; } ?>
 
 <p> The <strong>project summary page</strong> you can find <a href="http://<?php echo $domain; ?>/projects/<?php echo $group_name; ?>/"><strong>here</strong></a>. </p>
 
+<p> To install the package fisrt install gmp and MPFR. How to is following</p>
 </body>
 </html>
