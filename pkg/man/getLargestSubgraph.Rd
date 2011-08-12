@@ -15,9 +15,7 @@ getLargestSubgraph(g)
 A \code{graphNEL} object of which the largest connected component has to be extracted.
 }
 }
-\details{
-%%  ~~ If necessary, more details than the description above ~~
-}
+
 \value{
 The largest connected \code{graphNEL} object from \code{g}
 }
@@ -30,10 +28,7 @@ Karl Kugler karl@eigenlab.net
 \note{
 Code taken from Hahne et al. "Bioconductor Case Studies"
 }
-%% ~Make other sections like Warning with \section{Warning }{....} ~
-\seealso{
-%% ~~objects to See Also as \code{\link{help}}, ~~~
-}
+
 \examples{
 set.seed(667)
 g <- randomGraph(paste("A",1:100, sep=""), 1:4, p=0.03)

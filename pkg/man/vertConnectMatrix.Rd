@@ -2,7 +2,7 @@
 \alias{vertConnectMatrix}
 \title{Vertex Connectivity Matrix
 }
-\description{
+\description{Calculates the vertex connectivity matrix.
 }
 \usage{
 vertConnectMatrix(g)
@@ -12,19 +12,19 @@ vertConnectMatrix(g)
 A graph as a graphNEL object.
 }
 }
-\details{
+\details{for deatils see the vignette or the reference
 }
-\value{
+\value{  \item{VerCon_Mat}{Returns the vertex connectivity matrix.
 }
-\references{
 }
-\author{
+\references{Dehmer M, Sivakumar L, Varmuzua K: Uniquely Discriminating Molecular Structures Using Novel Eigenvalue Based Descriptors. match 2012, 67:147-172}
+\author{Lavanya Sivakumar
 }
-\note{
-}
-\seealso{
-}
-\examples{
-}
-\keyword{ graphs }
+\examples{library(RBGL)
+library(Rgraphviz)
+set.seed(123)
+g <- randomGraph(1:8, 1:5, 0.36)
+vertConnectMatrix(g)
 
+}
+\keyword{ graph matrices }

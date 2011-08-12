@@ -2,7 +2,7 @@
 \alias{randomWalkMatrix}
 \title{Random Walk Markov Matrix
 }
-\description{
+\description{Calculates the random walk markov matrix.
 }
 \usage{
 randomWalkMatrix(g)
@@ -12,19 +12,20 @@ randomWalkMatrix(g)
 A graph as a graphNEL object.
 }
 }
-\details{
+\details{for deatils see the vignette or the reference
 }
-\value{
+\value{  \item{RanWalk_Mat}{Returns the random walk markov matrix.
 }
-\references{
 }
-\author{
+\references{Dehmer M, Sivakumar L, Varmuzua K: Uniquely Discriminating Molecular Structures Using Novel Eigenvalue Based Descriptors. match 2012, 67:147-172}
+\author{Lavanya Sivakumar
 }
-\note{
-}
-\seealso{
-}
-\examples{
-}
-\keyword{ graphs }
 
+\examples{library(RBGL)
+library(Rgraphviz)
+set.seed(123)
+g <- randomGraph(1:8, 1:5, 0.36)
+randomWalkMatrix(g)
+
+}
+\keyword{ graph matrices }

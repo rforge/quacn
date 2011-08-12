@@ -53,14 +53,15 @@ lambda = 1000, custCoeff=NULL, alpha=0.5, prec=53)
 \references{
 M. Dehmer, Information processing in complex networks: Graph entropy and
 information functionals, Applied Mathematics and Computation, 202:82-94, 2008
+
+Dehmer M., Emmert-Streib F., Tsoy R. Y., Varmuza K.: Quantifying Structural Complexity of Graphs: 
+Information Measures in Mathematical Chemistry. In: Putz M. (Editor): Quantum Frontiers of Atoms and Molecules in Physics, 
+Chemistry, and Biology,  Nova Science Publishers, to appear, 2010
+
 }
 \author{Laurin Mueller <laurin@eigenlab.net>
 }
-\note{
-}
 
-\seealso{
-}
 \examples{
 
 library(RBGL)
