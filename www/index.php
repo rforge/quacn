@@ -43,10 +43,23 @@ echo $contents; } ?>
 
 <!-- end of project description -->
 
-<p> No content added. </p>
-
 <p> The <strong>project summary page</strong> you can find <a href="http://<?php echo $domain; ?>/projects/<?php echo $group_name; ?>/"><strong>here</strong></a>. </p>
 
-<p> To install the package fisrt install gmp and MPFR. How to is following</p>
+<p> <strong>General Information</strong> about QuACN:</p>
+<ol>
+	<li>Installation</li>
+	To install QuACN following software has to be installed before:
+	<ul><li><a href="GMP" target="http://gmplib.org/">GMP</a></li></ul>
+   <ul><li><a href="MPFR" target="http://www.mpfr.org/	">MPFR</a></li></ul>
+<!-- 	<li>Available Descriptors</li> -->
+	<li>Publications</li>
+	<ul><li>Mueller LAJ, Kugler KG, Dander A, Graber A, Dehmer M (2011) <em>QuACN: an R package for analyzing complex biological networks quantitatively.</em> Bioinformatics 27: 140–141.</li></ul>
+	<ul><li>Mueller LAJ, Kugler KG, Dehmer M (2011) <em>Stuctural Analysis of Molecular Networks : AMES Mutagenicity.</em>BIOCOMP, Las Vegas</li></ul>
+   <ul><li>Kugler KG, Mueller LAJ, Dehmer M (2011) <em>Integrative Network Biology: Graph Prototyping for Co-Expression Cancer Networks.</em> PLoS ONE 6(7): e22843. doi:10.1371/journal.pone.0022843</li></ul>
+</ol>
+
+<ul></ul>
+
+
 </body>
 </html>
