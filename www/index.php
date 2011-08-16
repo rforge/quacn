@@ -45,7 +45,7 @@ echo $contents; } ?>
 
 <p> The <strong>project summary page</strong> you can find <a href="http://<?php echo $domain; ?>/projects/<?php echo $group_name; ?>/"><strong>here</strong></a>. </p>
 
-<p> For a detailed description of the package see the <a href="http://cran.r-project.org/web/packages/QuACN/vignettes/QuACN.pdf"><strong>vignette</strong></a>. </p>
+<p> For a <strong>detailed description</strong> of the package see the <a href="http://cran.r-project.org/web/packages/QuACN/vignettes/QuACN.pdf"><strong>vignette</strong></a>. </p>
 
 <p> <strong>General Information</strong> about QuACN:</p>
 <ol>
