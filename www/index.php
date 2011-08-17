@@ -51,8 +51,8 @@ echo $contents; } ?>
 <ol>
 	<li>Installation</li>
 	To install QuACN following software has to be installed before:
-	<ul><li><a href="GMP" target="http://gmplib.org/">GMP</a></li></ul>
-   <ul><li><a href="MPFR" target="http://www.mpfr.org/	">MPFR</a></li></ul>
+	<ul><li><a href="http://gmplib.org/">GMP</a></li></ul>
+   <ul><li><a href="http://www.mpfr.org/">MPFR</a></li></ul>
 <!-- 	<li>Available Descriptors</li> -->
 	<li>Publications</li>
 	<ul><li>Mueller LAJ, Kugler KG, Dander A, Graber A, Dehmer M (2011) <em>QuACN: an R package for analyzing complex biological networks quantitatively.</em> Bioinformatics 27: 140–141.</li></ul>
