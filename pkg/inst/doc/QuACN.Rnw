@@ -37,18 +37,13 @@ Chapter \ref{sec:nw} will give you an idea how to import already exiting network
  \item Bioconductor: \url{http://www.bioconductor.org/}
 \end{itemize}
 
-Note, that \texttt{QuACN} also depends on the \texttt{Rmpfr} package. Therefore, following software needs to be installed to install the package correctly. To install the software follow the instruction on respective website.
+Note, that \texttt{QuACN} also depends on the \texttt{Rmpfr} package. Therefore, the software GMP (\url{http://gmplib.org/}) and MPFR ( \url{http://www.mpfr.org/}) needs to be installed to install the package correctly:
 
 \begin{itemize}
- \item GMP: \url{http://gmplib.org/}
- \item MPFR: \url{http://www.mpfr.org/}
+ \item Windows: The package should install without problems.
+ \item Ubuntu/Debian: Make sure that the libraries \textit{libgmp3-dev} and \textit{libmpfr-dev} are installed.
 \end{itemize}
-
-For more information see the documentation of the \texttt{Rmpfr} package:
-
-\begin{itemize}
- \item R-Forge: \url{http://rmpfr.r-forge.r-project.org/}
- \item CRAN: \url{http://cran.r-project.org/web/packages/Rmpfr/}\end{itemize}
+For more information see the corresponding websites, or the documentation of the \texttt{Rmpfr} package (\url{http://rmpfr.r-forge.r-project.org/}).
 
 After installing \textit{GMP} and \textit{MPFR} everything is ready to install \texttt{QuACN}. Other dependencies will be installed automatically during the installation. To install the package from \textit{CRAN} simply type: 
 
