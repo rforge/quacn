@@ -196,6 +196,12 @@ hyperDistancePathIndex(g,mat.dist)
 hyperDistancePathIndex(g,mat.dist,wiener(g,mat.dist))
 @ 
 
+\subsubsection*{Efficiency \cite{kim_wilhelm_2008}:}
+% TODO
+<<>>=
+efficiency(g)
+efficiency(g, mat.dist)
+@
 
 \subsection{Descriptors Based on Other Graph-Invariants}
 \label{sec:otherInv}
@@ -254,6 +260,12 @@ E_N(G):=\frac{A(G)}{|N|^2}.
 normalizedEdgeComplexity(g)
 normalizedEdgeComplexity(g,totalAdjacency(g,mat.adj))
 @ 
+
+\subsubsection*{Medium articulation \cite{kim_wilhelm_2008}:}
+% TODO
+<<>>=
+mediumArticulation(g)
+@
 
 \subsection{Classical entropy based descriptors}
 \label{sec:clE}
@@ -362,6 +374,13 @@ $k^{v_i}_k$ is the number of distances starting from $V_i \in V$ equal to $j$.
 graphVertexComplexity(g)
 graphVertexComplexity(g,mat.dist)
 @ 
+
+\subsection*{Off-diagonal complexity index \cite{kim_wilhelm_2008}:}
+% TODO
+<<>>=
+offDiagonal(g)
+offDiagonal(g, vec.degree)
+@
 
 \subsection{Parametric Graph Entropy Measures}
 \label{sec:dE}
@@ -541,6 +560,12 @@ eigenvalueBased(g,weightStrucFuncMatrix_exp,2)
 \end{enumerate}
 
 For a detailed description of this class see Dehmer et. al \cite{dehmer_degree_2010}.
+
+\subsubsection*{Graph index complexity \cite{kim_wilhelm_2008}:}
+% TODO
+<<>>=
+graphIndexComplexity(g)
+@
 
 \section{Session Info}
 <<>>=
