@@ -203,6 +203,15 @@ efficiency(g)
 efficiency(g, mat.dist)
 @
 
+\subsubsection*{Skorobogatov and A. A. Dobrynin \cite{skorobogatov}:}
+% TODO
+<<>>=
+dobrynin(g)
+dobrynin(g, mat.dist)
+@
+
+
+
 \subsection{Descriptors Based on Other Graph-Invariants}
 \label{sec:otherInv}
 This section describes network measures based on other invariants than distances.
