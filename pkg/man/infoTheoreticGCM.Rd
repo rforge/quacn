@@ -42,13 +42,20 @@ lambda = 1000, custCoeff=NULL, alpha=0.5, prec=53)
 \details{For details see the vignette.
 }
 \value{
-  It returns a list with following items:
+  If infofunct is "degree" and prec is greater than 53, the resulting
+  values will be of class "mpfr" (instead of "numeric" in all other
+  cases).  Note that if you use such a vector in a calculation,
+  arbitrary precision floating point arithmetics will be used
+  throughout, even if the other operands are regular double values.  You
+  can use "as.double" at any point to convert an "mpfr" vector to the
+  built-in "numeric" class (losing precision).
+
+  The returned list consists of the following items:
   \item{entropy}{contains the calculated entropy measure.}
   \item{distance}{contains the calculated distance measure.}
   \item{pis}{contains the calculated probability distribution.}
   \item{fvi}{contains the calculated values of the information
     functional, for each vetrex.}
-
 }
 \references{
 M. Dehmer, Information processing in complex networks: Graph entropy and
