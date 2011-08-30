@@ -474,6 +474,24 @@ spanningTreeSensitivity(g)
 spanningTreeSensitivity(g, sg.1ed)
 @
 
+\subsubsection*{Distance degree/code centric indices \cite{todeschini_2002}:}
+\begin{eqnarray}
+I_{\mathrm{C,deg}} &:=& -\sum_{i=1}^D \frac{d_i}{|N|} \log_2 \frac{d_i}{|N|} \\
+I_{\mathrm{C,code}} &:=& -\sum_{i=1}^C \frac{c_i}{|N|} \log_2 \frac{c_i}{|N|}
+\end{eqnarray}
+where \(d_i\) is the number of vertices with the same eccentricity and
+the same vertex distance degree (i.\,e., equal row sums in the distance
+matrix), and \(c_i\) is the number of vertices with the same vertex
+distance code (i.\,e., the same numbers in their rows in the distance
+matrix).  \(D\) and \(C\) are the respective numbers of equivalence
+classes.
+<<>>=
+distanceDegreeCentric(g)
+distanceDegreeCentric(g, mat.dist)
+distanceCodeCentric(g)
+distanceCodeCentric(g, mat.dist)
+@
+
 \subsection{Parametric Graph Entropy Measures}
 \label{sec:dE}
 Measures of this group \cite{dehmer_functionals_2008,dehmer_varmuza_2009} assign a probability value to each vertex of the network using a so-called information functional $f$
