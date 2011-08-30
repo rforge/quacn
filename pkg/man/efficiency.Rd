@@ -33,7 +33,7 @@ Lavanya Sivakumar, Michael Schutte <michi@uiae.at>
 
 \examples{
 library(graph)
-
+set.seed(123)
 g <- randomEGraph(as.character(1:10), 0.6)
 
 efficiency(g)

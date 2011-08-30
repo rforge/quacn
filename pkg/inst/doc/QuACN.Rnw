@@ -235,7 +235,7 @@ totalAdjacency(g)
 totalAdjacency(g,mat.adj)
 @ 
 
-\subsubsection*{Zagreb group indices \cite{diudea}:}
+\subsubsection*{Zagreb group indices \cite{diudea}, \cite{nikolic_2003}:}
 \begin{equation}
 Z_1(G):= \sum_{i=1}^{|N|} k_{v_i},
 \end{equation}
@@ -243,11 +243,23 @@ where $k_{v_i}$ is the degree of the node $v_i$.
 \begin{equation}
 Z_2(G):= \sum_{(v_i,v_j) \in E} k_{v_i} k_{v_j}.
 \end{equation}
+Modified, augmented and variable Zagreb indices:
+\begin{eqnarray}
+\mathit{MZI} &:=& \sum_{(v_i, v_j) \in E} \frac{1}{k_{v_i} k_{v_j}} \\
+\mathit{AZI} &:=& \sum_{(v_i, v_j) \in E} \left( \frac{k_{v_i} k_{v_j}}{k_{v_i} + k_{v_j} - 2} \right)^3\\
+\mathit{VZI} &:=& \sum_{(v_i, v_j) \in E} \frac{k_{v_i} + k_{v_j} - 2}{k_{v_i} k_{v_j}}
+\end{eqnarray}
 <<>>=
 zagreb1(g)
 zagreb1(g,vec.degree)
 zagreb2(g)
 zagreb2(g,vec.degree)
+modifiedZagreb(g)
+modifiedZagreb(g, vec.degree)
+augmentedZagreb(g)
+augmentedZagreb(g, vec.degree)
+variableZagreb(g)
+variableZagreb(g, vec.degree)
 @ 
 
 \subsubsection*{Randi\'{c} connectivity index \cite{li_gutman_2006}:}
@@ -278,6 +290,43 @@ E_N(G):=\frac{A(G)}{|N|^2}.
 normalizedEdgeComplexity(g)
 normalizedEdgeComplexity(g,totalAdjacency(g,mat.adj))
 @ 
+
+\subsubsection*{Atom-bond connectivity \cite{estrada_1998}:}
+\begin{equation}
+\mathit{ABC} := \sum_{(v_i, v_j) \in E} \sqrt{\frac{k_{v_i} + k_{v_j} - 2}{k_{v_i} k_{v_j}}}
+\end{equation}
+<<>>=
+atomBondConnectivity(g)
+atomBondConnectivity(g, vec.degree)
+@
+
+\subsubsection*{Geometric-arithmetic indices \cite{zhou_2009}:}
+\begin{eqnarray}
+\mathit{GA1} &:=& \sum_{(v_i, v_j) \in E} \frac{\sqrt{k_{v_i} k_{v_j}}}{\frac{1}{2} (k_{v_i} + k_{v_j})} \\
+\mathit{GA2} &:=& \sum_{(v_i, v_j) \in E} \frac{\sqrt{n_i n_j}}{\frac{1}{2} (n_i + n_j)} \\
+\mathit{GA3} &:=& \sum_{(v_i, v_j) \in E} \frac{\sqrt{m_i m_j}}{\frac{1}{2} (m_i + m_j)}
+\end{eqnarray}
+where \(n_i := |\{x \in N : d(x, v_i) < d(x, v_j)\}|\) and \(n_j := |\{x \in N : d(x, v_j) < d(x, v_i)\}|\);
+\(m_i := |\{f \in E : d(f, v_i) < d(f, v_j)\}|\) and \(m_j := |\{f \in V : d(f, v_j) < d(f, v_i)\}|\).
+In this context, the distance between an edge \(f = \{x, y\}\) and a vertex \(v\) is defined as
+\(d(f, v) := \min \{d(x, v), d(y, v)\}\).
+<<>>=
+geometricArithmetic1(g)
+geometricArithmetic1(g, vec.degree)
+geometricArithmetic2(g)
+geometricArithmetic2(g, mat.dist)
+geometricArithmetic3(g)
+geometricArithmetic3(g, mat.dist)
+@
+
+\subsubsection*{Narumi-Katayama index \cite{narumi_katayama_1984}:}
+\begin{equation}
+\mathit{NK} := \prod_{i=1}^n k_{v_i}
+\end{equation}
+<<>>=
+narumiKatayama(g)
+narumiKatayama(g, vec.degree)
+@
 
 \subsection{Classical entropy based descriptors}
 \label{sec:clE}
@@ -535,6 +584,7 @@ l5
 @ 
 
 \subsection{Eigenvalue-based Descriptors}
+
 This class contains Eigenvalue-based Descriptors proposed in Dehmer et. al \cite{dehmer_degree_2010}. 
 
 \begin{equation}
@@ -603,6 +653,36 @@ eigenvalueBased(g,weightStrucFuncMatrix_exp,2)
 \end{enumerate}
 
 For a detailed description of this class see Dehmer et. al \cite{dehmer_degree_2010}.
+
+\subsubsection*{Graph energy and Laplacian energy \cite{gutman_zhou_2006}:}
+\begin{eqnarray}
+E &:=& \sum_{i=1}^{|N|} |\lambda_i| \\
+\mathit{LE} &:=& \sum_{i=1}^{|N|} \left| \mu_i - \frac{2m}{n} \right|
+\end{eqnarray}
+where \(\lambda_k\) are the eigenvalues of the adjacency matrix and \(\mu_k\) those of the Laplacian matrix of the graph.
+<<>>=
+energy(g)
+laplacianEnergy(g)
+@
+
+\subsubsection*{Estrada \cite{estrada_2000} and Laplacian Estrada \cite{fath-tabar_2009} indices:}
+\begin{eqnarray}
+\mathit{EE} &:=& \sum_{i=1}^{|N|} e^{\lambda_i} \\
+\mathit{LEE} &:=& \sum_{i=1}^{|N|} e^{\mu_i}
+\end{eqnarray}
+with \(\lambda_k\) and \(\mu_k\) defined as above.
+<<>>=
+estrada(g)
+laplacianEstrada(g)
+@
+
+\subsubsection*{Spectral radius:}
+\begin{equation}
+\mathit{SpRad} := \max_i \left\{|\lambda_i|\right\}
+\end{equation}
+<<>>=
+spectralRadius(g)
+@
 
 \subsection{Different subgraph measures}
 

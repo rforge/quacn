@@ -35,7 +35,7 @@ Lavanya Sivakumar, Michael Schutte <michi@uiae.at>
 
 \examples{
 library(graph)
-
+set.seed(123)
 g <- randomEGraph(as.character(1:12), 0.5)
 
 result <- spanningTreeSensitivity(g)

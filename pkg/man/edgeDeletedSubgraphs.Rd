@@ -23,8 +23,8 @@ Lavanya Sivakumar, Michael Schutte <michi@uiae.at>
 
 \examples{
 library(graph)
-
-g <- randomEGraph(as.character(1:8), 0.4)
+set.seed(123)
+g <- randomEGraph(as.character(1:8), 0.55)
 
 one.eds <- edgeDeletedSubgraphs(g)
 two.eds <- edgeDeletedSubgraphs(one.eds)
