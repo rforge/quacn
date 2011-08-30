@@ -8,7 +8,7 @@ oneEdgeDeletedSubgraphComplexity <- function(g, subgraphs=NULL) {
     subgraphs <- edgeDeletedSubgraphs(g)
 
   n <- numNodes(g)
-  m <- numEdges(g)
+  count <- length(subgraphs)
 
   # number of spanning trees in g
   lap <- laplaceMatrix(g)
@@ -30,14 +30,14 @@ oneEdgeDeletedSubgraphComplexity <- function(g, subgraphs=NULL) {
   # different spanning trees and spectrum of Laplacian and signless Laplacian
   sST <- 0
   sSpec <- 0
-  for (k in 1:(m-1)) {
-    for (l in (k+1):m) {
+  for (k in 1:(count-1)) {
+    for (l in (k+1):count) {
       if (data[[k]]$nST == data[[l]]$nST) {
         sST <- sST + 1
         break
       }
     }
-    for (l in (k+1):m) {
+    for (l in (k+1):count) {
       if (setequal(data[[k]]$EV_lap, data[[l]]$EV_lap) &&
           setequal(data[[k]]$EV_signless_lap, data[[l]]$EV_signless_lap)) {
         sSpec <- sSpec + 1
@@ -45,27 +45,13 @@ oneEdgeDeletedSubgraphComplexity <- function(g, subgraphs=NULL) {
       }
     }
   }
-  N_1eST <- m - sST
-  N_1eSpec <- m - sSpec
+  N_1eST <- count - sST
+  N_1eSpec <- count - sSpec
 
   # one-edge-deleted subgraph and spectrum complexity
   m_cu <- n^1.68 - 10
   C_1eST <- (N_1eST - 1) / (m_cu - 1)
   C_1eSpec <- (N_1eSpec - 1) / (m_cu - 1)
 
-  # spanning tree sensitivity complexity measure
-  sens <- nST_g - as.double(sapply(data, `[[`, "nST"))
-  sens <- sort(unique(sens))
-  sens <- sens[sens != 0]
-  sens <- sens - min(sens) + 1
-  prob <- sens / sum(sens)
-  STS <- -sum(prob * log(prob)) / log(m_cu)
-
-  # STSD complexity measure
-  sens_diff <- unique(diff(sens))
-  prob <- sens_diff / sum(sens_diff)
-  prob <- prob[prob != 0]
-  STSD <- -sum(prob * log(prob)) / log(m_cu)
-
-  list(`C_1eST` = C_1eST, `C_1eSpec` = C_1eSpec, `STS` = STS, `STSD` = STSD)
+  list(`C_1eST` = C_1eST, `C_1eSpec` = C_1eSpec)
 }

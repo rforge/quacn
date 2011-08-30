@@ -99,6 +99,22 @@ lcc <- getLargestSubgraph(g2)
 lcc
 @
 
+\subsection{Enumerate Edge-Deleted Subgraphs}
+
+Some descriptors require a list of all distinct subgraphs which can be
+generated from a graph by removing a single or two edges.  The
+concerning methods will obtain this information automatically, but for
+efficiency reasons, you might want to pre-calculate and reuse it:
+
+<<>>=
+sg.1ed <- edgeDeletedSubgraphs(g)
+sg.2ed <- edgeDeletedSubgraphs(sg.1ed)
+@
+
+Note that the method \texttt{edgeDeletedSubgraphs(g)} accepts lists or
+single instances of graphNEL objects or adjacency matrices, but it
+always returns a list of adjacency matrices.
+
 \section{Network Descriptors}
 \label{sec:desc}
 This section provides a overview of the network descriptors that are included in the \texttt{QuACN} package. Here we describe the respective descriptor and how to call it in R.\\
@@ -196,13 +212,6 @@ hyperDistancePathIndex(g,mat.dist)
 hyperDistancePathIndex(g,mat.dist,wiener(g,mat.dist))
 @ 
 
-\subsubsection*{Efficiency \cite{kim_wilhelm_2008}:}
-% TODO
-<<>>=
-efficiency(g)
-efficiency(g, mat.dist)
-@
-
 \subsubsection*{Skorobogatov and A. A. Dobrynin \cite{skorobogatov}:}
 % TODO
 <<>>=
@@ -269,12 +278,6 @@ E_N(G):=\frac{A(G)}{|N|^2}.
 normalizedEdgeComplexity(g)
 normalizedEdgeComplexity(g,totalAdjacency(g,mat.adj))
 @ 
-
-\subsubsection*{Medium articulation \cite{kim_wilhelm_2008}:}
-% TODO
-<<>>=
-mediumArticulation(g)
-@
 
 \subsection{Classical entropy based descriptors}
 \label{sec:clE}
@@ -384,11 +387,42 @@ graphVertexComplexity(g)
 graphVertexComplexity(g,mat.dist)
 @ 
 
-\subsection*{Off-diagonal complexity index \cite{kim_wilhelm_2008}:}
-% TODO
+\subsubsection*{Offdiagonal complexity \cite{kim_wilhelm_2008}:}
+\begin{equation}
+\mathit{OdC} := - \frac{1}{log(|N|-1)}
+  \sum_{n=0}^{k_{\mathrm{max}}-1} \tilde{a}_n \log \tilde{a}_n
+\end{equation}
+with \(\tilde{a}_n = \frac{a_n}{\sum_{m=0}^{k_{\mathrm{max}}-1} a_m}\)
+and \(a_n = \sum_{i=1}^{k_{\mathrm{max}-|N|}} c_{i,i+|N|}\), where
+\(k_{\mathrm{max}}\) is the maximum degree of all nodes in the graph,
+and \(c_{ij}\) is the number of all neighbors with degree \(j \ge i\) of
+all nodes with degree \(i\).
 <<>>=
-offDiagonal(g)
-offDiagonal(g, vec.degree)
+offdiagonal(g)
+offdiagonal(g, vec.degree)
+@
+
+\subsubsection*{Spanning tree sensitivity \cite{kim_wilhelm_2008}:}
+\begin{equation}
+\mathit{STS} := \frac{-\sum_l a_l \log a_l}{\log m_{\mathit{cu}}}
+\end{equation}
+with \(m_{\mathit{cu}} = n^{1.68}-10\), \(a_l = \frac{S_{ij}^l}{\sum_r^k
+S_{ij}^r}\), \(S_{ij} = s_{ij}
+- (\min\{s_{ij}\} - 1)\) and \(\{S_{ij}^1, S_{ij}^2, \ldots,
+S_{ij}^k\}\) being an ordered list of all \(k\) different \(S_{ij}\).
+\(s_{ij}\) is the number of spanning trees in the graph minus the number
+of spanning trees of the subgraph with the edge \(\{v_i, v_j\}\)
+deleted.  Analogously, the spanning tree sensitivity differences measure
+is defined as
+\begin{equation}
+\mathit{STSD} := \frac{-\sum_l b_l \log b_l}{\log m_{\mathit{cu}}}
+\end{equation}
+with \(b_l = \frac{\mathit{Ld}_l}{\sum_r^d \mathit{Ld}_r}\), where
+\(\{\mathit{Ld}_1, \mathit{Ld}_2, \ldots, \mathit{Ld}_d\}\) is the
+ordered list of all unique differences \(S_{ij}^m - S_{ij}^{m-1}\).
+<<>>=
+spanningTreeSensitivity(g)
+spanningTreeSensitivity(g, sg.1ed)
 @
 
 \subsection{Parametric Graph Entropy Measures}
@@ -570,8 +604,85 @@ eigenvalueBased(g,weightStrucFuncMatrix_exp,2)
 
 For a detailed description of this class see Dehmer et. al \cite{dehmer_degree_2010}.
 
+\subsection{Different subgraph measures}
+
+\subsubsection*{One-edge-deleted subgraph complexity \cite{kim_wilhelm_2008}:}
+\begin{eqnarray}
+C_{\mathit{1e,ST}} &:=& \frac{N_{\mathit{1e,ST}} - 1}{m_{\mathit{cu}}-1} \\
+C_{\mathit{1e,Spec}} &:=& \frac{N_{\mathit{1e,Spec}} - 1}{m_{\mathit{cu}} - 1}
+\end{eqnarray}
+\(N_{\mathit{1e,ST}}\) is the number of one-edge-deleted subgraphs which
+are different with regard to the number of spanning trees.  Similarly,
+\(N_{\mathit{1e,Spec}}\) is the number of one-edge-deleted subgraphs
+which are different with regard to spectra of the Laplacian and signless
+Laplacian matrix.  \(m_\mathit{cu}\) is defined as \(n^{1.68}-10\).
+<<>>=
+oneEdgeDeletedSubgraphComplexity(g)
+oneEdgeDeletedSubgraphComplexity(g, sg.1ed)
+@
+
+\subsubsection*{Two-edges-deleted subgraph complexity \cite{kim_wilhelm_2008}:}
+\begin{equation}
+C_{\mathit{2e,Spec}} := \frac{N_{\mathit{2e,Spec}} - 1}
+  {\binom{m_{\mathit{cu}}}{2} - 1}
+\end{equation}
+where \(m_{\mathit{cu}}\) is defined like above and
+\(N_{\mathit{2e,Spec}}\) is the number of two-edges-deleted subgraphs
+which are different with regard to spectra of the Laplacian and signless
+Laplacian matrix.
+<<>>=
+twoEdgesDeletedSubgraphComplexity(g)
+twoEdgesDeletedSubgraphComplexity(g, sg.2ed)
+@
+
+\subsection{Product measures}
+
+\subsubsection*{Medium articulation \cite{kim_wilhelm_2008}:}
+\begin{equation}
+\mathit{MAg} := \mathit{MA}_R \cdot \mathit{MA}_I
+\end{equation}
+with the redundancy
+\begin{eqnarray}
+\mathit{MA}_R &:=&
+  4 \left( \frac{R - R_{\mathrm{path}}}{R_{\mathrm{clique}} - R_{\mathrm{path}}} \right)
+  \left( 1 - \frac{R - R_{\mathrm{path}}}{R_{\mathrm{clique}} - R_{\mathrm{path}}} \right) \\
+R &:=& \frac{1}{m} \sum_{i,j>i} \log(d_i d_j) \\
+R_{\mathrm{clique}} &=& 2 \log(|N|-1) \\
+R_{\mathrm{path}} &=& 2 \frac{|N|-2}{|N|-1} \log 2
+\end{eqnarray}
+and the mutual information
+\begin{eqnarray}
+\mathit{MA}_I &:=&
+  4 \left( \frac{I - I_{\mathrm{clique}}}{I_{\mathrm{path}} - I_{\mathrm{clique}}} \right)
+  \left( 1 - \frac{I - I_{\mathrm{clique}}}{I_{\mathrm{path}} - I_{\mathrm{clique}}} \right) \\
+I &:=& \frac{1}{m} \sum_{i,j>i} \log \left(\frac{2m}{d_i d_j}\right) \\
+I_{\mathrm{clique}} &=& \log \frac{|N|}{|N|-1} \\
+I_{\mathrm{path}} &=& \log(|N|-1) - \frac{|N|-3}{|N|-1} \log 2
+\end{eqnarray}
+<<>>=
+mediumArticulation(g)
+@
+
+\subsubsection*{Efficiency complexity \cite{kim_wilhelm_2008}:}
+\begin{eqnarray}
+\mathrm{Ce} &:=&
+  4 \left(\frac{E - E_{\mathrm{path}}}{1 - E_{\mathrm{path}}}\right)
+  \left(1 - \frac{E - E_{\mathrm{path}}}{1 - E_{\mathrm{path}}}\right) \\
+E &:=& \frac{2}{|N| (|N|-1)} \sum_i \sum_{j>i} \frac{1}{d_{ij}} \\
+E_{\mathrm{path}} &=& \frac{2}{|N| (|N|-1)} \sum_{i=1}{|N|-1} \frac{|N| - i}{i}
+\end{eqnarray}
+<<>>=
+efficiency(g)
+efficiency(g, mat.dist)
+@
+
 \subsubsection*{Graph index complexity \cite{kim_wilhelm_2008}:}
-% TODO
+\begin{equation}
+\mathit{Cr} = 4 c_r (1 - c_r)
+\end{equation}
+where \(c_r = \frac{r - 2 \cos \frac{\pi}{|N| + 1}}{|N| - 1 - 2 \cos
+\frac{\pi}{|N| + 1}}\) and \(r\) is the largest eigenvalue of the
+adjacency matrix of the graph.
 <<>>=
 graphIndexComplexity(g)
 @

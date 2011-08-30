@@ -1,12 +1,12 @@
-\name{offDiagonal}
-\alias{offDiagonal}
-\title{Off-diagonal complexity index
+\name{offdiagonal}
+\alias{offdiagonal}
+\title{Offdiagonal complexity index
 }
 \description{
-This method calculates the off-diagonal complexity measure.
+This method calculates the offdiagonal complexity measure.
 }
 \usage{
-offDiagonal(g, deg = NULL)
+offdiagonal(g, deg = NULL)
 }
 \arguments{
   \item{g}{
@@ -18,17 +18,17 @@ empty.
 }
 }
 \details{
-  This method calculates the off-diagonal complexity measure.
+  This method calculates the offdiagonal complexity measure.
 }
 \value{
-  It returns the off-diagonal complexity measure as a double-precision
+  It returns the offdiagonal complexity measure as a double-precision
   floating point value.
 }
 \references{J. Kim and T. Wilhelm. What is a complex graph? Physica A,
   387:2637-2652, 2008
 }
 \author{
-TODO
+Lavanya Sivakumar, Michael Schutte <michi@uiae.at>
 }
 
 \examples{
@@ -36,10 +36,10 @@ library(graph)
 
 g <- randomEGraph(as.character(1:10), 0.6)
 
-offDiagonal(g)
+offdiagonal(g)
 
 # alternatively:
 deg <- graph::degree(g)
-offDiagonal(g, deg)
+offdiagonal(g, deg)
 }
 \keyword{graphs}

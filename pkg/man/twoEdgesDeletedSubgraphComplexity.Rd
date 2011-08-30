@@ -31,7 +31,7 @@ parameter is omitted, the subgraphs will be calculated automatically.
   387:2637-2652, 2008
 }
 \author{
-TODO
+Lavanya Sivakumar, Michael Schutte <michi@uiae.at>
 }
 
 \examples{

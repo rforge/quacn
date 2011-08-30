@@ -17,10 +17,8 @@ edgeDeletedSubgraphs(gs)
   be constructed from the input graph(s) by removing a single edge.  The
   individual graphs are output as adjacency matrices.
 }
-\references{
-}
 \author{
-TODO
+Lavanya Sivakumar, Michael Schutte <michi@uiae.at>
 }
 
 \examples{

@@ -8,7 +8,6 @@ twoEdgesDeletedSubgraphComplexity <- function(g, subgraphs=NULL) {
     subgraphs <- edgeDeletedSubgraphs(edgeDeletedSubgraphs(g))
 
   n <- numNodes(g)
-  m <- numEdges(g)
   count <- length(subgraphs)
 
   data <- lapply(subgraphs, function(M_2e) {

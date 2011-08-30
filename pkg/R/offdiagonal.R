@@ -1,4 +1,4 @@
-offDiagonal <- function(g, deg = NULL) {
+offdiagonal <- function(g, deg = NULL) {
   library("graph")
 
   if (class(g)[1] != "graphNEL")
