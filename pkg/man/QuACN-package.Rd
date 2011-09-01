@@ -2,8 +2,7 @@
 \alias{QuACN-package}
 \alias{QuACN}
 \docType{package}
-\title{
-This package contains topological network descriptors to analyze complex networks.
+\title{QuACN: Quantitative Analysis of Complex Networks
 }
 \description{This package offers a set of topological network measures to analyze complex Networks structurally.}
 
