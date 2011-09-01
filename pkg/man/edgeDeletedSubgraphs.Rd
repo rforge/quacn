@@ -29,4 +29,4 @@ g <- randomEGraph(as.character(1:8), 0.55)
 one.eds <- edgeDeletedSubgraphs(g)
 two.eds <- edgeDeletedSubgraphs(one.eds)
 }
-\keyword{graphs}
+\keyword{ subgraphs }

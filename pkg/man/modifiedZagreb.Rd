@@ -22,7 +22,7 @@ Trinajstic: The Zagreb Indices 30 Years After.  Croatica Chemica Acta,
 76:113-124, 2003
 }
 \author{
-Lavanya Sivakumar, Michael Schutte <michi@uiae.at>
+Lavanya Sivakumar, Michael Schutte
 }
 
 \examples{
@@ -36,4 +36,4 @@ vec.degree <- graph::degree(g)
 
 modifiedZagreb(g, vec.degree)
 }
-\keyword{graphs}
+\keyword{ descriptors }

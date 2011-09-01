@@ -3,8 +3,8 @@ Type: Package
 Title: This package offers a set of topological network measures to analyze complex Networks structurally.
 Version: 1.3.4
 Date: 2010-05-27
-Author: Laurin Mueller
-Maintainer: Laurin Mueller <laurin.mueller@umit.at>
+Author: Laurin Mueller, Michael Schutte, Karl Kugler, Matthias Dehmer
+Maintainer: Laurin Mueller <laurin@eigenlab.net>
 Description: Quantitative Analysis of Complex Networks. This package offers a set of topological network measures to analyze complex Networks structurally.
 License: LGPL
 LazyLoad: yes

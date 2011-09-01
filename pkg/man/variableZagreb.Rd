@@ -20,7 +20,7 @@ variableZagreb(g, deg = NULL)
 \references{TODO
 }
 \author{
-Lavanya Sivakumar, Michael Schutte <michi@uiae.at>
+Lavanya Sivakumar, Michael Schutte
 }
 
 \examples{
@@ -34,4 +34,4 @@ vec.degree <- graph::degree(g)
 
 variableZagreb(g, vec.degree)
 }
-\keyword{graphs}
+\keyword{ descriptors }

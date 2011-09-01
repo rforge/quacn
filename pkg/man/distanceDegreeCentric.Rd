@@ -20,7 +20,7 @@ distanceDegreeCentric(g, dist = NULL)
 \references{R. Todeschini and V. Consonni and R. Mannhold, Handbook of
   Molecular Descriptors, Wiley-VCH, Weinheim, Germany, 2002
 }
-\author{Lavanya Sivakumar, Michael Schutte <michi@uiae.at>
+\author{Lavanya Sivakumar, Michael Schutte
 }
 
 \examples{
@@ -34,4 +34,4 @@ dist <- distanceMatrix(g)
 
 distanceDegreeCentric(g, dist)
 }
-\keyword{graphs}
+\keyword{ descriptors }

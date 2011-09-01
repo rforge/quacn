@@ -18,7 +18,7 @@ laplacianEnergy(g)
   Algebra and its Applications, 414:29-37, 2006.
 }
 \author{
-Lavanya Sivakumar, Michael Schutte <michi@uiae.at>
+Lavanya Sivakumar, Michael Schutte
 }
 
 \examples{
@@ -29,4 +29,4 @@ g <- randomEGraph(as.character(1:8), 0.6)
 
 laplacianEnergy(g)
 }
-\keyword{graphs}
+\keyword{ descriptors }

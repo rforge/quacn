@@ -28,7 +28,7 @@ empty.
   387:2637-2652, 2008
 }
 \author{
-Lavanya Sivakumar, Michael Schutte <michi@uiae.at>
+Lavanya Sivakumar, Michael Schutte
 }
 
 \examples{
@@ -42,4 +42,4 @@ offdiagonal(g)
 deg <- graph::degree(g)
 offdiagonal(g, deg)
 }
-\keyword{graphs}
+\keyword{ descriptors }

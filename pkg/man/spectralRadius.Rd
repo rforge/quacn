@@ -15,7 +15,7 @@ spectralRadius(g)
   double-precision floating point value.
 }
 \author{
-Lavanya Sivakumar, Michael Schutte <michi@uiae.at>
+Lavanya Sivakumar, Michael Schutte
 }
 
 \examples{
@@ -26,4 +26,4 @@ g <- randomEGraph(as.character(1:9), 0.5)
 
 spectralRadius(g)
 }
-\keyword{graphs}
+\keyword{ descriptors }

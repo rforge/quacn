@@ -15,7 +15,7 @@ energy(g)
   floating point value.
 }
 \author{
-Lavanya Sivakumar, Michael Schutte <michi@uiae.at>
+Lavanya Sivakumar, Michael Schutte
 }
 
 \examples{
@@ -26,4 +26,4 @@ g <- randomEGraph(as.character(1:6), 0.35)
 
 energy(g)
 }
-\keyword{graphs}
+\keyword{ descriptors }

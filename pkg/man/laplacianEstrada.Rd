@@ -19,7 +19,7 @@ laplacianEstrada(g)
   CXXXIX, 2009
 }
 \author{
-Lavanya Sivakumar, Michael Schutte <michi@uiae.at>
+Lavanya Sivakumar, Michael Schutte
 }
 
 \examples{
@@ -30,4 +30,4 @@ g <- randomEGraph(as.character(1:8), 0.6)
 
 laplacianEstrada(g)
 }
-\keyword{graphs}
+\keyword{ descriptors }

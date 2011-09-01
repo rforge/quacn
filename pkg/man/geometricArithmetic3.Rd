@@ -20,7 +20,7 @@ geometricArithmetic3(g, dist = NULL)
 \references{B. Zhou and I. Gutman and B. Furtula and Z. Du: On two types of geometric-arithmetic index.  Chemical Physics Letters, 482:153-155, 2009
 }
 \author{
-Lavanya Sivakumar, Michael Schutte <michi@uiae.at>
+Lavanya Sivakumar, Michael Schutte
 }
 
 \examples{
@@ -34,4 +34,4 @@ mat.dist <- distanceMatrix(g)
 
 geometricArithmetic3(g, mat.dist)
 }
-\keyword{graphs}
+\keyword{ descriptors }

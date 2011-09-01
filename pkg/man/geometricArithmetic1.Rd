@@ -20,7 +20,7 @@ geometricArithmetic1(g, deg = NULL)
 \references{B. Zhou and I. Gutman and B. Furtula and Z. Du: On two types of geometric-arithmetic index.  Chemical Physics Letters, 482:153-155, 2009
 }
 \author{
-Lavanya Sivakumar, Michael Schutte <michi@uiae.at>
+Lavanya Sivakumar, Michael Schutte
 }
 
 \examples{
@@ -34,4 +34,4 @@ vec.degree <- graph::degree(g)
 
 geometricArithmetic1(g, vec.degree)
 }
-\keyword{graphs}
+\keyword{ descriptors }

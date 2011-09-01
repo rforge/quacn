@@ -18,7 +18,7 @@ estrada(g)
   Chemical Physics Letters, 319:713-718, 2000
 }
 \author{
-Lavanya Sivakumar, Michael Schutte <michi@uiae.at>
+Lavanya Sivakumar, Michael Schutte
 }
 
 \examples{
@@ -29,4 +29,4 @@ g <- randomEGraph(as.character(1:8), 0.6)
 
 estrada(g)
 }
-\keyword{graphs}
+\keyword{ descriptors }

@@ -21,7 +21,7 @@ augmentedZagreb(g, deg = NULL)
   Index.  Journal of Mathematical Chemistry, 48:370-380, 2010.
 }
 \author{
-Lavanya Sivakumar, Michael Schutte <michi@uiae.at>
+Lavanya Sivakumar, Michael Schutte
 }
 
 \examples{
@@ -35,4 +35,4 @@ vec.degree <- graph::degree(g)
 
 augmentedZagreb(g, vec.degree)
 }
-\keyword{graphs}
+\keyword{ descriptors }

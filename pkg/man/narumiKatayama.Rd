@@ -23,7 +23,7 @@ isomers of saturated hydrocarbons.  Mem. Fac. Engin. Hokkaido Univ.,
 16:209, 1984
 }
 \author{
-Lavanya Sivakumar, Michael Schutte <michi@uiae.at>
+Lavanya Sivakumar, Michael Schutte
 }
 
 \examples{
@@ -37,4 +37,4 @@ vec.degree <- graph::degree(g)
 
 narumiKatayama(g, vec.degree)
 }
-\keyword{graphs}
+\keyword{ descriptors }

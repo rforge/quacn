@@ -31,7 +31,7 @@ subgraphs will be calculated automatically.
   387:2637-2652, 2008
 }
 \author{
-Lavanya Sivakumar, Michael Schutte <michi@uiae.at>
+Lavanya Sivakumar, Michael Schutte
 }
 
 \examples{
@@ -43,4 +43,4 @@ result <- oneEdgeDeletedSubgraphComplexity(g)
 result$C_1eST
 result$C_1eSpec
 }
-\keyword{graphs}
+\keyword{ subgraphs }

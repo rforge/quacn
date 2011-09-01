@@ -28,7 +28,7 @@ left empty.
   387:2637-2652, 2008
 }
 \author{
-Lavanya Sivakumar, Michael Schutte <michi@uiae.at>
+Lavanya Sivakumar, Michael Schutte
 }
 
 \examples{
@@ -42,4 +42,4 @@ efficiency(g)
 dist <- distanceMatrix(g)
 efficiency(g, dist)
 }
-\keyword{graphs}
+\keyword{ descriptors }

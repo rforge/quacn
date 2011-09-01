@@ -24,7 +24,7 @@ a graph as a graphNEL object.
   387:2637-2652, 2008
 }
 \author{
-Lavanya Sivakumar, Michael Schutte <michi@uiae.at>
+Lavanya Sivakumar, Michael Schutte
 }
 
 \examples{
@@ -34,4 +34,4 @@ g <- randomEGraph(as.character(1:10), 0.6)
 
 mediumArticulation(g)
 }
-\keyword{graphs}
+\keyword{ descriptors }

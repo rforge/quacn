@@ -14,7 +14,7 @@
 \usepackage{booktabs}
 
 \title{\texttt{\textbf{QuACN}}: \textbf{Qu}antitative \textbf{A}nalyze of \textbf{C}omplex \textbf{N}etworks}
-\author{Laurin AJ Mueller, Karl G Kugler, Matthias Dehmer}
+\author{Laurin AJ Mueller, Michael Schutte, Karl G Kugler, Matthias Dehmer}
 \begin{document}
 \maketitle
 \tableofcontents
@@ -102,7 +102,7 @@ lcc
 \subsection{Enumerate Edge-Deleted Subgraphs}
 
 Some descriptors require a list of all distinct subgraphs which can be
-generated from a graph by removing a single or two edges.  The
+generated from a graph by removing one or two edges. The
 concerning methods will obtain this information automatically, but for
 efficiency reasons, you might want to pre-calculate and reuse it:
 
@@ -161,24 +161,25 @@ where $|E(G)|:= |E|$ denotes the number of edges of the complex network, $DS_i$ 
 
 \subsubsection*{Mean distance deviation \cite{skorobogatov}:}
 
-\begin{equation}
-\Delta\mu(G):= \frac{1}{N}\sum_{i=1}^{N}|\mu(v_i)- \bar{\mu}|,
-\end{equation}
-%
-where
-%
-\begin{equation}\label{dobrynin_eq1}
-\mu(v_i):= \sum_{j=1}^{N}d(v_i,v_j),
-\end{equation}
-%
-and
-\begin{equation}\label{dobrynin_eq2}
-\bar{\mu}:= \frac{2W}{N}.
-\end{equation}
-<<>>=
-meanDistanceDeviation(g)
-meanDistanceDeviation(g,mat.dist)
-@ 
+See subsection \ref{dobr}.
+% \begin{equation}
+% \Delta\mu(G):= \frac{1}{N}\sum_{i=1}^{N}|\mu(v_i)- \bar{\mu}|,
+% \end{equation}
+% %
+% where
+% %
+% \begin{equation}\label{dobrynin_eq1}
+% \mu(v_i):= \sum_{j=1}^{N}d(v_i,v_j),
+% \end{equation}
+% %
+% and
+% \begin{equation}\label{dobrynin_eq2}
+% \bar{\mu}:= \frac{2W}{N}.
+% \end{equation}
+% <<>>=
+% meanDistanceDeviation(g)
+% meanDistanceDeviation(g,mat.dist)
+% @ 
 
 \subsubsection*{Compactness  \cite{doyle_1977}:}
 \begin{equation}
@@ -212,8 +213,154 @@ hyperDistancePathIndex(g,mat.dist)
 hyperDistancePathIndex(g,mat.dist,wiener(g,mat.dist))
 @ 
 
-\subsubsection*{Skorobogatov and A. A. Dobrynin \cite{skorobogatov}:}
-% TODO
+\subsubsection*{Skorobogatov and Dobrynin \cite{skorobogatov}:}\label{dobr}
+This method calculates several descriptors:
+
+\begin{itemize}
+\item Vertex Eccentricity \cite{skorobogatov}:
+\begin{equation}
+e(v) := max_{u \in V(G)} d(u,v)
+\end{equation}
+
+<<>>=
+dob <- dobrynin(g)
+dob$eccentricityVertex
+@
+
+
+\item Eccentricity of a graph \cite{skorobogatov}:
+\begin{equation}
+e(G) := \sum_{v \in V(G)} e(v)
+\end{equation}
+
+<<>>=
+dob$eccentricityGraph
+@
+
+
+\item Average Vertex Eccentricity of a Graph \cite{skorobogatov}:
+\begin{equation}
+e_{av}(G) := \frac{e(G)}{|V|}
+\end{equation}
+
+<<>>=
+dob$avgeccOfG
+@
+
+
+\item Vertex Eccentric \cite{skorobogatov}:
+\begin{equation}
+\Delta e(v) := |e(v) - e_{av}(G)|
+\end{equation}
+
+<<>>=
+dob$ecentricVertex
+@
+
+
+\item Eccentric of a Graph \cite{skorobogatov}:
+\begin{equation}
+\Delta G := \frac{1}{|V|} \sum_{v \in V(G)} \Delta e(v)
+\end{equation}
+
+<<>>=
+dob$ecentricGraph
+@
+
+
+\item Vertex Centrality \cite{skorobogatov}:
+\begin{equation}
+D(v) := \sum_{v \in V(G)} d(v,u)
+\end{equation}
+
+<<>>=
+dob$vertexCentrality
+@
+
+
+\item Graph Integration \cite{skorobogatov}:
+\begin{equation}
+D(G) := \frac{1}{2} \sum_{v \in V(G)} D(v)
+\end{equation}
+
+<<>>=
+dob$graphIntegration
+@
+
+
+\item Unipolarity \cite{skorobogatov}:
+\begin{equation}
+D^*(G) := min_{u \in V(G)} D(v)
+\end{equation}
+
+<<>>=
+dob$unipolarity
+@
+
+
+\item Distance vertex deviation \cite{skorobogatov}:
+\begin{equation}
+\Delta D^*(v) := D(v) - D^*(G)
+\end{equation}
+
+<<>>=
+dob$vertexDeviation
+@
+
+
+\item Variation of a Graph \cite{skorobogatov}:
+\begin{equation}
+var(g) := max_{u \in V(G)} \Delta D^*(v) 
+\end{equation}
+
+<<>>=
+dob$variation
+@
+
+
+\item Centralization \cite{skorobogatov}:
+\begin{equation}
+\Delta G^* := \sum_{v \in V(G)} \Delta D^*(v) 
+\end{equation}
+
+<<>>=
+dob$centralization
+@
+
+
+\item Average Distance of Graph Vertices \cite{skorobogatov}:
+\begin{equation}
+D_{av}(g) := \frac{2 D(g)}{|V|}
+\end{equation}
+
+<<>>=
+dob$avgDistance
+@
+
+
+\item Distance Vertex Deviation \cite{skorobogatov}:
+\begin{equation}
+\Delta D(v) := |D(v) - D_{av}(G)|
+\end{equation}
+
+<<>>=
+dob$distVertexDeviation
+@
+
+
+\item Mean Distance Deviation \cite{skorobogatov}:
+\begin{equation}
+\Delta D(G):=\frac{1}{|V|} \sum_{v \in V(G)} \Delta D(v)
+\end{equation}
+
+<<>>=
+dob$meanDistVertexDeviation
+@
+
+
+\end{itemize}
+
+
 <<>>=
 dobrynin(g)
 dobrynin(g, mat.dist)
@@ -245,9 +392,9 @@ Z_2(G):= \sum_{(v_i,v_j) \in E} k_{v_i} k_{v_j}.
 \end{equation}
 Modified, augmented and variable Zagreb indices:
 \begin{eqnarray}
-\mathit{MZI} &:=& \sum_{(v_i, v_j) \in E} \frac{1}{k_{v_i} k_{v_j}} \\
-\mathit{AZI} &:=& \sum_{(v_i, v_j) \in E} \left( \frac{k_{v_i} k_{v_j}}{k_{v_i} + k_{v_j} - 2} \right)^3\\
-\mathit{VZI} &:=& \sum_{(v_i, v_j) \in E} \frac{k_{v_i} + k_{v_j} - 2}{k_{v_i} k_{v_j}}
+\mathit{MZI(G)} &:=& \sum_{(v_i, v_j) \in E} \frac{1}{k_{v_i} k_{v_j}} \\
+\mathit{AZI(G)} &:=& \sum_{(v_i, v_j) \in E} \left( \frac{k_{v_i} k_{v_j}}{k_{v_i} + k_{v_j} - 2} \right)^3\\
+\mathit{VZI(G)} &:=& \sum_{(v_i, v_j) \in E} \frac{k_{v_i} + k_{v_j} - 2}{k_{v_i} k_{v_j}}
 \end{eqnarray}
 <<>>=
 zagreb1(g)
@@ -293,7 +440,7 @@ normalizedEdgeComplexity(g,totalAdjacency(g,mat.adj))
 
 \subsubsection*{Atom-bond connectivity \cite{estrada_1998}:}
 \begin{equation}
-\mathit{ABC} := \sum_{(v_i, v_j) \in E} \sqrt{\frac{k_{v_i} + k_{v_j} - 2}{k_{v_i} k_{v_j}}}
+\mathit{ABC(G)} := \sum_{(v_i, v_j) \in E} \sqrt{\frac{k_{v_i} + k_{v_j} - 2}{k_{v_i} k_{v_j}}}
 \end{equation}
 <<>>=
 atomBondConnectivity(g)
@@ -302,9 +449,9 @@ atomBondConnectivity(g, vec.degree)
 
 \subsubsection*{Geometric-arithmetic indices \cite{zhou_2009}:}
 \begin{eqnarray}
-\mathit{GA1} &:=& \sum_{(v_i, v_j) \in E} \frac{\sqrt{k_{v_i} k_{v_j}}}{\frac{1}{2} (k_{v_i} + k_{v_j})} \\
-\mathit{GA2} &:=& \sum_{(v_i, v_j) \in E} \frac{\sqrt{n_i n_j}}{\frac{1}{2} (n_i + n_j)} \\
-\mathit{GA3} &:=& \sum_{(v_i, v_j) \in E} \frac{\sqrt{m_i m_j}}{\frac{1}{2} (m_i + m_j)}
+\mathit{GA1(G)} &:=& \sum_{(v_i, v_j) \in E} \frac{\sqrt{k_{v_i} k_{v_j}}}{\frac{1}{2} (k_{v_i} + k_{v_j})} \\
+\mathit{GA2(G)} &:=& \sum_{(v_i, v_j) \in E} \frac{\sqrt{n_i n_j}}{\frac{1}{2} (n_i + n_j)} \\
+\mathit{GA3(G)} &:=& \sum_{(v_i, v_j) \in E} \frac{\sqrt{m_i m_j}}{\frac{1}{2} (m_i + m_j)}
 \end{eqnarray}
 where \(n_i := |\{x \in N : d(x, v_i) < d(x, v_j)\}|\) and \(n_j := |\{x \in N : d(x, v_j) < d(x, v_i)\}|\);
 \(m_i := |\{f \in E : d(f, v_i) < d(f, v_j)\}|\) and \(m_j := |\{f \in V : d(f, v_j) < d(f, v_i)\}|\).
@@ -438,7 +585,7 @@ graphVertexComplexity(g,mat.dist)
 
 \subsubsection*{Offdiagonal complexity \cite{kim_wilhelm_2008}:}
 \begin{equation}
-\mathit{OdC} := - \frac{1}{log(|N|-1)}
+\mathit{OdC(G)} := - \frac{1}{log(|N|-1)}
   \sum_{n=0}^{k_{\mathrm{max}}-1} \tilde{a}_n \log \tilde{a}_n
 \end{equation}
 with \(\tilde{a}_n = \frac{a_n}{\sum_{m=0}^{k_{\mathrm{max}}-1} a_m}\)
@@ -453,7 +600,7 @@ offdiagonal(g, vec.degree)
 
 \subsubsection*{Spanning tree sensitivity \cite{kim_wilhelm_2008}:}
 \begin{equation}
-\mathit{STS} := \frac{-\sum_l a_l \log a_l}{\log m_{\mathit{cu}}}
+\mathit{STS(G)} := \frac{-\sum_l a_l \log a_l}{\log m_{\mathit{cu}}}
 \end{equation}
 with \(m_{\mathit{cu}} = n^{1.68}-10\), \(a_l = \frac{S_{ij}^l}{\sum_r^k
 S_{ij}^r}\), \(S_{ij} = s_{ij}
@@ -464,7 +611,7 @@ of spanning trees of the subgraph with the edge \(\{v_i, v_j\}\)
 deleted.  Analogously, the spanning tree sensitivity differences measure
 is defined as
 \begin{equation}
-\mathit{STSD} := \frac{-\sum_l b_l \log b_l}{\log m_{\mathit{cu}}}
+\mathit{STSD(G)} := \frac{-\sum_l b_l \log b_l}{\log m_{\mathit{cu}}}
 \end{equation}
 with \(b_l = \frac{\mathit{Ld}_l}{\sum_r^d \mathit{Ld}_r}\), where
 \(\{\mathit{Ld}_1, \mathit{Ld}_2, \ldots, \mathit{Ld}_d\}\) is the
@@ -474,10 +621,10 @@ spanningTreeSensitivity(g)
 spanningTreeSensitivity(g, sg.1ed)
 @
 
-\subsubsection*{Distance degree/code centric indices \cite{todeschini_2002}:}
+\subsubsection*{Distance degree/code centric indices \cite{dehmer_match_dist}:}
 \begin{eqnarray}
-I_{\mathrm{C,deg}} &:=& -\sum_{i=1}^D \frac{d_i}{|N|} \log_2 \frac{d_i}{|N|} \\
-I_{\mathrm{C,code}} &:=& -\sum_{i=1}^C \frac{c_i}{|N|} \log_2 \frac{c_i}{|N|}
+I_{\mathrm{C,deg}}(G) &:=& -\sum_{i=1}^D \frac{d_i}{|N|} \log_2 \frac{d_i}{|N|} \\
+I_{\mathrm{C,code}}(G) &:=& -\sum_{i=1}^C \frac{c_i}{|N|} \log_2 \frac{c_i}{|N|}
 \end{eqnarray}
 where \(d_i\) is the number of vertices with the same eccentricity and
 the same vertex distance degree (i.\,e., equal row sums in the distance
@@ -580,7 +727,6 @@ It has following input parameters:
 \item \textit{custCoeff}: specifies the customized weighting schema. To use it you need to set \textit{coeff}="const".
 \end{itemize}
 
-Note that some combinations of these settings can cause the descriptor to return \textit{NaN}. In that case you have to check for \textit{warnings}.
 
 The method returns a list with following entries:
 \begin{itemize}
@@ -590,6 +736,7 @@ The method returns a list with following entries:
 \item \textit{fvi}: contains the values of the used information functional for each vertex $v_i$
 \end{itemize}
 
+Note, that some combinations of these settings can cause the descriptor to return \textit{NaN}. In that case you have to check for \textit{warnings}. Moreover, the functional using degree degree (\textit{infofunct=degree}) associations is using the \texttt{Rmpfr} package to calcualte very small numbers. Thus, it can happen that some results are from the R-class \textit{mpfr}. This has to be considered fors further analysis.
 
 <<>>=
 l1 <- infoTheoreticGCM(g)
@@ -603,26 +750,26 @@ l5
 
 \subsection{Eigenvalue-based Descriptors}
 
-This class contains Eigenvalue-based Descriptors proposed in Dehmer et. al \cite{dehmer_degree_2010}. 
+This class contains Eigenvalue-based Descriptors proposed in Dehmer et. al \cite{dehmer_hindawi_2010}. 
 
 \begin{equation}
-H_{M_s(G)}=\sum_{i=1}^k \frac{|\lambda_i|^{\frac{1}{s}}}{\sum_{j=1}^k |\lambda_j|^{\frac{1}{s}}} \log \left( \frac{|\lambda_i|^{\frac{1}{s}}}{\sum_{j=1}^k |\lambda_j|^{\frac{1}{s}}} \right),
+H_{M_s}(G)=\sum_{i=1}^k \frac{|\lambda_i|^{\frac{1}{s}}}{\sum_{j=1}^k |\lambda_j|^{\frac{1}{s}}} \log \left( \frac{|\lambda_i|^{\frac{1}{s}}}{\sum_{j=1}^k |\lambda_j|^{\frac{1}{s}}} \right),
 \end{equation}
 
 \begin{equation}
-S_{M_s(G)}= |\lambda_1|^{\frac{1}{s}} + |\lambda_2|^{\frac{1}{s}} + \ldots + |\lambda_k|^{\frac{1}{s}},
+S_{M_s}(G)= |\lambda_1|^{\frac{1}{s}} + |\lambda_2|^{\frac{1}{s}} + \ldots + |\lambda_k|^{\frac{1}{s}},
 \end{equation}
 
 \begin{equation}
-IS_{M_s(G)}= \frac{1}{|\lambda_1|^{\frac{1}{s}} + |\lambda_2|^{\frac{1}{s}} + \ldots + |\lambda_k|^{\frac{1}{s}}},
+IS_{M_s}(G)= \frac{1}{|\lambda_1|^{\frac{1}{s}} + |\lambda_2|^{\frac{1}{s}} + \ldots + |\lambda_k|^{\frac{1}{s}}},
 \end{equation}
 
 \begin{equation}
-P_{M_s(G)}=|\lambda_1|^{\frac{1}{s}} \cdot |\lambda_2|^{\frac{1}{s}}  \ldots  |\lambda_k|^{\frac{1}{s}},
+P_{M_s}(G)=|\lambda_1|^{\frac{1}{s}} \cdot |\lambda_2|^{\frac{1}{s}}  \ldots  |\lambda_k|^{\frac{1}{s}},
 \end{equation}
 
 \begin{equation}
-IP_{M_s(G)}= \frac{1}{|\lambda_1|^{\frac{1}{s}} \cdot |\lambda_2|^{\frac{1}{s}}  \ldots  |\lambda_k|^{\frac{1}{s}}},
+IP_{M_s}(G)= \frac{1}{|\lambda_1|^{\frac{1}{s}} \cdot |\lambda_2|^{\frac{1}{s}}  \ldots  |\lambda_k|^{\frac{1}{s}}},
 \end{equation}
 
 With this function it is possible to calculate 5 descriptors ($H_{M_s(G)}$, $S_{M_s(G)}$ , $IS_{M_s(G)}$, $P_{M_s(G)}$, $IP_{M_s(G)}$) for 10 different matrices:
@@ -670,12 +817,12 @@ eigenvalueBased(g,weightStrucFuncMatrix_exp,2)
 @
 \end{enumerate}
 
-For a detailed description of this class see Dehmer et. al \cite{dehmer_degree_2010}.
+For a detailed description of this class see Dehmer et. al \cite{dehmer_hindawi_2010}.
 
 \subsubsection*{Graph energy and Laplacian energy \cite{gutman_zhou_2006}:}
 \begin{eqnarray}
-E &:=& \sum_{i=1}^{|N|} |\lambda_i| \\
-\mathit{LE} &:=& \sum_{i=1}^{|N|} \left| \mu_i - \frac{2m}{n} \right|
+E(G) &:=& \sum_{i=1}^{|N|} |\lambda_i| \\
+\mathit{LE(G)} &:=& \sum_{i=1}^{|N|} \left| \mu_i - \frac{2m}{n} \right|
 \end{eqnarray}
 where \(\lambda_k\) are the eigenvalues of the adjacency matrix and \(\mu_k\) those of the Laplacian matrix of the graph.
 <<>>=
@@ -685,8 +832,8 @@ laplacianEnergy(g)
 
 \subsubsection*{Estrada \cite{estrada_2000} and Laplacian Estrada \cite{fath-tabar_2009} indices:}
 \begin{eqnarray}
-\mathit{EE} &:=& \sum_{i=1}^{|N|} e^{\lambda_i} \\
-\mathit{LEE} &:=& \sum_{i=1}^{|N|} e^{\mu_i}
+\mathit{EE(G)} &:=& \sum_{i=1}^{|N|} e^{\lambda_i} \\
+\mathit{LEE(G)} &:=& \sum_{i=1}^{|N|} e^{\mu_i}
 \end{eqnarray}
 with \(\lambda_k\) and \(\mu_k\) defined as above.
 <<>>=
@@ -696,7 +843,7 @@ laplacianEstrada(g)
 
 \subsubsection*{Spectral radius:}
 \begin{equation}
-\mathit{SpRad} := \max_i \left\{|\lambda_i|\right\}
+\mathit{SpRad(G)} := \max_i \left\{|\lambda_i|\right\}
 \end{equation}
 <<>>=
 spectralRadius(g)
@@ -706,8 +853,8 @@ spectralRadius(g)
 
 \subsubsection*{One-edge-deleted subgraph complexity \cite{kim_wilhelm_2008}:}
 \begin{eqnarray}
-C_{\mathit{1e,ST}} &:=& \frac{N_{\mathit{1e,ST}} - 1}{m_{\mathit{cu}}-1} \\
-C_{\mathit{1e,Spec}} &:=& \frac{N_{\mathit{1e,Spec}} - 1}{m_{\mathit{cu}} - 1}
+C_{\mathit{1e,ST}}(G) &:=& \frac{N_{\mathit{1e,ST}} - 1}{m_{\mathit{cu}}-1} \\
+C_{\mathit{1e,Spec}}(G) &:=& \frac{N_{\mathit{1e,Spec}} - 1}{m_{\mathit{cu}} - 1}
 \end{eqnarray}
 \(N_{\mathit{1e,ST}}\) is the number of one-edge-deleted subgraphs which
 are different with regard to the number of spanning trees.  Similarly,
@@ -721,7 +868,7 @@ oneEdgeDeletedSubgraphComplexity(g, sg.1ed)
 
 \subsubsection*{Two-edges-deleted subgraph complexity \cite{kim_wilhelm_2008}:}
 \begin{equation}
-C_{\mathit{2e,Spec}} := \frac{N_{\mathit{2e,Spec}} - 1}
+C_{\mathit{2e,Spec}}(G) := \frac{N_{\mathit{2e,Spec}} - 1}
   {\binom{m_{\mathit{cu}}}{2} - 1}
 \end{equation}
 where \(m_{\mathit{cu}}\) is defined like above and
@@ -733,29 +880,52 @@ twoEdgesDeletedSubgraphComplexity(g)
 twoEdgesDeletedSubgraphComplexity(g, sg.2ed)
 @
 
+\subsubsection*{Local Clustering Coefficient \cite{watts2003small, watts1998collective}:}
+Let $G_{N(v)} = (V_{N(v)}, E_{N(v)})$ be the subgraph of $G$ that contains all neighborhood vertices and their edges. Then the local clustering coefficient of a graph $G$ is defined by
+\begin{equation}
+C_v(G):= \frac{E_{N(v)}}{\frac{V_{N(v)}*(V_{N(v)}-1)}{2}}.
+\end{equation}
+
+<<>>=
+localClusteringCoeff(g)
+localClusteringCoeff(g,deg=vec.degree)
+@
+
+\subsubsection*{Global Clustering Coefficient \cite{watts2003small, watts1998collective}:}
+\begin{equation}
+C(G):= \sum_{v \in V} := \frac{1}{|V|}*C_v
+\end{equation}
+
+<<>>=
+loccc <- localClusteringCoeff(g)
+globalClusteringCoeff(g)
+globalClusteringCoeff(g, loc=loccc)
+@
+
+
 \subsection{Product measures}
 
 \subsubsection*{Medium articulation \cite{kim_wilhelm_2008}:}
 \begin{equation}
-\mathit{MAg} := \mathit{MA}_R \cdot \mathit{MA}_I
+\mathit{MAg}(G) := \mathit{MA}_R(G) \cdot \mathit{MA}_I(G)
 \end{equation}
 with the redundancy
 \begin{eqnarray}
-\mathit{MA}_R &:=&
-  4 \left( \frac{R - R_{\mathrm{path}}}{R_{\mathrm{clique}} - R_{\mathrm{path}}} \right)
-  \left( 1 - \frac{R - R_{\mathrm{path}}}{R_{\mathrm{clique}} - R_{\mathrm{path}}} \right) \\
-R &:=& \frac{1}{m} \sum_{i,j>i} \log(d_i d_j) \\
-R_{\mathrm{clique}} &=& 2 \log(|N|-1) \\
-R_{\mathrm{path}} &=& 2 \frac{|N|-2}{|N|-1} \log 2
+\mathit{MA}_R(G) &:=&
+  4 \left( \frac{R(G) - R_{\mathrm{path}}(G)} {R_{\mathrm{clique}}(G) - R_{\mathrm{path}}(G)} \right)
+  \left( 1 - \frac{R(G) - R_{\mathrm{path}}(G)}{R_{\mathrm{clique}}(G) - R_{\mathrm{path}}(G)} \right) \\
+R(G) &:=& \frac{1}{m} \sum_{i,j>i} \log(d_i d_j) \\
+R_{\mathrm{clique}}(G) &=& 2 \log(|N|-1) \\
+R_{\mathrm{path}}(G) &=& 2 \frac{|N|-2}{|N|-1} \log 2
 \end{eqnarray}
 and the mutual information
 \begin{eqnarray}
-\mathit{MA}_I &:=&
-  4 \left( \frac{I - I_{\mathrm{clique}}}{I_{\mathrm{path}} - I_{\mathrm{clique}}} \right)
-  \left( 1 - \frac{I - I_{\mathrm{clique}}}{I_{\mathrm{path}} - I_{\mathrm{clique}}} \right) \\
-I &:=& \frac{1}{m} \sum_{i,j>i} \log \left(\frac{2m}{d_i d_j}\right) \\
-I_{\mathrm{clique}} &=& \log \frac{|N|}{|N|-1} \\
-I_{\mathrm{path}} &=& \log(|N|-1) - \frac{|N|-3}{|N|-1} \log 2
+\mathit{MA}_I(G) &:=&
+  4 \left( \frac{I(G) - I_{\mathrm{clique}}(G)}{I_{\mathrm{path}}(G) - I_{\mathrm{clique}}(G)} \right)
+  \left( 1 - \frac{I(G) - I_{\mathrm{clique}}(G)}{I_{\mathrm{path}}(G) - I_{\mathrm{clique}}(G)} \right) \\
+I(G) &:=& \frac{1}{m} \sum_{i,j>i} \log \left(\frac{2m}{d_i d_j}\right) \\
+I_{\mathrm{clique}}(G) &=& \log \frac{|N|}{|N|-1} \\
+I_{\mathrm{path}}(G) &=& \log(|N|-1) - \frac{|N|-3}{|N|-1} \log 2
 \end{eqnarray}
 <<>>=
 mediumArticulation(g)
@@ -763,11 +933,11 @@ mediumArticulation(g)
 
 \subsubsection*{Efficiency complexity \cite{kim_wilhelm_2008}:}
 \begin{eqnarray}
-\mathrm{Ce} &:=&
-  4 \left(\frac{E - E_{\mathrm{path}}}{1 - E_{\mathrm{path}}}\right)
-  \left(1 - \frac{E - E_{\mathrm{path}}}{1 - E_{\mathrm{path}}}\right) \\
-E &:=& \frac{2}{|N| (|N|-1)} \sum_i \sum_{j>i} \frac{1}{d_{ij}} \\
-E_{\mathrm{path}} &=& \frac{2}{|N| (|N|-1)} \sum_{i=1}{|N|-1} \frac{|N| - i}{i}
+\mathrm{Ce(G)} &:=&
+  4 \left(\frac{E(G) - E_{\mathrm{path}}(G)}{1 - E_{\mathrm{path}}(G)}\right)
+  \left(1 - \frac{E(G) - E_{\mathrm{path}}(G)}{1 - E_{\mathrm{path}}(G)}\right) \\
+E(G) &:=& \frac{2}{|N| (|N|-1)} \sum_i \sum_{j>i} \frac{1}{d_{ij}} \\
+E_{\mathrm{path}}(G) &=& \frac{2}{|N| (|N|-1)} \sum_{i=1}{|N|-1} \frac{|N| - i}{i}
 \end{eqnarray}
 <<>>=
 efficiency(g)
@@ -776,7 +946,7 @@ efficiency(g, mat.dist)
 
 \subsubsection*{Graph index complexity \cite{kim_wilhelm_2008}:}
 \begin{equation}
-\mathit{Cr} = 4 c_r (1 - c_r)
+\mathit{Cr}(G) = 4 c_r (1 - c_r)
 \end{equation}
 where \(c_r = \frac{r - 2 \cos \frac{\pi}{|N| + 1}}{|N| - 1 - 2 \cos
 \frac{\pi}{|N| + 1}}\) and \(r\) is the largest eigenvalue of the

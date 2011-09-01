@@ -41,4 +41,4 @@ g <- randomEGraph(as.character(1:12), 0.5)
 
 twoEdgesDeletedSubgraphComplexity(g)
 }
-\keyword{graphs}
+\keyword{ descriptors }

@@ -66,7 +66,7 @@ Information Measures in Mathematical Chemistry. In: Putz M. (Editor): Quantum Fr
 Chemistry, and Biology,  Nova Science Publishers, to appear, 2010
 
 }
-\author{Laurin Mueller <laurin@eigenlab.net>
+\author{Laurin Mueller
 }
 
 \examples{
@@ -82,4 +82,4 @@ infoTheoreticGCM(g,mat.dist,coeff="const",infofunct="pathlength",lambda=4000)
 infoTheoreticGCM(g,mat.dist,coeff="quad",infofunct="vertcent",lambda=1000)
 infoTheoreticGCM(g,mat.dist,coeff="exp",infofunct="degree",lambda=1000)
 }
-\keyword{graphs}
+\keyword{ descriptors }

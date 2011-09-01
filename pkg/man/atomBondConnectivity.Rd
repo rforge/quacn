@@ -22,7 +22,7 @@ atomBondConnectivity(g, deg = NULL)
   alkanes. Indian Journal of Chemistry 37A, 1998, 849-855.
 }
 \author{
-Lavanya Sivakumar, Michael Schutte <michi@uiae.at>
+Lavanya Sivakumar, Michael Schutte
 }
 
 \examples{
@@ -36,4 +36,4 @@ vec.degree <- graph::degree(g)
 
 atomBondConnectivity(g, vec.degree)
 }
-\keyword{graphs}
+\keyword{ descriptors }
