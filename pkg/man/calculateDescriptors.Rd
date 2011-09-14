@@ -73,26 +73,26 @@ calculateDescriptors(graphs, ..., labels = FALSE)
     4007 \tab infoTheoreticGCM: degree, exp \cr
     4008 \tab infoTheoreticGCM: degree, lin \cr
     5000 \tab --- all of 5xxx \cr
-    5001 \tab adjacencyMatrix: s=1 \cr
-    5002 \tab adjacencyMatrix: s=2 \cr
-    5003 \tab laplaceMatrix: s=1 \cr
-    5004 \tab laplaceMatrix: s=2 \cr
-    5005 \tab distanceMatrix: s=1 \cr
-    5006 \tab distanceMatrix: s=2 \cr
-    5007 \tab distancePathMatrix: s=1 \cr
-    5008 \tab distancePathMatrix: s=2 \cr
-    5009 \tab augmentedMatrix: s=1 \cr
-    5010 \tab augmentedMatrix: s=2 \cr
-    5011 \tab extendedAdjacencyMatrix: s=1 \cr
-    5012 \tab extendedAdjacencyMatrix: s=2 \cr
-    5013 \tab vertConnectMatrix: s=1 \cr
-    5014 \tab vertConnectMatrix: s=2 \cr
-    5015 \tab randomWalkMatrix: s=1 \cr
-    5016 \tab randomWalkMatrix: s=2 \cr
-    5017 \tab weightStrucFuncMatrix_lin: s=1 \cr
-    5018 \tab weightStrucFuncMatrix_lin: s=2 \cr
-    5019 \tab weightStrucFuncMatrix_exp: s=1 \cr
-    5020 \tab weightStrucFuncMatrix_exp: s=2 \cr
+    5001 \tab eigenvalueBased: adjacencyMatrix, s=1 \cr
+    5002 \tab eigenvalueBased: adjacencyMatrix, s=2 \cr
+    5003 \tab eigenvalueBased: laplaceMatrix, s=1 \cr
+    5004 \tab eigenvalueBased: laplaceMatrix, s=2 \cr
+    5005 \tab eigenvalueBased: distanceMatrix, s=1 \cr
+    5006 \tab eigenvalueBased: distanceMatrix, s=2 \cr
+    5007 \tab eigenvalueBased: distancePathMatrix, s=1 \cr
+    5008 \tab eigenvalueBased: distancePathMatrix, s=2 \cr
+    5009 \tab eigenvalueBased: augmentedMatrix, s=1 \cr
+    5010 \tab eigenvalueBased: augmentedMatrix, s=2 \cr
+    5011 \tab eigenvalueBased: extendedAdjacencyMatrix, s=1 \cr
+    5012 \tab eigenvalueBased: extendedAdjacencyMatrix, s=2 \cr
+    5013 \tab eigenvalueBased: vertConnectMatrix, s=1 \cr
+    5014 \tab eigenvalueBased: vertConnectMatrix, s=2 \cr
+    5015 \tab eigenvalueBased: randomWalkMatrix, s=1 \cr
+    5016 \tab eigenvalueBased: randomWalkMatrix, s=2 \cr
+    5017 \tab eigenvalueBased: weightStrucFuncMatrix_lin, s=1 \cr
+    5018 \tab eigenvalueBased: weightStrucFuncMatrix_lin, s=2 \cr
+    5019 \tab eigenvalueBased: weightStrucFuncMatrix_exp, s=1 \cr
+    5020 \tab eigenvalueBased: weightStrucFuncMatrix_exp, s=2 \cr
     5021 \tab energy \cr
     5022 \tab laplacianEnergy \cr
     5023 \tab estrada \cr
