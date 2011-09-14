@@ -77,7 +77,7 @@ To create a \textit{graphNEL} object from an adjacency matrix $A$, just type fol
 
 <<label=randGraph,include=FALSE>>=
 A
-g <- as(A,"graphNEL")
+g <- as(A, "graphNEL")
 g
 @
 
@@ -94,7 +94,7 @@ If you have already created networks that you want to analyze with \texttt{QuACN
 \subsection{Extract the Largest Connected Subgraph}
 Many of the topological network descriptors that are implemented in \texttt{QuACN} only work on connected graphs. Often this is not the case with biological networks, so that the largest connected component (LCC) has to be extracted first. For extracting the LCC we provide the method \texttt{getLargestSubgraph(g)}, as shown in \cite{Hahne2008}:
 <<>>=
-g2 <- randomGraph(paste("A",1:100, sep=""), 1:4, p=0.03)
+g2 <- randomGraph(paste("A", 1:100, sep=""), 1:4, p=0.03)
 lcc <- getLargestSubgraph(g2)
 lcc
 @
@@ -125,7 +125,7 @@ mat.adj <- adjacencyMatrix(g)
 mat.dist <- distanceMatrix(g)
 vec.degree <- graph::degree(g)
 ska.dia <- diameter(g)
-ska.dia <- diameter(g,mat.dist)
+ska.dia <- diameter(g, mat.dist)
 @ 
 \subsection{Descriptors Based on Distances in a Graph} \label{sec:dist}
 This section describes network measures based on distances in the network.
@@ -138,7 +138,7 @@ $d(v_i,v_j)$ stands for shortest distances between $v_i,v_j \in V$.
 
 <<>>=
 wien <- wiener(g)
-wiener(g,mat.dist)
+wiener(g, mat.dist)
 @ 
 
 \subsubsection*{Hararay Index \cite{balaban_ivanciuc_2000}:}
@@ -147,7 +147,7 @@ H(G):= \frac{1}{2} \sum_{i=1}^{|N|}\sum_{j=1}^{|N|}(d(v_i,v_j))^{-1}, \quad i \n
 \end{equation}
 <<>>=
 harary(g)
-harary(g,mat.dist)
+harary(g, mat.dist)
 @ 
 \subsubsection*{Balaban J Index \cite{balaban_1982}:}
 \begin{equation}
@@ -155,7 +155,7 @@ J(G):= \frac{|E|}{\mu + 1} \sum_{(v_i,v_j) \in E} [DS{_i}DS{_j}]^{- \frac{1}{2}}
 \end{equation}
 <<>>=
 balabanJ(g)
-balabanJ(g,mat.dist)
+balabanJ(g, mat.dist)
 @ 
 where $|E(G)|:= |E|$ denotes the number of edges of the complex network, $DS_i$ denotes the distance sum (row sum) of $v_i$ and $\mu := |E| + 1 - |N|$ denotes the cyclomatic number.
 
@@ -187,8 +187,8 @@ C(G):= \frac{4W}{|N|(|N|-1)}.
 \end{equation}
 <<>>=
 compactness(g)
-compactness(g,mat.dist)
-compactness(g,mat.dist,wiener(g,mat.dist))
+compactness(g, mat.dist)
+compactness(g, mat.dist, wiener(g, mat.dist))
 @ 
 \subsubsection*{Product of Row Sums index \cite{schultz_1992}:}
 \begin{equation}
@@ -197,10 +197,10 @@ compactness(g,mat.dist,wiener(g,mat.dist))
 
 
 <<>>=
-productOfRowSums(g,log=FALSE)
-productOfRowSums(g,log=TRUE)
-productOfRowSums(g,mat.dist,log=FALSE)
-productOfRowSums(g,mat.dist,log=TRUE)
+productOfRowSums(g, log=FALSE)
+productOfRowSums(g, log=TRUE)
+productOfRowSums(g, mat.dist, log=FALSE)
+productOfRowSums(g, mat.dist, log=TRUE)
 @ 
 \subsubsection*{Hyper-distance-path index \cite{todeschini_2002}}
 \begin{equation}
@@ -209,14 +209,14 @@ D_P(G):= \frac{1}{2} \sum_{i=1}^{|N|} \sum_{j=1}^{|N|} d(v_i,v_j) +  \frac{1}{2}
 
 <<>>=
 hyperDistancePathIndex(g)
-hyperDistancePathIndex(g,mat.dist)
-hyperDistancePathIndex(g,mat.dist,wiener(g,mat.dist))
+hyperDistancePathIndex(g, mat.dist)
+hyperDistancePathIndex(g, mat.dist, wiener(g, mat.dist))
 @ 
 
 \subsubsection*{Skorobogatov and Dobrynin \cite{skorobogatov}:}\label{dobr}
 This method calculates several descriptors:
 
-\begin{itemize}
+\begin{enumerate}
 \item Vertex Eccentricity \cite{skorobogatov}:
 \begin{equation}
 e(v) := max_{u \in V(G)} d(u,v)
@@ -224,6 +224,7 @@ e(v) := max_{u \in V(G)} d(u,v)
 
 <<>>=
 dob <- dobrynin(g)
+dob <- dobrynin(g, mat.dist)
 dob$eccentricityVertex
 @
 
@@ -358,14 +359,7 @@ dob$meanDistVertexDeviation
 @
 
 
-\end{itemize}
-
-
-<<>>=
-dobrynin(g)
-dobrynin(g, mat.dist)
-@
-
+\end{enumerate}
 
 
 \subsection{Descriptors Based on Other Graph-Invariants}
@@ -379,7 +373,7 @@ A(G):= \frac{1}{2} \sum_{i=1}^{|N|}\sum_{j=1}^{|N|}a_{ij}.
 \end{equation}
 <<>>=
 totalAdjacency(g)
-totalAdjacency(g,mat.adj)
+totalAdjacency(g, mat.adj)
 @ 
 
 \subsubsection*{Zagreb group indices \cite{diudea}, \cite{nikolic_2003}:}
@@ -398,9 +392,9 @@ Modified, augmented and variable Zagreb indices:
 \end{eqnarray}
 <<>>=
 zagreb1(g)
-zagreb1(g,vec.degree)
+zagreb1(g, vec.degree)
 zagreb2(g)
-zagreb2(g,vec.degree)
+zagreb2(g, vec.degree)
 modifiedZagreb(g)
 modifiedZagreb(g, vec.degree)
 augmentedZagreb(g)
@@ -415,7 +409,7 @@ R(G):= \sum_{(v_i,v_j) \in E} [k_{v_i} k_{v_j}]^{- \frac{1}{2}}.
 \end{equation}
 <<>>=
 randic(g)
-randic(g,vec.degree)
+randic(g, vec.degree)
 @ 
 
 \subsubsection*{The complexity index B \cite{bonchev_book_2005}:}
@@ -426,8 +420,8 @@ B(G):= \sum_{i=1}^{|N|} \frac{k_{v_i}}{\mu(v_i)}.
 
 <<>>=
 complexityIndexB(g)
-complexityIndexB(g,mat.dist)
-complexityIndexB(g,mat.dist,vec.degree)
+complexityIndexB(g, mat.dist)
+complexityIndexB(g, mat.dist, vec.degree)
 @ 
 \subsubsection*{Normalized edge complexity \cite{bonchev_book_2005}:}
 \begin{equation}
@@ -435,7 +429,7 @@ E_N(G):=\frac{A(G)}{|N|^2}.
 \end{equation}
 <<>>=
 normalizedEdgeComplexity(g)
-normalizedEdgeComplexity(g,totalAdjacency(g,mat.adj))
+normalizedEdgeComplexity(g, totalAdjacency(g, mat.adj))
 @ 
 
 \subsubsection*{Atom-bond connectivity \cite{estrada_1998}:}
@@ -488,8 +482,8 @@ I^V_{orb}(G) := -  \sum_{i=1}^{k} \frac{|N^V_i|}{|N|} \log \left( \frac{|N^V_i|}
 $|N^V_i|$ denotes the number of vertices belonging to the $i$-th vertex orbit.
 <<>>=
 topologicalInfoContent(g)
-topologicalInfoContent(g,mat.dist)
-topologicalInfoContent(g,mat.dist,vec.degree)
+topologicalInfoContent(g, mat.dist)
+topologicalInfoContent(g, mat.dist, vec.degree)
 @ 
 
 \subsubsection*{Bonchev - Trinajsti\'{c} indices \cite{bonchev_Trinajstic_1977}:}
@@ -504,11 +498,11 @@ $k_i$ is the occurrence of a distance possessing value $i$ in the distance matri
 <<keep.source=TRUE>>=
 #I_D(G)
 bonchev1(g)
-bonchev1(g,mat.dist)
+bonchev1(g, mat.dist)
 #I^W_D(G)
 bonchev2(g)
-bonchev2(g,mat.dist)
-bonchev2(g,mat.dist,wiener(g))
+bonchev2(g, mat.dist)
+bonchev2(g, mat.dist, wiener(g))
 @
 \subsubsection*{BERTZ complexity index \cite{bertz_1981}:}
 \begin{equation}\label{eq_total_information_bertz}
@@ -519,8 +513,8 @@ $|N_i|$ are the cardinalities of the vertex orbits as defined in Eqn.~(\ref{eq_m
 
 <<>>=
 bertz(g)
-bertz(g,mat.dist)
-bertz(g,mat.dist,vec.degree)
+bertz(g, mat.dist)
+bertz(g, mat.dist, vec.degree)
 @ 
 \subsubsection*{Radial centric information index \cite{bonchev_2}:}
 \begin{equation}\label{radial_index}
@@ -530,7 +524,7 @@ I_{C,R}(G) := \sum_{i=1}^{k} \frac{|N^e_i|}{|N|} \log \left( \frac{|N^e_i|}{|N|}
 $|N^e_i|$ is the number of vertices having the same eccentricity.
 <<>>=
 radialCentric(g)
-radialCentric(g,mat.dist)
+radialCentric(g, mat.dist)
 @ 
 \subsubsection*{Vertex degree equality-based information index \cite{bonchev_2}:}
 \begin{equation}
@@ -540,7 +534,7 @@ I_{deg}(G) := \sum_{i=1}^{\bar{k}} \frac{|N^{k_v}_i|}{|N|} \log \left( \frac{|N^
 $|N^{k_v}_i|$ is the number of vertices with degree equal to $i$ and $\bar{k}:= \max_{v\in V}k_v$.
 <<>>=
 vertexDegree(g)
-vertexDegree(g,vec.degree)
+vertexDegree(g, vec.degree)
 @ 
 \subsubsection*{Balaban-like information indices \cite{balaban_1991}:}
 
@@ -563,10 +557,10 @@ y_i &:=& \sum_{j=1}^{\sigma(v_i) } j|S_j(v_i,G)| \log(j),\\
 <<keep.source=TRUE>>=
 #Balaban-like information index U(G)
 balabanlike1(g)
-balabanlike1(g,mat.dist)
+balabanlike1(g, mat.dist)
 #Balaban-like information index X(G)
 balabanlike2(g)
-balabanlike2(g,mat.dist)
+balabanlike2(g, mat.dist)
 @
 
 \subsubsection*{Graph vertex complexity index \cite{raychaudhury_1984}:}
@@ -580,7 +574,7 @@ v^c_i:= \sum_{j=0}^{\sigma(v_i)} \frac{k^{v_i}_j}{N} \log \left( \frac{k^{v_i}_j
 $k^{v_i}_k$ is the number of distances starting from $V_i \in V$ equal to $j$.
 <<>>=
 graphVertexComplexity(g)
-graphVertexComplexity(g,mat.dist)
+graphVertexComplexity(g, mat.dist)
 @ 
 
 \subsubsection*{Offdiagonal complexity \cite{kim_wilhelm_2008}:}
@@ -740,10 +734,10 @@ Note, that some combinations of these settings can cause the descriptor to retur
 
 <<>>=
 l1 <- infoTheoreticGCM(g)
-l2 <- infoTheoreticGCM(g,mat.dist,coeff="lin",infofunct="sphere",lambda=1000)
-l3 <- infoTheoreticGCM(g,mat.dist,coeff="const",infofunct="pathlength",lambda=4000)
-l4 <- infoTheoreticGCM(g,mat.dist,coeff="quad",infofunct="vertcent",lambda=1000)
-l5 <- infoTheoreticGCM(g,mat.dist,coeff="exp",infofunct="degree",lambda=1000)
+l2 <- infoTheoreticGCM(g, mat.dist, coeff="lin", infofunct="sphere", lambda=1000)
+l3 <- infoTheoreticGCM(g, mat.dist, coeff="const", infofunct="pathlength", lambda=4000)
+l4 <- infoTheoreticGCM(g, mat.dist, coeff="quad", infofunct="vertcent", lambda=1000)
+l5 <- infoTheoreticGCM(g, mat.dist, coeff="exp", infofunct="degree", lambda=1000)
 l1
 l5
 @ 
@@ -777,15 +771,15 @@ With this function it is possible to calculate 5 descriptors ($H_{M_s(G)}$, $S_{
 \begin{enumerate}
 \item Adjacency matrix
 <<>>=
-eigenvalueBased(g,adjacencyMatrix,2)
+eigenvalueBased(g, adjacencyMatrix,2)
 @ 
 \item Laplacian matrix
 <<>>=
-eigenvalueBased(g,laplaceMatrix,2)
+eigenvalueBased(g, laplaceMatrix,2)
 @
 \item Distance matrix
 <<>>=
-eigenvalueBased(g,distanceMatrix,2)
+eigenvalueBased(g, distanceMatrix,2)
 @
 \item Distance path Matrix
 <<>>=
@@ -793,27 +787,27 @@ eigenvalueBased(g,distancePathMatrix,2)
 @
 \item Augmented vertex degree matrix
 <<>>=
-eigenvalueBased(g,augmentedMatrix,2)
+eigenvalueBased(g, augmentedMatrix,2)
 @
 \item Extended adjacency matrix
 <<>>=
-eigenvalueBased(g,extendedAdjacencyMatrix,2)
+eigenvalueBased(g, extendedAdjacencyMatrix,2)
 @
 \item Vertex Connectivity matrix 
 <<>>=
-eigenvalueBased(g,vertConnectMatrix,2) 
+eigenvalueBased(g, vertConnectMatrix,2) 
 @
 \item Random Walk Markov matrix 
 <<>>=
-eigenvalueBased(g,randomWalkMatrix,2)  
+eigenvalueBased(g, randomWalkMatrix,2)  
 @
 \item Weighted structure function matrix $IM_1$
 <<>>=
-eigenvalueBased(g,weightStrucFuncMatrix_lin,2) 
+eigenvalueBased(g, weightStrucFuncMatrix_lin,2) 
 @
 \item Weighted structure function matrix $IM_2$
 <<>>=
-eigenvalueBased(g,weightStrucFuncMatrix_exp,2)
+eigenvalueBased(g, weightStrucFuncMatrix_exp,2)
 @
 \end{enumerate}
 
@@ -888,7 +882,7 @@ C_v(G):= \frac{E_{N(v)}}{\frac{V_{N(v)}*(V_{N(v)}-1)}{2}}.
 
 <<>>=
 localClusteringCoeff(g)
-localClusteringCoeff(g,deg=vec.degree)
+localClusteringCoeff(g, deg=vec.degree)
 @
 
 \subsubsection*{Global Clustering Coefficient \cite{watts2003small, watts1998collective}:}
