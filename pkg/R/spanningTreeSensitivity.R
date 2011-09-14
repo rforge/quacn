@@ -1,11 +1,11 @@
-spanningTreeSensitivity <- function(g, subgraphs=NULL) {
+spanningTreeSensitivity <- function(g, one.eds=NULL) {
   library("graph")
 
   if (class(g)[1] != "graphNEL")
     stop("'g' has to be a 'graphNEL' object")
 
-  if (is.null(subgraphs))
-    subgraphs <- edgeDeletedSubgraphs(g)
+  if (is.null(one.eds))
+    one.eds <- edgeDeletedSubgraphs(g)
 
   n <- numNodes(g)
   m <- numEdges(g)
@@ -15,7 +15,7 @@ spanningTreeSensitivity <- function(g, subgraphs=NULL) {
   nST_g <- det(lap[2:n, 2:n])
 
   # number of spanning trees in each subgraph
-  nST_1e <- sapply(subgraphs, function(M_1e) {
+  nST_1e <- sapply(one.eds, function(M_1e) {
     diag_1e <- diag(rowSums(M_1e, na.rm = FALSE, dims = 1))
     lap_1e <- diag_1e - M_1e
     det(lap_1e[2:n, 2:n])

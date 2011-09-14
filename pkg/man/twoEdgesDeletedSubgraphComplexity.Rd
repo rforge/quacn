@@ -6,13 +6,13 @@
   complexity based on Laplacian matrices.
 }
 \usage{
-twoEdgesDeletedSubgraphComplexity(g, subgraphs = NULL)
+twoEdgesDeletedSubgraphComplexity(g, two.eds = NULL)
 }
 \arguments{
   \item{g}{
 a graph as a graphNEL object.
 }
-  \item{subgraphs}{
+  \item{two.eds}{
 the two-edges-deleted subgraphs of g as a list of adjacency matrices, as
 returned by edgeDeletedSubgraphs(edgeDeletedSubgraphs(g)).  If this
 parameter is omitted, the subgraphs will be calculated automatically.

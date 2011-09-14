@@ -1,14 +1,14 @@
-oneEdgeDeletedSubgraphComplexity <- function(g, subgraphs=NULL) {
+oneEdgeDeletedSubgraphComplexity <- function(g, one.eds=NULL) {
   library("graph")
 
   if (class(g)[1] != "graphNEL")
     stop("'g' has to be a 'graphNEL' object")
 
-  if (is.null(subgraphs))
-    subgraphs <- edgeDeletedSubgraphs(g)
+  if (is.null(one.eds))
+    one.eds <- edgeDeletedSubgraphs(g)
 
   n <- numNodes(g)
-  count <- length(subgraphs)
+  count <- length(one.eds)
 
   # number of spanning trees in g
   lap <- laplaceMatrix(g)
@@ -16,7 +16,7 @@ oneEdgeDeletedSubgraphComplexity <- function(g, subgraphs=NULL) {
 
   # number of spanning trees in each subgraph and
   # eigenvalues of Laplacian and signless Laplacian of each subgraph
-  data <- lapply(subgraphs, function(M_1e) {
+  data <- lapply(one.eds, function(M_1e) {
     diag_1e <- diag(rowSums(M_1e, na.rm = FALSE, dims = 1))
     lap_1e <- diag_1e - M_1e
     nST_1e <- det(lap_1e[2:n, 2:n])

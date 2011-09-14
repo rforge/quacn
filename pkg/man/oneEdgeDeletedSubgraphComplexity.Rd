@@ -6,13 +6,13 @@
   one-edge-deleted subgraphs.
 }
 \usage{
-oneEdgeDeletedSubgraphComplexity(g, subgraphs = NULL)
+oneEdgeDeletedSubgraphComplexity(g, one.eds = NULL)
 }
 \arguments{
   \item{g}{
 a graph as a graphNEL object.
 }
-  \item{subgraphs}{
+  \item{one.eds}{
 the one-edge-deleted subgraphs of g as a list of adjacency matrices, as
 returned by edgeDeletedSubgraphs(g).  If this parameter is omitted, the
 subgraphs will be calculated automatically.

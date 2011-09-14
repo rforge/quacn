@@ -940,13 +940,30 @@ efficiency(g, mat.dist)
 
 \subsubsection*{Graph index complexity \cite{kim_wilhelm_2008}:}
 \begin{equation}
-\mathit{Cr}(G) = 4 c_r (1 - c_r)
+\mathit{Cr}(G) := 4 c_r (1 - c_r)
 \end{equation}
 where \(c_r = \frac{r - 2 \cos \frac{\pi}{|N| + 1}}{|N| - 1 - 2 \cos
 \frac{\pi}{|N| + 1}}\) and \(r\) is the largest eigenvalue of the
 adjacency matrix of the graph.
 <<>>=
 graphIndexComplexity(g)
+@
+
+\section{Calculating multiple descriptors at once}
+
+The \texttt{calculateDescriptors} function allows you to calculate a set
+of descriptors on a list of input graphs.  The result is returned as a
+data frame.  You can specify the desired functions by name or by number.
+It is also possible to name the columns according to the names given in
+this document.
+
+Please see the function documentation for a detailed description and a
+full list of the supported descriptors together with their numbers.
+
+<<>>=
+calculateDescriptors(g, "wiener")
+calculateDescriptors(g, 1001)
+calculateDescriptors(g, 2000, labels=TRUE)
 @
 
 \section{Session Info}

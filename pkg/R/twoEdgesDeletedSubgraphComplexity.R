@@ -1,16 +1,16 @@
-twoEdgesDeletedSubgraphComplexity <- function(g, subgraphs=NULL) {
+twoEdgesDeletedSubgraphComplexity <- function(g, two.eds=NULL) {
   library("graph")
 
   if (class(g)[1] != "graphNEL")
     stop("'g' has to be a 'graphNEL' object")
 
-  if (is.null(subgraphs))
-    subgraphs <- edgeDeletedSubgraphs(edgeDeletedSubgraphs(g))
+  if (is.null(two.eds))
+    two.eds <- edgeDeletedSubgraphs(edgeDeletedSubgraphs(g))
 
   n <- numNodes(g)
-  count <- length(subgraphs)
+  count <- length(two.eds)
 
-  data <- lapply(subgraphs, function(M_2e) {
+  data <- lapply(two.eds, function(M_2e) {
     diag_2e <- diag(rowSums(M_2e, na.rm = FALSE, dims = 1))
     lap_2e <- diag_2e - M_2e
     nST_2e <- det(lap_2e[2:n, 2:n])
