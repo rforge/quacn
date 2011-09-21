@@ -719,6 +719,9 @@ It has following input parameters:
 \item \textit{infofunct}: specifies the information functional: "sphere", "pathlength", "vertcent" or "degree" are available settings.
 \item \textit{lambda}: scaling constant for the distance, default set to 1000.
 \item \textit{custCoeff}: specifies the customized weighting schema. To use it you need to set \textit{coeff}="const".
+\item \textit{alpha}: alpha for degree degree association.
+\item \textit{prec}: specifies the floating-point precision to use (currently only implemented for degree-degree association).  Values up to 53 are handled with the built-in double data type; larger values trigger the usage of Rmpfr.
+
 \end{itemize}
 
 
