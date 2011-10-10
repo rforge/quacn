@@ -59,53 +59,53 @@ calculateDescriptors(graphs, ..., labels = FALSE)
     3007 \tab balabanlike1 \cr
     3008 \tab balabanlike2 \cr
     3009 \tab graphVertexComplexity \cr
-    3010 \tab offdiagonal \cr
-    3011 \tab spanningTreeSensitivity \cr
-    3012 \tab distanceDegreeCentric \cr
-    3013 \tab distanceCodeCentric \cr
     4000 \tab --- all of 4xxx \cr
-    4001 \tab infoTheoreticGCM: vertcent, exp \cr
-    4002 \tab infoTheoreticGCM: vertcent, lin \cr
-    4003 \tab infoTheoreticGCM: sphere, exp \cr
-    4004 \tab infoTheoreticGCM: sphere, lin \cr
-    4005 \tab infoTheoreticGCM: pathlength, exp \cr
-    4006 \tab infoTheoreticGCM: pathlength, lin \cr
-    4007 \tab infoTheoreticGCM: degree, exp \cr
-    4008 \tab infoTheoreticGCM: degree, lin \cr
+    4001 \tab mediumArticulation \cr
+    4002 \tab efficiency \cr
+    4003 \tab graphIndexComplexity \cr
+    4004 \tab offdiagonal \cr
+    4005 \tab spanningTreeSensitivity \cr
+    4006 \tab distanceDegreeCentric \cr
+    4007 \tab distanceCodeCentric \cr
     5000 \tab --- all of 5xxx \cr
-    5001 \tab eigenvalueBased: adjacencyMatrix, s=1 \cr
-    5002 \tab eigenvalueBased: adjacencyMatrix, s=2 \cr
-    5003 \tab eigenvalueBased: laplaceMatrix, s=1 \cr
-    5004 \tab eigenvalueBased: laplaceMatrix, s=2 \cr
-    5005 \tab eigenvalueBased: distanceMatrix, s=1 \cr
-    5006 \tab eigenvalueBased: distanceMatrix, s=2 \cr
-    5007 \tab eigenvalueBased: distancePathMatrix, s=1 \cr
-    5008 \tab eigenvalueBased: distancePathMatrix, s=2 \cr
-    5009 \tab eigenvalueBased: augmentedMatrix, s=1 \cr
-    5010 \tab eigenvalueBased: augmentedMatrix, s=2 \cr
-    5011 \tab eigenvalueBased: extendedAdjacencyMatrix, s=1 \cr
-    5012 \tab eigenvalueBased: extendedAdjacencyMatrix, s=2 \cr
-    5013 \tab eigenvalueBased: vertConnectMatrix, s=1 \cr
-    5014 \tab eigenvalueBased: vertConnectMatrix, s=2 \cr
-    5015 \tab eigenvalueBased: randomWalkMatrix, s=1 \cr
-    5016 \tab eigenvalueBased: randomWalkMatrix, s=2 \cr
-    5017 \tab eigenvalueBased: weightStrucFuncMatrix_lin, s=1 \cr
-    5018 \tab eigenvalueBased: weightStrucFuncMatrix_lin, s=2 \cr
-    5019 \tab eigenvalueBased: weightStrucFuncMatrix_exp, s=1 \cr
-    5020 \tab eigenvalueBased: weightStrucFuncMatrix_exp, s=2 \cr
-    5021 \tab energy \cr
-    5022 \tab laplacianEnergy \cr
-    5023 \tab estrada \cr
-    5024 \tab laplacianEstrada \cr
-    5025 \tab spectralRadius \cr
+    5001 \tab infoTheoreticGCM: vertcent, exp \cr
+    5002 \tab infoTheoreticGCM: vertcent, lin \cr
+    5003 \tab infoTheoreticGCM: sphere, exp \cr
+    5004 \tab infoTheoreticGCM: sphere, lin \cr
+    5005 \tab infoTheoreticGCM: pathlength, exp \cr
+    5006 \tab infoTheoreticGCM: pathlength, lin \cr
+    5007 \tab infoTheoreticGCM: degree, exp \cr
+    5008 \tab infoTheoreticGCM: degree, lin \cr
     6000 \tab --- all of 6xxx \cr
-    6001 \tab oneEdgeDeletedSubgraphComplexity \cr
-    6002 \tab twoEdgesDeletedSubgraphComplexity \cr
-    6003 \tab globalClusteringCoeff \cr
+    6001 \tab eigenvalueBased: adjacencyMatrix, s=1 \cr
+    6002 \tab eigenvalueBased: adjacencyMatrix, s=2 \cr
+    6003 \tab eigenvalueBased: laplaceMatrix, s=1 \cr
+    6004 \tab eigenvalueBased: laplaceMatrix, s=2 \cr
+    6005 \tab eigenvalueBased: distanceMatrix, s=1 \cr
+    6006 \tab eigenvalueBased: distanceMatrix, s=2 \cr
+    6007 \tab eigenvalueBased: distancePathMatrix, s=1 \cr
+    6008 \tab eigenvalueBased: distancePathMatrix, s=2 \cr
+    6009 \tab eigenvalueBased: augmentedMatrix, s=1 \cr
+    6010 \tab eigenvalueBased: augmentedMatrix, s=2 \cr
+    6011 \tab eigenvalueBased: extendedAdjacencyMatrix, s=1 \cr
+    6012 \tab eigenvalueBased: extendedAdjacencyMatrix, s=2 \cr
+    6013 \tab eigenvalueBased: vertConnectMatrix, s=1 \cr
+    6014 \tab eigenvalueBased: vertConnectMatrix, s=2 \cr
+    6015 \tab eigenvalueBased: randomWalkMatrix, s=1 \cr
+    6016 \tab eigenvalueBased: randomWalkMatrix, s=2 \cr
+    6017 \tab eigenvalueBased: weightStrucFuncMatrix_lin, s=1 \cr
+    6018 \tab eigenvalueBased: weightStrucFuncMatrix_lin, s=2 \cr
+    6019 \tab eigenvalueBased: weightStrucFuncMatrix_exp, s=1 \cr
+    6020 \tab eigenvalueBased: weightStrucFuncMatrix_exp, s=2 \cr
+    6021 \tab energy \cr
+    6022 \tab laplacianEnergy \cr
+    6023 \tab estrada \cr
+    6024 \tab laplacianEstrada \cr
+    6025 \tab spectralRadius \cr
     7000 \tab --- all of 7xxx \cr
-    7001 \tab mediumArticulation \cr
-    7002 \tab efficiency \cr
-    7003 \tab graphIndexComplexity
+    7001 \tab oneEdgeDeletedSubgraphComplexity \cr
+    7002 \tab twoEdgesDeletedSubgraphComplexity \cr
+    7003 \tab globalClusteringCoeff
   }
 
   The arguments to these functions, such as the distance matrix or the
@@ -143,7 +143,7 @@ calculateDescriptors(g, 1000, 2002, 2003)
 calculateDescriptors(g, "randic", "offdiagonal", 7000, labels=TRUE)
 
 # these will give the same results (although named differently):
-calculateDescriptors(g, c(5011, 5013), list(s=3))
+calculateDescriptors(g, c(6011, 6013), list(s=3))
 calculateDescriptors(g,
   "eigenvalueBased@ea", list(matrix_function="extendedAdjacencyMatrix", s=3),
   "eigenvalueBased@vc", list(matrix_function="vertConnectMatrix", s=3))

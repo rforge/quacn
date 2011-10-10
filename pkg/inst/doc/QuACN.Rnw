@@ -14,7 +14,7 @@
 \usepackage{booktabs}
 
 \title{\texttt{\textbf{QuACN}}: \textbf{Qu}antitative \textbf{A}nalyze of \textbf{C}omplex \textbf{N}etworks}
-\author{Laurin AJ Mueller, Michael Schutte, Karl G Kugler, Matthias Dehmer}
+\author{Laurin AJ Mueller, Michael Schutte, Karl G Kugler, Matthias Dehmer\footnote{Corresponding author.}}
 \begin{document}
 \maketitle
 \tableofcontents
@@ -28,7 +28,7 @@ For information about the actual build see the projects website:
 
 This vignette provides an overview about the usage of \texttt{QuACN}. 
 
-Chapter \ref{sec:nw} will give you an idea how to import already exiting networks. In Chapter \ref{sec:desc} a brief description of the implemented measures is presented, and it demonstrates how to call the related method in R.
+Chapter \ref{sec:nw} will describe how to import already exiting networks. In Chapter \ref{sec:desc} a brief description of the implemented measures is presented, and it demonstrates how to call the related method in R.
 
 \subsection{Installation}
 \texttt{QuACN} uses the packages \texttt{graph} and \texttt{RBGL} from the \textit{Bioconductor} project. Before installing \texttt{QuACN}, \textit{Bioconductor} with the corresponding packages needs to be installed. For instructions see the \textit{Bioconductor} website:
@@ -81,10 +81,10 @@ g <- as(A, "graphNEL")
 g
 @
 
-If you have already created networks that you want to analyze with \texttt{QuACN}, R offers several ways to import them. (It is important to know that networks have to be represented by \textit{graphNEL}-objects.) Note that there is no general procedure to get your networks into an R-workspace. Some possibilities to import network data are listed below:
+If existing networks are to be analyzed with \texttt{QuACN}, R offers several ways to import them. (It is important that the networks are represented by \textit{graphNEL}-objects.) Note that there is no general procedure to get networks into an R workspace. Some possibilities to import network data are listed below:
 
 \begin{itemize}
-\item \textbf{Adjacency matrix}: A representation of your network as an adjacency matrix can be easily imported and converted into a \textit{graphNEL} object.
+\item \textbf{Adjacency matrix}: A representation of a network as an adjacency matrix can be easily imported and converted into a \textit{graphNEL} object.
 \item \textbf{Node- and Edge-List}: With a list of nodes and Edges it is easy to create a \textit{graphNEL}-object.
 \item \textbf{read.graph()}: The \texttt{read.graph()} method of the \textit{graph}-package offers the possibility to import graphs that a represented in different formats. For details see the manual of the \textit{graph}-package.
 \item \textbf{System Biology Markup Language(SBML) \cite{Hucka2003}}: With the \textit{RSBML}-package it is possible to import SBML-Models.
@@ -103,8 +103,8 @@ lcc
 
 Some descriptors require a list of all distinct subgraphs which can be
 generated from a graph by removing one or two edges. The
-concerning methods will obtain this information automatically, but for
-efficiency reasons, you might want to pre-calculate and reuse it:
+concerning methods obtain this information automatically, but for
+efficiency reasons, the user might want to pre-calculate and reuse it:
 
 <<>>=
 sg.1ed <- edgeDeletedSubgraphs(g)
@@ -119,7 +119,7 @@ always returns a list of adjacency matrices.
 \label{sec:desc}
 This section provides a overview of the network descriptors that are included in the \texttt{QuACN} package. Here we describe the respective descriptor and how to call it in R.\\
 
-Note that every descriptor has at least two parameters, the \textit{graphNEL}-object and the distance matrix representing the network. It is not necessary to pass the distance matrix to a function. If the parameters stays empty or is set to \textit{NULL} the distance matrix will be estimated within each function. But if you want to calculate more than one descriptor, it is recommended to calculate the distance matrix separately and pass it to each method. Some of the methods need the degree of each node or the adjacency matrix to calculate their results. If they were calculated once they should have kept for later use. Specially with large networks it saves a lot of time, not to calculate these parameters for each descriptor again, and will enhance the performance of your script.
+Many descriptors have at least two parameters, the \textit{graphNEL}-object and the distance matrix representing the network. It is not necessary to pass the distance matrix to a function. If the parameters stays empty or is set to \textit{NULL} the distance matrix will be estimated within each function. But if the user wants to calculate more than one descriptor, it is recommended to calculate the distance matrix separately and pass it to each method. Some of the methods need the degree of each node or the adjacency matrix to calculate their results. If they were calculated once they should have kept for later use. For large networks in particular, it saves a lot of time to not calculate these parameters for each descriptor again, and will enhance the performance of the program to be developed.
 <<>>=
 mat.adj <- adjacencyMatrix(g)
 mat.dist <- distanceMatrix(g)
@@ -127,14 +127,19 @@ vec.degree <- graph::degree(g)
 ska.dia <- diameter(g)
 ska.dia <- diameter(g, mat.dist)
 @ 
+
+In the definitions below, let \(G = \left(N(G), E(G)\right)\) be a finite and
+connected graph.  \(N(G)\) and \(E(G)\) are called vertex and edge set of \(G\),
+respectively.  As \(\left| N(G) \right| < \inf\), we can define \(\left| N(G)
+\right| := N\).
+
 \subsection{Descriptors Based on Distances in a Graph} \label{sec:dist}
 This section describes network measures based on distances in the network.
 \subsubsection*{ Wiener Index \cite{Wiener1947}:}
 \begin{equation}
-W(G):= \frac{1}{2} \sum_{i=1}^{|N|}\sum_{j=1}^{|N|}d(v_i,v_j).
+W(G):= \frac{1}{2} \sum_{i=1}^{N}\sum_{j=1}^{N}d(v_i,v_j).
 \end{equation}
-where $|N(G)|:=|N|$ denotes the number of Nodes of the complex network.
-$d(v_i,v_j)$ stands for shortest distances between $v_i,v_j \in V$.
+$d(v_i,v_j)$ stands for shortest distances between $v_i,v_j \in N(G)$.
 
 <<>>=
 wien <- wiener(g)
@@ -143,7 +148,7 @@ wiener(g, mat.dist)
 
 \subsubsection*{Hararay Index \cite{balaban_ivanciuc_2000}:}
 \begin{equation}
-H(G):= \frac{1}{2} \sum_{i=1}^{|N|}\sum_{j=1}^{|N|}(d(v_i,v_j))^{-1}, \quad i \ne j.
+H(G):= \frac{1}{2} \sum_{i=1}^{N}\sum_{j=1}^{N}(d(v_i,v_j))^{-1}, \quad i \ne j.
 \end{equation}
 <<>>=
 harary(g)
@@ -157,7 +162,7 @@ J(G):= \frac{|E|}{\mu + 1} \sum_{(v_i,v_j) \in E} [DS{_i}DS{_j}]^{- \frac{1}{2}}
 balabanJ(g)
 balabanJ(g, mat.dist)
 @ 
-where $|E(G)|:= |E|$ denotes the number of edges of the complex network, $DS_i$ denotes the distance sum (row sum) of $v_i$ and $\mu := |E| + 1 - |N|$ denotes the cyclomatic number.
+where $|E(G)|:= |E|$ denotes the number of edges of the complex network, $DS_i$ denotes the distance sum (row sum) of $v_i$ and $\mu := |E| + 1 - N$ denotes the cyclomatic number.
 
 \subsubsection*{Mean distance deviation \cite{skorobogatov}:}
 
@@ -183,7 +188,7 @@ See subsection \ref{dobr}.
 
 \subsubsection*{Compactness  \cite{doyle_1977}:}
 \begin{equation}
-C(G):= \frac{4W}{|N|(|N|-1)}.
+C(G):= \frac{4W}{N(N-1)}.
 \end{equation}
 <<>>=
 compactness(g)
@@ -192,7 +197,7 @@ compactness(g, mat.dist, wiener(g, mat.dist))
 @ 
 \subsubsection*{Product of Row Sums index \cite{schultz_1992}:}
 \begin{equation}
-\text{PRS}(G)= \prod_{i=1}^{|N|} \mu(v_i) \quad \mbox{or} \quad   \log \big(\text{PRS}(G)\big)= \log\left( \prod_{i=1}^{|N|} \mu(v_i) \right).
+\text{PRS}(G)= \prod_{i=1}^{N} \mu(v_i) \quad \mbox{or} \quad   \log \big(\text{PRS}(G)\big)= \log\left( \prod_{i=1}^{N} \mu(v_i) \right).
 \end{equation}
 
 
@@ -204,7 +209,7 @@ productOfRowSums(g, mat.dist, log=TRUE)
 @ 
 \subsubsection*{Hyper-distance-path index \cite{todeschini_2002}}
 \begin{equation}
-D_P(G):= \frac{1}{2} \sum_{i=1}^{|N|} \sum_{j=1}^{|N|} d(v_i,v_j) +  \frac{1}{2} \sum_{i=1}^{|N|} \sum_{j=1}^{|N|}  {d(v_i,v_j) \choose 2}.
+D_P(G):= \frac{1}{2} \sum_{i=1}^{N} \sum_{j=1}^{N} d(v_i,v_j) +  \frac{1}{2} \sum_{i=1}^{N} \sum_{j=1}^{N}  {d(v_i,v_j) \choose 2}.
 \end{equation}
 
 <<>>=
@@ -219,7 +224,7 @@ This method calculates several descriptors:
 \begin{enumerate}
 \item Vertex Eccentricity \cite{skorobogatov}:
 \begin{equation}
-e(v) := max_{u \in V(G)} d(u,v)
+e(v) := max_{u \in N(G)} d(u,v)
 \end{equation}
 
 <<>>=
@@ -231,7 +236,7 @@ dob$eccentricityVertex
 
 \item Eccentricity of a graph \cite{skorobogatov}:
 \begin{equation}
-e(G) := \sum_{v \in V(G)} e(v)
+e(G) := \sum_{v \in N(G)} e(v)
 \end{equation}
 
 <<>>=
@@ -241,7 +246,7 @@ dob$eccentricityGraph
 
 \item Average Vertex Eccentricity of a Graph \cite{skorobogatov}:
 \begin{equation}
-e_{av}(G) := \frac{e(G)}{|V|}
+e_{av}(G) := \frac{e(G)}{N}
 \end{equation}
 
 <<>>=
@@ -261,7 +266,7 @@ dob$ecentricVertex
 
 \item Eccentric of a Graph \cite{skorobogatov}:
 \begin{equation}
-\Delta G := \frac{1}{|V|} \sum_{v \in V(G)} \Delta e(v)
+\Delta G := \frac{1}{N} \sum_{v \in N(G)} \Delta e(v)
 \end{equation}
 
 <<>>=
@@ -271,7 +276,7 @@ dob$ecentricGraph
 
 \item Vertex Centrality \cite{skorobogatov}:
 \begin{equation}
-D(v) := \sum_{v \in V(G)} d(v,u)
+D(v) := \sum_{v \in N(G)} d(v,u)
 \end{equation}
 
 <<>>=
@@ -281,7 +286,7 @@ dob$vertexCentrality
 
 \item Graph Integration \cite{skorobogatov}:
 \begin{equation}
-D(G) := \frac{1}{2} \sum_{v \in V(G)} D(v)
+D(G) := \frac{1}{2} \sum_{v \in N(G)} D(v)
 \end{equation}
 
 <<>>=
@@ -291,7 +296,7 @@ dob$graphIntegration
 
 \item Unipolarity \cite{skorobogatov}:
 \begin{equation}
-D^*(G) := min_{u \in V(G)} D(v)
+D^*(G) := min_{u \in N(G)} D(v)
 \end{equation}
 
 <<>>=
@@ -311,7 +316,7 @@ dob$vertexDeviation
 
 \item Variation of a Graph \cite{skorobogatov}:
 \begin{equation}
-var(g) := max_{u \in V(G)} \Delta D^*(v) 
+var(g) := max_{u \in N(G)} \Delta D^*(v) 
 \end{equation}
 
 <<>>=
@@ -321,7 +326,7 @@ dob$variation
 
 \item Centralization \cite{skorobogatov}:
 \begin{equation}
-\Delta G^* := \sum_{v \in V(G)} \Delta D^*(v) 
+\Delta G^* := \sum_{v \in N(G)} \Delta D^*(v) 
 \end{equation}
 
 <<>>=
@@ -331,7 +336,7 @@ dob$centralization
 
 \item Average Distance of Graph Vertices \cite{skorobogatov}:
 \begin{equation}
-D_{av}(g) := \frac{2 D(g)}{|V|}
+D_{av}(g) := \frac{2 D(g)}{N}
 \end{equation}
 
 <<>>=
@@ -351,7 +356,7 @@ dob$distVertexDeviation
 
 \item Mean Distance Deviation \cite{skorobogatov}:
 \begin{equation}
-\Delta D(G):=\frac{1}{|V|} \sum_{v \in V(G)} \Delta D(v)
+\Delta D(G):=\frac{1}{N} \sum_{v \in N(G)} \Delta D(v)
 \end{equation}
 
 <<>>=
@@ -369,7 +374,7 @@ This section describes network measures based on other invariants than distances
 
 \subsubsection*{Index of total adjacency \cite{bonchev_book_2005}:}
 \begin{equation}
-A(G):= \frac{1}{2} \sum_{i=1}^{|N|}\sum_{j=1}^{|N|}a_{ij}.
+A(G):= \frac{1}{2} \sum_{i=1}^{N}\sum_{j=1}^{N}a_{ij}.
 \end{equation}
 <<>>=
 totalAdjacency(g)
@@ -378,7 +383,7 @@ totalAdjacency(g, mat.adj)
 
 \subsubsection*{Zagreb group indices \cite{diudea}, \cite{nikolic_2003}:}
 \begin{equation}
-Z_1(G):= \sum_{i=1}^{|N|} k_{v_i},
+Z_1(G):= \sum_{i=1}^{N} k_{v_i},
 \end{equation}
 where $k_{v_i}$ is the degree of the node $v_i$.
 \begin{equation}
@@ -386,9 +391,9 @@ Z_2(G):= \sum_{(v_i,v_j) \in E} k_{v_i} k_{v_j}.
 \end{equation}
 Modified, augmented and variable Zagreb indices:
 \begin{eqnarray}
-\mathit{MZI(G)} &:=& \sum_{(v_i, v_j) \in E} \frac{1}{k_{v_i} k_{v_j}} \\
-\mathit{AZI(G)} &:=& \sum_{(v_i, v_j) \in E} \left( \frac{k_{v_i} k_{v_j}}{k_{v_i} + k_{v_j} - 2} \right)^3\\
-\mathit{VZI(G)} &:=& \sum_{(v_i, v_j) \in E} \frac{k_{v_i} + k_{v_j} - 2}{k_{v_i} k_{v_j}}
+\mathit{MZI(G)} &:=& \sum_{(v_i, v_j) \in E} \frac{1}{k_{v_i} k_{v_j}}, \\
+\mathit{AZI(G)} &:=& \sum_{(v_i, v_j) \in E} \left( \frac{k_{v_i} k_{v_j}}{k_{v_i} + k_{v_j} - 2} \right)^3, \\
+\mathit{VZI(G)} &:=& \sum_{(v_i, v_j) \in E} \frac{k_{v_i} + k_{v_j} - 2}{k_{v_i} k_{v_j}}.
 \end{eqnarray}
 <<>>=
 zagreb1(g)
@@ -414,7 +419,7 @@ randic(g, vec.degree)
 
 \subsubsection*{The complexity index B \cite{bonchev_book_2005}:}
 \begin{equation}
-B(G):= \sum_{i=1}^{|N|} \frac{k_{v_i}}{\mu(v_i)}.
+B(G):= \sum_{i=1}^{N} \frac{k_{v_i}}{\mu(v_i)}.
 \end{equation}
   
 
@@ -425,7 +430,7 @@ complexityIndexB(g, mat.dist, vec.degree)
 @ 
 \subsubsection*{Normalized edge complexity \cite{bonchev_book_2005}:}
 \begin{equation}
-E_N(G):=\frac{A(G)}{|N|^2}.
+E_N(G):=\frac{A(G)}{N^2}.
 \end{equation}
 <<>>=
 normalizedEdgeComplexity(g)
@@ -447,10 +452,15 @@ atomBondConnectivity(g, vec.degree)
 \mathit{GA2(G)} &:=& \sum_{(v_i, v_j) \in E} \frac{\sqrt{n_i n_j}}{\frac{1}{2} (n_i + n_j)} \\
 \mathit{GA3(G)} &:=& \sum_{(v_i, v_j) \in E} \frac{\sqrt{m_i m_j}}{\frac{1}{2} (m_i + m_j)}
 \end{eqnarray}
-where \(n_i := |\{x \in N : d(x, v_i) < d(x, v_j)\}|\) and \(n_j := |\{x \in N : d(x, v_j) < d(x, v_i)\}|\);
-\(m_i := |\{f \in E : d(f, v_i) < d(f, v_j)\}|\) and \(m_j := |\{f \in V : d(f, v_j) < d(f, v_i)\}|\).
-In this context, the distance between an edge \(f = \{x, y\}\) and a vertex \(v\) is defined as
-\(d(f, v) := \min \{d(x, v), d(y, v)\}\).
+where
+\begin{eqnarray}
+n_i &:=& |\{x \in N(G) : d(x, v_i) < d(x, v_j)\}|, \\
+n_j &:=& |\{x \in N(G) : d(x, v_j) < d(x, v_i)\}|, \\
+m_i &:=& |\{f \in E : d(f, v_i) < d(f, v_j)\}|, \\
+m_j &:=& |\{f \in E : d(f, v_j) < d(f, v_i)\}|.
+\end{eqnarray}
+In this context, the distance between an edge \(f = \{x, y\}\) and a vertex
+\(v\) is defined as \(d(f, v) := \min \{d(x, v), d(y, v)\}\).
 <<>>=
 geometricArithmetic1(g)
 geometricArithmetic1(g, vec.degree)
@@ -462,21 +472,21 @@ geometricArithmetic3(g, mat.dist)
 
 \subsubsection*{Narumi-Katayama index \cite{narumi_katayama_1984}:}
 \begin{equation}
-\mathit{NK} := \prod_{i=1}^n k_{v_i}
+\mathit{NK} := \prod_{i=1}^N k_{v_i}
 \end{equation}
 <<>>=
 narumiKatayama(g)
 narumiKatayama(g, vec.degree)
 @
 
-\subsection{Classical entropy based descriptors}
+\subsection{Classical entropy-based descriptors}
 \label{sec:clE}
 These measures are based on grouping the elements of an arbitrary graph invariant (vertices, edges, and distances etc.) using an equivalence criterion.
 
 
 \subsubsection*{Topological information content \cite{mowshowitz_1,rashewsky}:}
 \begin{equation}\label{eq_mean_information_trucco}
-I^V_{orb}(G) := -  \sum_{i=1}^{k} \frac{|N^V_i|}{|N|} \log \left( \frac{|N^V_i|}{|N|} \right).
+I^V_{orb}(G) := -  \sum_{i=1}^{k} \frac{|N^V_i|}{N} \log \left( \frac{|N^V_i|}{N} \right).
 \end{equation}
 %
 $|N^V_i|$ denotes the number of vertices belonging to the $i$-th vertex orbit.
@@ -488,13 +498,13 @@ topologicalInfoContent(g, mat.dist, vec.degree)
 
 \subsubsection*{Bonchev - Trinajsti\'{c} indices \cite{bonchev_Trinajstic_1977}:}
 \begin{equation}
-I_D(G) := - \frac{1}{|N|}\log\left( \frac{1}{|N|} \right)- \sum_{i=1}^{\rho(G)} \frac{2k_i}{|N|^2}\log\left( \frac{2k_i}{|N|^2} \right), \label{eq_mean_information_bonchev}
+I_D(G) := - \frac{1}{N}\log\left( \frac{1}{N} \right)- \sum_{i=1}^{\rho(G)} \frac{2k_i}{N^2}\log\left( \frac{2k_i}{N^2} \right), \label{eq_mean_information_bonchev}
 \end{equation}
 \begin{equation}
 I^W_D(G) := W(G) \log(W(G)) -  \sum_{i=1}^{\rho(G)} i k_i \log(i).
 \end{equation}
 %
-$k_i$ is the occurrence of a distance possessing value $i$ in the distance matrix of $G$.
+\(\rho(G)\) is the diameter of the graph (the maximum distance between two nodes). $k_i$ is the occurrence of a distance possessing value $i$ in the distance matrix of $G$.
 <<keep.source=TRUE>>=
 #I_D(G)
 bonchev1(g)
@@ -506,7 +516,7 @@ bonchev2(g, mat.dist, wiener(g))
 @
 \subsubsection*{BERTZ complexity index \cite{bertz_1981}:}
 \begin{equation}\label{eq_total_information_bertz}
-C(G):= 2N \log(|N|) - \sum_{i=1}^{k} |N_i| \log \left( |N_i| \right).
+C(G):= 2N \log(N) - \sum_{i=1}^{k} |N_i| \log \left( |N_i| \right).
 \end{equation}
 %
 $|N_i|$ are the cardinalities of the vertex orbits as defined in Eqn.~(\ref{eq_mean_information_trucco}).
@@ -518,7 +528,7 @@ bertz(g, mat.dist, vec.degree)
 @ 
 \subsubsection*{Radial centric information index \cite{bonchev_2}:}
 \begin{equation}\label{radial_index}
-I_{C,R}(G) := \sum_{i=1}^{k} \frac{|N^e_i|}{|N|} \log \left( \frac{|N^e_i|}{|N|} \right).
+I_{C,R}(G) := \sum_{i=1}^{k} \frac{|N^e_i|}{N} \log \left( \frac{|N^e_i|}{N} \right).
 \end{equation}
 %
 $|N^e_i|$ is the number of vertices having the same eccentricity.
@@ -528,17 +538,17 @@ radialCentric(g, mat.dist)
 @ 
 \subsubsection*{Vertex degree equality-based information index \cite{bonchev_2}:}
 \begin{equation}
-I_{deg}(G) := \sum_{i=1}^{\bar{k}} \frac{|N^{k_v}_i|}{|N|} \log \left( \frac{|N^{k_v}_i|}{|N|} \right).
+I_{deg}(G) := \sum_{i=1}^{\bar{k}} \frac{|N^{k_v}_i|}{N} \log \left( \frac{|N^{k_v}_i|}{N} \right).
 \end{equation}
 %
-$|N^{k_v}_i|$ is the number of vertices with degree equal to $i$ and $\bar{k}:= \max_{v\in V}k_v$.
+$|N^{k_v}_i|$ is the number of vertices with degree equal to $i$ and $\bar{k}:= \max_{v\in N(G)}k_v$.
 <<>>=
 vertexDegree(g)
 vertexDegree(g, vec.degree)
 @ 
 \subsubsection*{Balaban-like information indices \cite{balaban_1991}:}
 
-Note, that this class of Descriptors return \textit{Inf} if you have a graph with $|V| < 3$.
+Note that this class of Descriptors return \textit{Inf} for graphs with $N < 3$.
 
 \begin{eqnarray}
 U(G):= \frac{|E|}{\mu +1} \sum_{(v_i,v_j) \in E} [u(v_i)u(v_j)]^{- \frac{1}{2}}, \label{eq_balaban_U_index} \\
@@ -551,7 +561,7 @@ where
 u(v_i) &:=&  -  \sum_{j=1}^{\sigma(v_i) } \frac{j|S_j(v_i,G)|}{\mu(v_i)} \log\left( \frac{j}{\mu(v_i)} \right), \\
 x(v_i) &:=& - \mu(v_i) \log(d(v_i)) - y_i, \\
 y_i &:=& \sum_{j=1}^{\sigma(v_i) } j|S_j(v_i,G)| \log(j),\\
-\mu(v_i) &:=& \sum_{j=1}^{|N|}d(v_i,v_j) = \sum_{j=1}^{|N|} j|S_j(v_i,G)|.
+\mu(v_i) &:=& \sum_{j=1}^{N}d(v_i,v_j) = \sum_{j=1}^{N} j|S_j(v_i,G)|.
 \end{eqnarray}
 
 <<keep.source=TRUE>>=
@@ -571,19 +581,71 @@ where $v^c_i$ is the so-called vertex complexity expressed by
 \begin{equation}
 v^c_i:= \sum_{j=0}^{\sigma(v_i)} \frac{k^{v_i}_j}{N} \log \left( \frac{k^{v_i}_j}{N} \right).
 \end{equation}
-$k^{v_i}_k$ is the number of distances starting from $V_i \in V$ equal to $j$.
+$k^{v_i}_k$ is the number of distances starting from $V_i \in N(G)$ equal to $j$.
 <<>>=
 graphVertexComplexity(g)
 graphVertexComplexity(g, mat.dist)
 @ 
 
+\subsection{More recent graph complexity measures}
+
+\subsubsection*{Medium articulation \cite{kim_wilhelm_2008}:}
+\begin{equation}
+\mathit{MAg}(G) := \mathit{MA}_R(G) \cdot \mathit{MA}_I(G)
+\end{equation}
+with the redundancy
+\begin{eqnarray}
+\mathit{MA}_R(G) &:=&
+  4 \left( \frac{R(G) - R_{\mathrm{path}}(G)} {R_{\mathrm{clique}}(G) - R_{\mathrm{path}}(G)} \right)
+  \left( 1 - \frac{R(G) - R_{\mathrm{path}}(G)}{R_{\mathrm{clique}}(G) - R_{\mathrm{path}}(G)} \right) \\
+R(G) &:=& \frac{1}{m} \sum_{i,j>i} \log(d_i d_j) \\
+R_{\mathrm{clique}}(G) &=& 2 \log(N-1) \\
+R_{\mathrm{path}}(G) &=& 2 \frac{N-2}{N-1} \log 2
+\end{eqnarray}
+and the mutual information
+\begin{eqnarray}
+\mathit{MA}_I(G) &:=&
+  4 \left( \frac{I(G) - I_{\mathrm{clique}}(G)}{I_{\mathrm{path}}(G) - I_{\mathrm{clique}}(G)} \right)
+  \left( 1 - \frac{I(G) - I_{\mathrm{clique}}(G)}{I_{\mathrm{path}}(G) - I_{\mathrm{clique}}(G)} \right) \\
+I(G) &:=& \frac{1}{m} \sum_{i,j>i} \log \left(\frac{2m}{d_i d_j}\right) \\
+I_{\mathrm{clique}}(G) &=& \log \frac{N}{N-1} \\
+I_{\mathrm{path}}(G) &=& \log(N-1) - \frac{N-3}{N-1} \log 2
+\end{eqnarray}
+<<>>=
+mediumArticulation(g)
+@
+
+\subsubsection*{Efficiency complexity \cite{kim_wilhelm_2008}:}
+\begin{eqnarray}
+\mathrm{Ce(G)} &:=&
+  4 \left(\frac{E(G) - E_{\mathrm{path}}(G)}{1 - E_{\mathrm{path}}(G)}\right)
+  \left(1 - \frac{E(G) - E_{\mathrm{path}}(G)}{1 - E_{\mathrm{path}}(G)}\right) \\
+E(G) &:=& \frac{2}{N (N-1)} \sum_i \sum_{j>i} \frac{1}{d_{ij}} \\
+E_{\mathrm{path}}(G) &=& \frac{2}{N (N-1)} \sum_{i=1}{N-1} \frac{N - i}{i}
+\end{eqnarray}
+<<>>=
+efficiency(g)
+efficiency(g, mat.dist)
+@
+
+\subsubsection*{Graph index complexity \cite{kim_wilhelm_2008}:}
+\begin{equation}
+\mathit{Cr}(G) := 4 c_r (1 - c_r)
+\end{equation}
+where \(c_r = \frac{r - 2 \cos \frac{\pi}{N + 1}}{N - 1 - 2 \cos
+\frac{\pi}{N + 1}}\) and \(r\) is the largest eigenvalue of the
+adjacency matrix of the graph.
+<<>>=
+graphIndexComplexity(g)
+@
+
 \subsubsection*{Offdiagonal complexity \cite{kim_wilhelm_2008}:}
 \begin{equation}
-\mathit{OdC(G)} := - \frac{1}{log(|N|-1)}
-  \sum_{n=0}^{k_{\mathrm{max}}-1} \tilde{a}_n \log \tilde{a}_n
+\mathit{OdC(G)} := - \frac{1}{log(N-1)}
+  \sum_{n=0}^{k_{\mathrm{max}}-1} \tilde{a}_n \log \tilde{a}_n,
 \end{equation}
 with \(\tilde{a}_n = \frac{a_n}{\sum_{m=0}^{k_{\mathrm{max}}-1} a_m}\)
-and \(a_n = \sum_{i=1}^{k_{\mathrm{max}-|N|}} c_{i,i+|N|}\), where
+and \(a_n = \sum_{i=1}^{k_{\mathrm{max}-N}} c_{i,i+N}\), where
 \(k_{\mathrm{max}}\) is the maximum degree of all nodes in the graph,
 and \(c_{ij}\) is the number of all neighbors with degree \(j \ge i\) of
 all nodes with degree \(i\).
@@ -594,7 +656,7 @@ offdiagonal(g, vec.degree)
 
 \subsubsection*{Spanning tree sensitivity \cite{kim_wilhelm_2008}:}
 \begin{equation}
-\mathit{STS(G)} := \frac{-\sum_l a_l \log a_l}{\log m_{\mathit{cu}}}
+\mathit{STS(G)} := \frac{-\sum_l a_l \log a_l}{\log m_{\mathit{cu}}},
 \end{equation}
 with \(m_{\mathit{cu}} = n^{1.68}-10\), \(a_l = \frac{S_{ij}^l}{\sum_r^k
 S_{ij}^r}\), \(S_{ij} = s_{ij}
@@ -605,7 +667,7 @@ of spanning trees of the subgraph with the edge \(\{v_i, v_j\}\)
 deleted.  Analogously, the spanning tree sensitivity differences measure
 is defined as
 \begin{equation}
-\mathit{STSD(G)} := \frac{-\sum_l b_l \log b_l}{\log m_{\mathit{cu}}}
+\mathit{STSD(G)} := \frac{-\sum_l b_l \log b_l}{\log m_{\mathit{cu}}},
 \end{equation}
 with \(b_l = \frac{\mathit{Ld}_l}{\sum_r^d \mathit{Ld}_r}\), where
 \(\{\mathit{Ld}_1, \mathit{Ld}_2, \ldots, \mathit{Ld}_d\}\) is the
@@ -615,10 +677,11 @@ spanningTreeSensitivity(g)
 spanningTreeSensitivity(g, sg.1ed)
 @
 
+% TODO correct citation
 \subsubsection*{Distance degree/code centric indices \cite{dehmer_match_dist}:}
 \begin{eqnarray}
-I_{\mathrm{C,deg}}(G) &:=& -\sum_{i=1}^D \frac{d_i}{|N|} \log_2 \frac{d_i}{|N|} \\
-I_{\mathrm{C,code}}(G) &:=& -\sum_{i=1}^C \frac{c_i}{|N|} \log_2 \frac{c_i}{|N|}
+I_{\mathrm{C,deg}}(G) &:=& -\sum_{i=1}^D \frac{d_i}{N} \log_2 \frac{d_i}{N}, \\
+I_{\mathrm{C,code}}(G) &:=& -\sum_{i=1}^C \frac{c_i}{N} \log_2 \frac{c_i}{N}.
 \end{eqnarray}
 where \(d_i\) is the number of vertices with the same eccentricity and
 the same vertex distance degree (i.\,e., equal row sums in the distance
@@ -635,26 +698,26 @@ distanceCodeCentric(g, mat.dist)
 
 \subsection{Parametric Graph Entropy Measures}
 \label{sec:dE}
-Measures of this group \cite{dehmer_functionals_2008,dehmer_varmuza_2009} assign a probability value to each vertex of the network using a so-called information functional $f$
-which captures structural information of the network $G$. We yield \cite{dehmer_functionals_2008},
+Measures of this group \cite{dehmer_functionals_2008,dehmer_varmuza_2009} assign a probability value to each vertex of the network using a so-called information functional $f$ which captures structural information of the network $G$.
 \begin{equation}\label{eq:if}
-I_{f}(G):=-\sum_{i=1}^{|N|}{\frac{f(v_i)}{\sum_{j=1}^{|N|}f(v_j)} \log\left(\frac{f(v_i)}{\sum_{j=1}^{|N|}f(v_j)}\right)},
+I_{f}(G):=-\sum_{i=1}^{N}{\frac{f(v_i)}{\sum_{j=1}^{N}f(v_j)} \log\left(\frac{f(v_i)}{\sum_{j=1}^{N}f(v_j)}\right)},
 \end{equation}
 %
 where $I_{f}(G)$ represents a family of graph entropy \cite{dehmer_functionals_2008} measures depending on the information functional.
 Further we implemented the following measurement\cite{dehmer_varmuza_2009}:
 \begin{equation}\label{eq:dist}
-I^{\lambda}_{f}(G) := \lambda \left( \log(|N|) + \sum_{i=1}^{|N|}{p(v_i)\log(p(v_i))} \right),
+I^{\lambda}_{f}(G) := \lambda \left( \log(N) + \sum_{i=1}^{N}{p(v_i)\log(p(v_i))} \right),
 \end{equation}
 \begin{equation}\label{eq:pis}
-p(v_i):={\frac{f(v_i)}{\sum_{j=1}^{|N|}f(v_j)}},
+p(v_i):={\frac{f(v_i)}{\sum_{j=1}^{N}f(v_j)}},
 \end{equation}
-where $p^V(v_i)$ are the vertex probabilities, $\lambda > 0$ a scaling constant. This measure can be interpreted as the distance between the entropy defined in equation \ref{eq:if} and maximum entropy ($\log(|N|)$).
+where $p^V(v_i)$ are the vertex probabilities, and $\lambda > 0$ is a scaling constant. This measure can be interpreted as the distance between the entropy defined in equation \ref{eq:if} and maximum entropy ($\log(N)$).
 
-We integrated 4 different information functionals:
+% TODO citation?
+We integrated 4 different information functionals \cite{dehmer_functionals_2008}:
 
 \begin{enumerate}
-\item An information functional using the j-spheres (\textit{"sphere"}):
+\item An information functional using the $j$-spheres (\textit{"sphere"}):
 \begin{equation}
 \label{eq:spherfunct}
 f^{V}(v_i):= c_1|S_1(v_i,G)| + c_2|S_2(v_i,G)| + \cdots + c_{\rho(G)}|S_{\rho(G)}(v_i,G)|,
@@ -675,12 +738,13 @@ where $ c_k > 0$.
 \begin{equation} 
   f^{\Delta}(v_i) := \alpha^{c_1 \Delta^G(v_i,1) + c_2 \Delta^G(v_i,2) + \cdots + c_{\rho(G)} \Delta^G(v_i,{\rho(G)})},
 \end{equation}
-where $ c_k > 0$, $1 \leq k \leq \rho(G)$ and $\alpha>0$ 
+where $ c_k > 0$, $1 \leq k \leq \rho(G)$ and $\alpha>0$. Note that \(f^{\Delta}\) is well-defined for \(\alpha > 0\).
 \end{enumerate}
 
 
 
-We implemented 4 different settings (as example settings) of the weighting parameter $c_i$:
+We implemented 4 different settings (as example settings) for weighting the
+parameters $c_i$ ($\rho(G)$ represents the diameter of the network):
 
 \begin{enumerate}
 \item constant
@@ -700,12 +764,12 @@ c_1:= \rho(G),\, c_2:= \rho(G)-1, \cdots, \, c_{\rho(G)}:= 1.
 \label{eq:exp}
 c_{1}:= \rho(G)^2, c_{2}:= (\rho(G)-1)^2, \cdots, c_{\rho(G)}:= 1.
 \end{equation}
+
 \item exponential
 \begin{equation}
 \label{eq:exp}
 c_{1}:= \rho(G), c_{2}:= \rho(G)e^{1}, \cdots, c_{\rho(G)}:= \rho(G)e^{-\rho(G) + 1}.
 \end{equation}
-$\rho(G)$ represents the diameter of the network.
 
 \end{enumerate}
 
@@ -714,11 +778,10 @@ It has following input parameters:
 \begin{itemize}
 \item \textit{g}: the network as a graphNEL object - it is the only mandatory parameter
 \item \textit{dist}: the distance matrix of g
-\item \textup{coeff}: specifies the weighting parameter: "const", "lin", "quad", "exp", "const" or "cust" are available constants. If it is set to
-    "cust" you have to specify your customized weighting schema with the parameter \textit{custCoeff}.
+\item \textup{coeff}: specifies the weighting parameter: "const", "lin", "quad", "exp", "const" or "cust" are available constants. If it is set to "cust", a customized weighting schema has to be specified through the \textit{custCoeff} parameter.
 \item \textit{infofunct}: specifies the information functional: "sphere", "pathlength", "vertcent" or "degree" are available settings.
 \item \textit{lambda}: scaling constant for the distance, default set to 1000.
-\item \textit{custCoeff}: specifies the customized weighting schema. To use it you need to set \textit{coeff}="const".
+\item \textit{custCoeff}: specifies the customized weighting schema. \textit{coeff} must be set to "const" in order to use it.
 \item \textit{alpha}: alpha for degree degree association.
 \item \textit{prec}: specifies the floating-point precision to use (currently only implemented for degree-degree association).  Values up to 53 are handled with the built-in double data type; larger values trigger the usage of Rmpfr.
 
@@ -733,7 +796,7 @@ The method returns a list with following entries:
 \item \textit{fvi}: contains the values of the used information functional for each vertex $v_i$
 \end{itemize}
 
-Note, that some combinations of these settings can cause the descriptor to return \textit{NaN}. In that case you have to check for \textit{warnings}. Moreover, the functional using degree degree (\textit{infofunct=degree}) associations is using the \texttt{Rmpfr} package to calcualte very small numbers. Thus, it can happen that some results are from the R-class \textit{mpfr}. This has to be considered fors further analysis.
+Note, that some combinations of these settings can cause the descriptor to return \textit{NaN}. In that case it is the user's responsibility to check for \textit{warnings}. Moreover, the functional using degree degree (\textit{infofunct=degree}) associations is using the \texttt{Rmpfr} package to calcualte very small numbers. Thus, it can happen that some results are from the R-class \textit{mpfr}. This has to be considered fors further analysis.
 
 <<>>=
 l1 <- infoTheoreticGCM(g)
@@ -747,7 +810,7 @@ l5
 
 \subsection{Eigenvalue-based Descriptors}
 
-This class contains Eigenvalue-based Descriptors proposed in Dehmer et. al \cite{dehmer_hindawi_2010}. 
+This class contains eigenvalue-based Descriptors proposed in Dehmer et. al \cite{dehmer_hindawi_2010}. 
 
 \begin{equation}
 H_{M_s}(G)=\sum_{i=1}^k \frac{|\lambda_i|^{\frac{1}{s}}}{\sum_{j=1}^k |\lambda_j|^{\frac{1}{s}}} \log \left( \frac{|\lambda_i|^{\frac{1}{s}}}{\sum_{j=1}^k |\lambda_j|^{\frac{1}{s}}} \right),
@@ -769,7 +832,7 @@ P_{M_s}(G)=|\lambda_1|^{\frac{1}{s}} \cdot |\lambda_2|^{\frac{1}{s}}  \ldots  |\
 IP_{M_s}(G)= \frac{1}{|\lambda_1|^{\frac{1}{s}} \cdot |\lambda_2|^{\frac{1}{s}}  \ldots  |\lambda_k|^{\frac{1}{s}}},
 \end{equation}
 
-With this function it is possible to calculate 5 descriptors ($H_{M_s(G)}$, $S_{M_s(G)}$ , $IS_{M_s(G)}$, $P_{M_s(G)}$, $IP_{M_s(G)}$) for 10 different matrices:
+Using this function, it is possible to calculate 5 descriptors ($H_{M_s(G)}$, $S_{M_s(G)}$ , $IS_{M_s(G)}$, $P_{M_s(G)}$, $IP_{M_s(G)}$) for 10 different matrices:
 
 \begin{enumerate}
 \item Adjacency matrix
@@ -818,8 +881,8 @@ For a detailed description of this class see Dehmer et. al \cite{dehmer_hindawi_
 
 \subsubsection*{Graph energy and Laplacian energy \cite{gutman_zhou_2006}:}
 \begin{eqnarray}
-E(G) &:=& \sum_{i=1}^{|N|} |\lambda_i| \\
-\mathit{LE(G)} &:=& \sum_{i=1}^{|N|} \left| \mu_i - \frac{2m}{n} \right|
+E(G) &:=& \sum_{i=1}^{N} |\lambda_i| \\
+\mathit{LE(G)} &:=& \sum_{i=1}^{N} \left| \mu_i - \frac{2m}{n} \right|
 \end{eqnarray}
 where \(\lambda_k\) are the eigenvalues of the adjacency matrix and \(\mu_k\) those of the Laplacian matrix of the graph.
 <<>>=
@@ -829,8 +892,8 @@ laplacianEnergy(g)
 
 \subsubsection*{Estrada \cite{estrada_2000} and Laplacian Estrada \cite{fath-tabar_2009} indices:}
 \begin{eqnarray}
-\mathit{EE(G)} &:=& \sum_{i=1}^{|N|} e^{\lambda_i} \\
-\mathit{LEE(G)} &:=& \sum_{i=1}^{|N|} e^{\mu_i}
+\mathit{EE(G)} &:=& \sum_{i=1}^{N} e^{\lambda_i} \\
+\mathit{LEE(G)} &:=& \sum_{i=1}^{N} e^{\mu_i}
 \end{eqnarray}
 with \(\lambda_k\) and \(\mu_k\) defined as above.
 <<>>=
@@ -846,7 +909,7 @@ laplacianEstrada(g)
 spectralRadius(g)
 @
 
-\subsection{Different subgraph measures}
+\subsection{Subgraph measures}
 
 \subsubsection*{One-edge-deleted subgraph complexity \cite{kim_wilhelm_2008}:}
 \begin{eqnarray}
@@ -890,7 +953,7 @@ localClusteringCoeff(g, deg=vec.degree)
 
 \subsubsection*{Global Clustering Coefficient \cite{watts2003small, watts1998collective}:}
 \begin{equation}
-C(G):= \sum_{v \in V} := \frac{1}{|V|}*C_v
+C(G):= \sum_{v \in N(g)} := \frac{1}{N}*C_v
 \end{equation}
 
 <<>>=
@@ -899,66 +962,13 @@ globalClusteringCoeff(g)
 globalClusteringCoeff(g, loc=loccc)
 @
 
-
-\subsection{Product measures}
-
-\subsubsection*{Medium articulation \cite{kim_wilhelm_2008}:}
-\begin{equation}
-\mathit{MAg}(G) := \mathit{MA}_R(G) \cdot \mathit{MA}_I(G)
-\end{equation}
-with the redundancy
-\begin{eqnarray}
-\mathit{MA}_R(G) &:=&
-  4 \left( \frac{R(G) - R_{\mathrm{path}}(G)} {R_{\mathrm{clique}}(G) - R_{\mathrm{path}}(G)} \right)
-  \left( 1 - \frac{R(G) - R_{\mathrm{path}}(G)}{R_{\mathrm{clique}}(G) - R_{\mathrm{path}}(G)} \right) \\
-R(G) &:=& \frac{1}{m} \sum_{i,j>i} \log(d_i d_j) \\
-R_{\mathrm{clique}}(G) &=& 2 \log(|N|-1) \\
-R_{\mathrm{path}}(G) &=& 2 \frac{|N|-2}{|N|-1} \log 2
-\end{eqnarray}
-and the mutual information
-\begin{eqnarray}
-\mathit{MA}_I(G) &:=&
-  4 \left( \frac{I(G) - I_{\mathrm{clique}}(G)}{I_{\mathrm{path}}(G) - I_{\mathrm{clique}}(G)} \right)
-  \left( 1 - \frac{I(G) - I_{\mathrm{clique}}(G)}{I_{\mathrm{path}}(G) - I_{\mathrm{clique}}(G)} \right) \\
-I(G) &:=& \frac{1}{m} \sum_{i,j>i} \log \left(\frac{2m}{d_i d_j}\right) \\
-I_{\mathrm{clique}}(G) &=& \log \frac{|N|}{|N|-1} \\
-I_{\mathrm{path}}(G) &=& \log(|N|-1) - \frac{|N|-3}{|N|-1} \log 2
-\end{eqnarray}
-<<>>=
-mediumArticulation(g)
-@
-
-\subsubsection*{Efficiency complexity \cite{kim_wilhelm_2008}:}
-\begin{eqnarray}
-\mathrm{Ce(G)} &:=&
-  4 \left(\frac{E(G) - E_{\mathrm{path}}(G)}{1 - E_{\mathrm{path}}(G)}\right)
-  \left(1 - \frac{E(G) - E_{\mathrm{path}}(G)}{1 - E_{\mathrm{path}}(G)}\right) \\
-E(G) &:=& \frac{2}{|N| (|N|-1)} \sum_i \sum_{j>i} \frac{1}{d_{ij}} \\
-E_{\mathrm{path}}(G) &=& \frac{2}{|N| (|N|-1)} \sum_{i=1}{|N|-1} \frac{|N| - i}{i}
-\end{eqnarray}
-<<>>=
-efficiency(g)
-efficiency(g, mat.dist)
-@
-
-\subsubsection*{Graph index complexity \cite{kim_wilhelm_2008}:}
-\begin{equation}
-\mathit{Cr}(G) := 4 c_r (1 - c_r)
-\end{equation}
-where \(c_r = \frac{r - 2 \cos \frac{\pi}{|N| + 1}}{|N| - 1 - 2 \cos
-\frac{\pi}{|N| + 1}}\) and \(r\) is the largest eigenvalue of the
-adjacency matrix of the graph.
-<<>>=
-graphIndexComplexity(g)
-@
-
 \section{Calculating multiple descriptors at once}
 
-The \texttt{calculateDescriptors} function allows you to calculate a set
-of descriptors on a list of input graphs.  The result is returned as a
-data frame.  You can specify the desired functions by name or by number.
-It is also possible to name the columns according to the names given in
-this document.
+The \texttt{calculateDescriptors} function provides a simple interface
+to calculate a set of descriptors on a list of input graphs.  The result
+is returned as a data frame.  The desired functions can be specified by
+name or by number.  It is also possible to name the columns according to
+the names given in this document.
 
 Please see the function documentation for a detailed description and a
 full list of the supported descriptors together with their numbers.

@@ -160,52 +160,52 @@ calculateDescriptors <- function(graphs, ..., labels = FALSE) {
     "vertexDegree",                                       # 3006
     "balabanlike1",                                       # 3007
     "balabanlike2",                                       # 3008
-    "graphVertexComplexity",                              # 3009
-    "offdiagonal",                                        # 3010
-    "spanningTreeSensitivity",                            # 3011
-    "distanceDegreeCentric",                              # 3012
-    "distanceCodeCentric"                                 # 3013
+    "graphVertexComplexity"                               # 3009
   ),
   # group 4000
   c(
-    .metaInfoTheoreticGCM("vertcent", "exp"),             # 4001
-    .metaInfoTheoreticGCM("vertcent", "lin"),             # 4002
-    .metaInfoTheoreticGCM("sphere", "exp"),               # 4003
-    .metaInfoTheoreticGCM("sphere", "lin"),               # 4004
-    .metaInfoTheoreticGCM("pathlength", "exp"),           # 4005
-    .metaInfoTheoreticGCM("pathlength", "lin"),           # 4006
-    .metaInfoTheoreticGCM("degree", "exp"),               # 4007
-    .metaInfoTheoreticGCM("degree", "lin")                # 4008
+    "mediumArticulation",                                 # 4001
+    "efficiency",                                         # 4002
+    "graphIndexComplexity",                               # 4003
+    "offdiagonal",                                        # 4004
+    "spanningTreeSensitivity",                            # 4005
+    "distanceDegreeCentric",                              # 4006
+    "distanceCodeCentric"                                 # 4007
   ),
   # group 5000
   c(
-    .metaEigenvalueBased("adjacencyMatrix"),              # 5001, 5002
-    .metaEigenvalueBased("laplaceMatrix"),                # 5003, 5004
-    .metaEigenvalueBased("distanceMatrix"),               # 5005, 5006
-    .metaEigenvalueBased("distancePathMatrix"),           # 5007, 5008
-    .metaEigenvalueBased("augmentedMatrix"),              # 5009, 5010
-    .metaEigenvalueBased("extendedAdjacencyMatrix"),      # 5011, 5012
-    .metaEigenvalueBased("vertConnectMatrix"),            # 5013, 5014
-    .metaEigenvalueBased("randomWalkMatrix"),             # 5015, 5016
-    .metaEigenvalueBased("weightStrucFuncMatrix_lin"),    # 5017, 5018
-    .metaEigenvalueBased("weightStrucFuncMatrix_exp"),    # 5019, 5020
-    "energy",                                             # 5021
-    "laplacianEnergy",                                    # 5022
-    "estrada",                                            # 5023
-    "laplacianEstrada",                                   # 5024
-    "spectralRadius"                                      # 5025
+    .metaInfoTheoreticGCM("vertcent", "exp"),             # 5001
+    .metaInfoTheoreticGCM("vertcent", "lin"),             # 5002
+    .metaInfoTheoreticGCM("sphere", "exp"),               # 5003
+    .metaInfoTheoreticGCM("sphere", "lin"),               # 5004
+    .metaInfoTheoreticGCM("pathlength", "exp"),           # 5005
+    .metaInfoTheoreticGCM("pathlength", "lin"),           # 5006
+    .metaInfoTheoreticGCM("degree", "exp"),               # 5007
+    .metaInfoTheoreticGCM("degree", "lin")                # 5008
   ),
   # group 6000
   c(
-    "oneEdgeDeletedSubgraphComplexity",                   # 6001
-    "twoEdgesDeletedSubgraphComplexity",                  # 6002
-    "globalClusteringCoeff"                               # 6003
-    # "localClusteringCoeff"                              # 6003 TODO
+    .metaEigenvalueBased("adjacencyMatrix"),              # 6001, 6002
+    .metaEigenvalueBased("laplaceMatrix"),                # 6003, 6004
+    .metaEigenvalueBased("distanceMatrix"),               # 6005, 6006
+    .metaEigenvalueBased("distancePathMatrix"),           # 6007, 6008
+    .metaEigenvalueBased("augmentedMatrix"),              # 6009, 6010
+    .metaEigenvalueBased("extendedAdjacencyMatrix"),      # 6011, 6012
+    .metaEigenvalueBased("vertConnectMatrix"),            # 6013, 6014
+    .metaEigenvalueBased("randomWalkMatrix"),             # 6015, 6016
+    .metaEigenvalueBased("weightStrucFuncMatrix_lin"),    # 6017, 6018
+    .metaEigenvalueBased("weightStrucFuncMatrix_exp"),    # 6019, 6020
+    "energy",                                             # 6021
+    "laplacianEnergy",                                    # 6022
+    "estrada",                                            # 6023
+    "laplacianEstrada",                                   # 6024
+    "spectralRadius"                                      # 6025
   ),
   # group 7000
   c(
-    "mediumArticulation",                                 # 7001
-    "efficiency",                                         # 7002
-    "graphIndexComplexity"                                # 7003
+    "oneEdgeDeletedSubgraphComplexity",                   # 7001
+    "twoEdgesDeletedSubgraphComplexity",                  # 7002
+    "globalClusteringCoeff"                               # 7003
+    # "localClusteringCoeff"                              # 7004 TODO
   )
 )
