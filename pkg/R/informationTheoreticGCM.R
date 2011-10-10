@@ -125,7 +125,7 @@ infoTheoreticGCM <- function(g, dist=NULL, coeff="lin", infofunct="sphere", lamb
   deg <- graph::degree(g)
   size <- numNodes(g)
 
-  expts <- .C("degdeg_exponents",
+  expts <- .C("quacn_degdeg_exponents",
     as.integer(m), as.integer(deg), as.integer(size),
     as.double(ci), as.integer(length(ci)),
     double(size))[[6]]
