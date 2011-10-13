@@ -105,7 +105,16 @@ calculateDescriptors(graphs, ..., labels = FALSE)
     7000 \tab --- all of 7xxx \cr
     7001 \tab oneEdgeDeletedSubgraphComplexity \cr
     7002 \tab twoEdgesDeletedSubgraphComplexity \cr
-    7003 \tab globalClusteringCoeff
+    7003 \tab globalClusteringCoeff \cr
+    8000 \tab --- all of 8xxx \cr
+    8001 \tab connectivityID \cr
+    8002 \tab minConnectivityID \cr
+    8003 \tab primeID \cr
+    8004 \tab bondOrderID \cr
+    8005 \tab balabanID \cr
+    8006 \tab minBalabanID \cr
+    8007 \tab weightedID \cr
+    8008 \tab huXuID
   }
 
   The arguments to these functions, such as the distance matrix or the

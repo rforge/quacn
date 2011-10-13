@@ -166,5 +166,14 @@ getLabels <- function(l){
   globalClusteringCoeff=expression(C),
   mediumArticulation=expression(MAg),
   efficiency=expression(Ce),
-  graphIndexComplexity=expression(Cr)
+  graphIndexComplexity=expression(Cr),
+  connectivityID=expression(CID),
+  minConnectivityID=expression(MINCID),
+  primeID=expression(PID),
+  bondOrderID=expression(piID),
+  balabanID=expression(BID),
+  minBalabanID=expression(MINBID),
+  weightedID.WID=expression(WID),
+  weightedID.SID=expression(SID),
+  huXuID=expression(HXID)
 )

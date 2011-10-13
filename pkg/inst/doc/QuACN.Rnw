@@ -81,6 +81,22 @@ g <- as(A, "graphNEL")
 g
 @
 
+Some descriptors, which are specially marked throughout this document, require vertex and/or edge weights.  Known attributes are:
+
+\begin{itemize}
+\item \texttt{"atom"}: Atomic number of a graph vertex.
+\item \texttt{"weight"}: Conventional bond order of an edge, i.e. 1 for single bonds, 2 for double bonds, 3 for triple bonds and 1.5 for aromatic bonds.
+\end{itemize}
+
+These can be set as follows:
+
+<<>>=
+nodeDataDefaults(g, "atom") <- 6
+nodeData(g, "6", "atom") <- 8
+edgeDataDefaults(g, "weight") <- 1
+edgeData(g, "2", "3", "weight") <- 2
+@
+
 If existing networks are to be analyzed with \texttt{QuACN}, R offers several ways to import them. (It is important that the networks are represented by \textit{graphNEL}-objects.) Note that there is no general procedure to get networks into an R workspace. Some possibilities to import network data are listed below:
 
 \begin{itemize}
@@ -960,6 +976,136 @@ C(G):= \sum_{v \in N(g)} := \frac{1}{N}*C_v
 loccc <- localClusteringCoeff(g)
 globalClusteringCoeff(g)
 globalClusteringCoeff(g, loc=loccc)
+@
+
+\subsection{ID numbers}
+
+\subsubsection*{Randi\'{c} connectivity ID number:} % TODO citation: Randi'c, 1984b
+
+\begin{equation}
+\mathit{CID} := N + \sum_{^{m}p_{ij}} w_{ij},
+\end{equation}
+where \(^{m}p_{ij}\) are all paths of length \(m > 0\), and \(w_{ij}\) is a path weight defined as
+\begin{equation}
+w_{ij} = \prod_{b=1}^m \left( \delta_{b(1)} \delta_{b(2)} \right)_b^{-1/2},
+\label{eq:cid-weight}
+\end{equation}
+with the sum running over all edges in the path and \(b(1)\), \(b(2)\) referring to the two vertices incident to the \(b\)th edge.
+
+<<>>=
+connectivityID(g)
+connectivityID(g, deg=vec.degree)
+@
+
+\subsubsection*{MINCID:} % TODO citation: Ivanciuc and Balaban, 1996b
+
+\begin{equation}
+\mathit{MINCID} := N + \sum_{^{\min}p_{ij}} w_{ij},
+\end{equation}
+where the sum runs over all shortest paths \(^{\min}p_{ij}\) between the vertices \(v_i\) and \(v_j\), and \(w_{ij}\) is taken from equation \ref{eq:cid-weight}.
+
+<<>>=
+minConnectivityID(g)
+minConnectivityID(g, deg=vec.degree)
+@
+
+\subsubsection*{Prime ID number:} % TODO citation: Randi'c, 1986b
+
+\begin{equation}
+\mathit{PID} := N + \sum_{^{m}p_{ij}} w_{ij},
+\end{equation}
+with \(^{m}p_{ij}\) like above and the path weight \(w_{ij}\)
+\begin{equation}
+w_{ij} = \prod_{b=1}^m {pn}_b^{-1/2},
+\end{equation}
+where \({pn}_b\) is a prime number chosen according to the degrees of the vertices adjacent to the \(b\)th edge.
+
+<<>>=
+primeID(g)
+primeID(g, deg=vec.degree)
+@
+
+\subsubsection*{Conventional bond order ID number:} % TODO citation: Randi'c and Jurs, 1989
+
+\begin{equation}
+\mathit{\pi ID} := N + \sum_{^mp_{ij}} w_{ij},
+\end{equation}
+with \(^{m}p_{ij}\) like above and the path weight \(w_{ij}\)
+\begin{equation}
+w_{ij} = \prod_{b=1}^m \pi^*_b,
+\end{equation}
+where \(\pi^*_b\) is the conventional bond order of the \(b\)th edge.
+
+The conventional bond order must be set as the \texttt{"weight"} edge data attribute of the input graph.
+
+<<>>=
+bondOrderID(g)
+@
+
+\subsubsection*{Balaban ID number:} % TODO citation: Balaban, 1987
+
+\begin{equation}
+\mathit{BID} := N + \sum_{^mp_{ij}} w_{ij},
+\end{equation}
+with \(^{m}p_{ij}\) like above and the path weight \(w_{ij}\)
+\begin{equation}
+w_{ij} = \prod_{b=1}^m \left( \sigma_{b(1)} \cdot \sigma_{b(2)} \right)_b^{-1/2},
+\label{eq:bid-weight}
+\end{equation}
+where \(\sigma_k\) is the vertex distance degree and \(b(1), b(2)\) refer to the vertices adjacent to the edge \(b\).
+
+<<>>=
+balabanID(g)
+balabanID(g, dist=mat.dist)
+@
+
+\subsubsection*{MINBID:} % TODO citation: Ivanciuc and Balaban, 1996b
+
+\begin{equation}
+\mathit{MINBID} := N + \sum_{^{\min}p_{ij}} w_{ij},
+\end{equation}
+where the sum runs over all shortest paths \(^{\min}p_{ij}\) between the vertices \(v_i\) and \(v_j\), and \(w_{ij}\) is taken from equation \ref{eq:bid-weight}.
+
+<<>>=
+minBalabanID(g)
+minBalabanID(g, dist=mat.dist)
+@
+
+\subsubsection*{Weighted ID number:} % TODO citation: Szymanski, M"uller et al., 1986b
+
+\begin{equation}
+\mathit{WID} := N - \frac{1}{N} + \frac{\mathit{ID}^*}{N^2},
+\end{equation}
+with
+\begin{eqnarray}
+\mathit{ID}^* &:=& \sum_{i=1}^N \sum_{j=1}^N w^*_{ij}, \\
+W^* &:=& \sum_{k=0}^{N-1} {^{\sigma}\chi^k},
+\end{eqnarray}
+where \(^{\sigma}\chi\) is the distance-sum-connectivity matrix.
+
+<<>>=
+weightedID(g)
+@
+
+\subsubsection*{Hu-Xu ID number:} % TODO citation: Hu and Xu, 1997
+
+\begin{equation}
+\mathit{HXID} := \sum_{i=1}^{N} \mathit{AID}_i^2
+\end{equation}
+with
+\begin{eqnarray}
+\mathit{AID}_i &:=& \sum_{j=1}^N w_{ij}, \\
+w_{ij} &:=& \prod_{a=2}^{m+1}
+  \left( \frac{\pi^*_{a-1,a}} \cdot \frac{1}{\delta'_{a-1} \cdot \delta'_a} \right)^{1/2}, \\
+\delta'_a &:=& \delta_a \cdot \sqrt{Z_a},
+\end{eqnarray}
+where \(Z_a\) is the atomic number of \(v_a\).
+
+The \texttt{huXuID} method requires the input graph to store the atomic numbers in the \texttt{"atom"} vertex data attribute and the conventional bond order in the \texttt{"weight"} edge data attribute.
+
+<<>>=
+huXuID(g)
+huXuID(g, deg=vec.degree)
 @
 
 \section{Calculating multiple descriptors at once}

@@ -60,6 +60,8 @@ calculateDescriptors <- function(graphs, ..., labels = FALSE) {
         params[[key]] <- .callFunction("adjacencyMatrix", g, list(), cache)
       else if (key == "dist")
         params[[key]] <- .callFunction("distanceMatrix", g, list(), cache)
+      else if (key == "dsc")
+        params[[key]] <- .callFunction("distSumConnectMatrix", g, list(), cache)
       else if (key == "deg")
         params[[key]] <- .callFunction(".degreeHelper", g, list(), cache)
       else if (key == "wien")
@@ -207,5 +209,16 @@ calculateDescriptors <- function(graphs, ..., labels = FALSE) {
     "twoEdgesDeletedSubgraphComplexity",                  # 7002
     "globalClusteringCoeff"                               # 7003
     # "localClusteringCoeff"                              # 7004 TODO
+  ),
+  # group 8000
+  c(
+    "connectivityID",                                     # 8001
+    "minConnectivityID",                                  # 8002
+    "primeID",                                            # 8003
+    "bondOrderID",                                        # 8004
+    "balabanID",                                          # 8005
+    "minBalabanID",                                       # 8006
+    "weightedID",                                         # 8007
+    "huXuID"                                              # 8008
   )
 )

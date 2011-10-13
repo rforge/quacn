@@ -1,0 +1,29 @@
+\name{minBalabanID}
+\alias{minBalabanID}
+\title{Balaban ID number considering shortest paths only}
+\description{This method calculates a modified, faster version of the
+  Balaban ID number.}
+\usage{
+minBalabanID(g, dist=NULL)
+}
+\arguments{
+  \item{g}{a graph as a graphNEL object.}
+  \item{dist}{the pre-computed distance matrix of the graph.  Will be
+    calculated automatically if NULL.}
+}
+
+\value{This method works like the balabanID method, but it only sums the
+weights of all the shortest paths in the graph.  This results in
+different values only if the graph contains cycles.
+}
+\references{% TODO Ivanciuc and Balaban, 1996b
+}
+\author{Michael Schutte}
+
+\examples{
+set.seed(987)
+g <- randomEGraph(LETTERS[1:10], 0.3)
+
+minBalabanID(g)
+}
+\keyword{ descriptors }
