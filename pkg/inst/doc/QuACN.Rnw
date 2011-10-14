@@ -1005,7 +1005,7 @@ minConnectivityID(g)
 minConnectivityID(g, deg=vec.degree)
 @
 
-\subsubsection*{Prime ID Number \cite{randic1984molecular}:}
+\subsubsection*{Prime ID Number \cite{randic1986molecular}:}
 
 \begin{equation}
 \mathit{PID} := N + \sum_{^{m}p_{ij}} w_{ij},
@@ -1021,7 +1021,7 @@ primeID(g)
 primeID(g, deg=vec.degree)
 @
 
-\subsubsection*{Conventional Bond Order ID Number \cite{randić1989fragment}:}
+\subsubsection*{Conventional Bond Order ID Number \cite{randic1989fragment}:}
 
 \begin{equation}
 \mathit{\pi ID} := N + \sum_{^mp_{ij}} w_{ij},
@@ -1038,7 +1038,7 @@ The conventional bond order must be set as the \texttt{"weight"} edge data attri
 bondOrderID(g)
 @
 
-\subsubsection*{Balaban ID Number \cite{blaban_artemi}:}
+\subsubsection*{Balaban ID Number \cite{balaban1987local}:}
 
 \begin{equation}
 \mathit{BID} := N + \sum_{^mp_{ij}} w_{ij},
