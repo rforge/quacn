@@ -50,7 +50,10 @@ infoTheoreticGCM <- function(g, dist=NULL, coeff="lin", infofunct="sphere", lamb
   itgcm <- list()
   itgcm[["entropy"]] <- (-sum(pis*log2(pis)))
   if(is.nan(itgcm[["entropy"]])){
-     warning("Entropy returned not a number (NaN): check your parameters")
+    if (infofunct == allowed.functionals[4])
+      warning("Entropy returned not a number (NaN): please try higher values for prec")
+    else
+      warning("Entropy returned not a number (NaN): check your parameters")
   }
   itgcm[["distance"]] <- (lambda*(log2(length(pis)) - itgcm[["entropy"]]))
   itgcm[["pis"]] <- pis
