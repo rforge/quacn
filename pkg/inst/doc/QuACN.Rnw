@@ -211,7 +211,7 @@ compactness(g)
 compactness(g, mat.dist)
 compactness(g, mat.dist, wiener(g, mat.dist))
 @ 
-\subsubsection*{Product of Row Sums index \cite{schultz_1992}:}
+\subsubsection*{Product of Row Sums Index \cite{schultz_1992}:}
 \begin{equation}
 \text{PRS}(G)= \prod_{i=1}^{N} \mu(v_i) \quad \mbox{or} \quad   \log \big(\text{PRS}(G)\big)= \log\left( \prod_{i=1}^{N} \mu(v_i) \right).
 \end{equation}
@@ -223,7 +223,7 @@ productOfRowSums(g, log=TRUE)
 productOfRowSums(g, mat.dist, log=FALSE)
 productOfRowSums(g, mat.dist, log=TRUE)
 @ 
-\subsubsection*{Hyper-distance-path index \cite{todeschini_2002}}
+\subsubsection*{Hyper-distance-path Index \cite{todeschini_2002}}
 \begin{equation}
 D_P(G):= \frac{1}{2} \sum_{i=1}^{N} \sum_{j=1}^{N} d(v_i,v_j) +  \frac{1}{2} \sum_{i=1}^{N} \sum_{j=1}^{N}  {d(v_i,v_j) \choose 2}.
 \end{equation}
@@ -320,7 +320,7 @@ dob$unipolarity
 @
 
 
-\item Distance vertex deviation \cite{skorobogatov}:
+\item Distance Vertex Deviation \cite{skorobogatov}:
 \begin{equation}
 \Delta D^*(v) := D(v) - D^*(G)
 \end{equation}
@@ -388,7 +388,7 @@ dob$meanDistVertexDeviation
 This section describes network measures based on other invariants than distances.
 
 
-\subsubsection*{Index of total adjacency \cite{bonchev_book_2005}:}
+\subsubsection*{Index of Total Adjacency \cite{bonchev_book_2005}:}
 \begin{equation}
 A(G):= \frac{1}{2} \sum_{i=1}^{N}\sum_{j=1}^{N}a_{ij}.
 \end{equation}
@@ -397,7 +397,7 @@ totalAdjacency(g)
 totalAdjacency(g, mat.adj)
 @ 
 
-\subsubsection*{Zagreb group indices \cite{diudea}, \cite{nikolic_2003}:}
+\subsubsection*{Zagreb Group Indices \cite{diudea, nikolic_2003}:}
 \begin{equation}
 Z_1(G):= \sum_{i=1}^{N} k_{v_i},
 \end{equation}
@@ -424,7 +424,7 @@ variableZagreb(g)
 variableZagreb(g, vec.degree)
 @ 
 
-\subsubsection*{Randi\'{c} connectivity index \cite{li_gutman_2006}:}
+\subsubsection*{Randi\'{c} Connectivity Index \cite{li_gutman_2006}:}
 \begin{equation}
 R(G):= \sum_{(v_i,v_j) \in E} [k_{v_i} k_{v_j}]^{- \frac{1}{2}}.
 \end{equation}
@@ -433,7 +433,7 @@ randic(g)
 randic(g, vec.degree)
 @ 
 
-\subsubsection*{The complexity index B \cite{bonchev_book_2005}:}
+\subsubsection*{The Complexity Index B \cite{bonchev_book_2005}:}
 \begin{equation}
 B(G):= \sum_{i=1}^{N} \frac{k_{v_i}}{\mu(v_i)}.
 \end{equation}
@@ -444,7 +444,7 @@ complexityIndexB(g)
 complexityIndexB(g, mat.dist)
 complexityIndexB(g, mat.dist, vec.degree)
 @ 
-\subsubsection*{Normalized edge complexity \cite{bonchev_book_2005}:}
+\subsubsection*{Normalized Edge Complexity \cite{bonchev_book_2005}:}
 \begin{equation}
 E_N(G):=\frac{A(G)}{N^2}.
 \end{equation}
@@ -453,7 +453,7 @@ normalizedEdgeComplexity(g)
 normalizedEdgeComplexity(g, totalAdjacency(g, mat.adj))
 @ 
 
-\subsubsection*{Atom-bond connectivity \cite{estrada_1998}:}
+\subsubsection*{Atom-bond Connectivity \cite{estrada_1998}:}
 \begin{equation}
 \mathit{ABC(G)} := \sum_{(v_i, v_j) \in E} \sqrt{\frac{k_{v_i} + k_{v_j} - 2}{k_{v_i} k_{v_j}}}
 \end{equation}
@@ -462,7 +462,7 @@ atomBondConnectivity(g)
 atomBondConnectivity(g, vec.degree)
 @
 
-\subsubsection*{Geometric-arithmetic indices \cite{zhou_2009}:}
+\subsubsection*{Geometric-arithmetic Indices \cite{zhou_2009}:}
 \begin{eqnarray}
 \mathit{GA1(G)} &:=& \sum_{(v_i, v_j) \in E} \frac{\sqrt{k_{v_i} k_{v_j}}}{\frac{1}{2} (k_{v_i} + k_{v_j})} \\
 \mathit{GA2(G)} &:=& \sum_{(v_i, v_j) \in E} \frac{\sqrt{n_i n_j}}{\frac{1}{2} (n_i + n_j)} \\
@@ -486,7 +486,7 @@ geometricArithmetic3(g)
 geometricArithmetic3(g, mat.dist)
 @
 
-\subsubsection*{Narumi-Katayama index \cite{narumi_katayama_1984}:}
+\subsubsection*{Narumi-Katayama Index \cite{narumi_katayama_1984}:}
 \begin{equation}
 \mathit{NK} := \prod_{i=1}^N k_{v_i}
 \end{equation}
@@ -495,12 +495,12 @@ narumiKatayama(g)
 narumiKatayama(g, vec.degree)
 @
 
-\subsection{Classical entropy-based descriptors}
+\subsection{Classical Entropy-based descriptors}
 \label{sec:clE}
 These measures are based on grouping the elements of an arbitrary graph invariant (vertices, edges, and distances etc.) using an equivalence criterion.
 
 
-\subsubsection*{Topological information content \cite{mowshowitz_1,rashewsky}:}
+\subsubsection*{Topological Information Content \cite{mowshowitz_1,rashewsky}:}
 \begin{equation}\label{eq_mean_information_trucco}
 I^V_{orb}(G) := -  \sum_{i=1}^{k} \frac{|N^V_i|}{N} \log \left( \frac{|N^V_i|}{N} \right).
 \end{equation}
@@ -512,7 +512,7 @@ topologicalInfoContent(g, mat.dist)
 topologicalInfoContent(g, mat.dist, vec.degree)
 @ 
 
-\subsubsection*{Bonchev - Trinajsti\'{c} indices \cite{bonchev_Trinajstic_1977}:}
+\subsubsection*{Bonchev - Trinajsti\'{c} Indices \cite{bonchev_Trinajstic_1977}:}
 \begin{equation}
 I_D(G) := - \frac{1}{N}\log\left( \frac{1}{N} \right)- \sum_{i=1}^{\rho(G)} \frac{2k_i}{N^2}\log\left( \frac{2k_i}{N^2} \right), \label{eq_mean_information_bonchev}
 \end{equation}
@@ -530,7 +530,7 @@ bonchev2(g)
 bonchev2(g, mat.dist)
 bonchev2(g, mat.dist, wiener(g))
 @
-\subsubsection*{BERTZ complexity index \cite{bertz_1981}:}
+\subsubsection*{BERTZ Complexity Index \cite{bertz_1981}:}
 \begin{equation}\label{eq_total_information_bertz}
 C(G):= 2N \log(N) - \sum_{i=1}^{k} |N_i| \log \left( |N_i| \right).
 \end{equation}
@@ -542,7 +542,7 @@ bertz(g)
 bertz(g, mat.dist)
 bertz(g, mat.dist, vec.degree)
 @ 
-\subsubsection*{Radial centric information index \cite{bonchev_2}:}
+\subsubsection*{Radial Centric Information Index \cite{bonchev_2}:}
 \begin{equation}\label{radial_index}
 I_{C,R}(G) := \sum_{i=1}^{k} \frac{|N^e_i|}{N} \log \left( \frac{|N^e_i|}{N} \right).
 \end{equation}
@@ -552,7 +552,7 @@ $|N^e_i|$ is the number of vertices having the same eccentricity.
 radialCentric(g)
 radialCentric(g, mat.dist)
 @ 
-\subsubsection*{Vertex degree equality-based information index \cite{bonchev_2}:}
+\subsubsection*{Vertex Degree Equality-based Information Index \cite{bonchev_2}:}
 \begin{equation}
 I_{deg}(G) := \sum_{i=1}^{\bar{k}} \frac{|N^{k_v}_i|}{N} \log \left( \frac{|N^{k_v}_i|}{N} \right).
 \end{equation}
@@ -562,7 +562,7 @@ $|N^{k_v}_i|$ is the number of vertices with degree equal to $i$ and $\bar{k}:= 
 vertexDegree(g)
 vertexDegree(g, vec.degree)
 @ 
-\subsubsection*{Balaban-like information indices \cite{balaban_1991}:}
+\subsubsection*{Balaban-like Information Indices \cite{balaban_1991}:}
 
 Note that this class of Descriptors return \textit{Inf} for graphs with $N < 3$.
 
@@ -589,7 +589,7 @@ balabanlike2(g)
 balabanlike2(g, mat.dist)
 @
 
-\subsubsection*{Graph vertex complexity index \cite{raychaudhury_1984}:}
+\subsubsection*{Graph Vertex Complexity Index \cite{raychaudhury_1984}:}
 \begin{equation}
 I_V(G):= \sum_{i=1}^{N}v^c_i,
 \end{equation}
@@ -603,9 +603,9 @@ graphVertexComplexity(g)
 graphVertexComplexity(g, mat.dist)
 @ 
 
-\subsection{More recent graph complexity measures}
+\subsection{More recent Graph Complexity Measures}
 
-\subsubsection*{Medium articulation \cite{kim_wilhelm_2008}:}
+\subsubsection*{Medium Articulation \cite{kim_wilhelm_2008}:}
 \begin{equation}
 \mathit{MAg}(G) := \mathit{MA}_R(G) \cdot \mathit{MA}_I(G)
 \end{equation}
@@ -631,7 +631,7 @@ I_{\mathrm{path}}(G) &=& \log(N-1) - \frac{N-3}{N-1} \log 2
 mediumArticulation(g)
 @
 
-\subsubsection*{Efficiency complexity \cite{kim_wilhelm_2008}:}
+\subsubsection*{Efficiency Complexity \cite{kim_wilhelm_2008}:}
 \begin{eqnarray}
 \mathrm{Ce(G)} &:=&
   4 \left(\frac{E(G) - E_{\mathrm{path}}(G)}{1 - E_{\mathrm{path}}(G)}\right)
@@ -644,7 +644,7 @@ efficiency(g)
 efficiency(g, mat.dist)
 @
 
-\subsubsection*{Graph index complexity \cite{kim_wilhelm_2008}:}
+\subsubsection*{Graph Index Complexity \cite{kim_wilhelm_2008}:}
 \begin{equation}
 \mathit{Cr}(G) := 4 c_r (1 - c_r)
 \end{equation}
@@ -670,7 +670,7 @@ offdiagonal(g)
 offdiagonal(g, vec.degree)
 @
 
-\subsubsection*{Spanning tree sensitivity \cite{kim_wilhelm_2008}:}
+\subsubsection*{Spanning Tree Sensitivity \cite{kim_wilhelm_2008}:}
 \begin{equation}
 \mathit{STS(G)} := \frac{-\sum_l a_l \log a_l}{\log m_{\mathit{cu}}},
 \end{equation}
@@ -693,7 +693,7 @@ spanningTreeSensitivity(g)
 spanningTreeSensitivity(g, sg.1ed)
 @
 
-\subsubsection*{Distance degree/code centric indices \cite{dehmer_match_dist}:}
+\subsubsection*{Distance Degree/Code Centric Indices \cite{dehmer_match_dist}:}
 \begin{eqnarray}
 I_{\mathrm{C,deg}}(G) &:=& -\sum_{i=1}^D \frac{d_i}{N} \log_2 \frac{d_i}{N}, \\
 I_{\mathrm{C,code}}(G) &:=& -\sum_{i=1}^C \frac{c_i}{N} \log_2 \frac{c_i}{N}.
@@ -892,7 +892,7 @@ eigenvalueBased(g, weightStrucFuncMatrix_exp,2)
 
 For a detailed description of this class see Dehmer et. al \cite{dehmer_hindawi_2010}.
 
-\subsubsection*{Graph energy and Laplacian energy \cite{gutman_zhou_2006}:}
+\subsubsection*{Graph Energy and Laplacian Energy \cite{gutman_zhou_2006}:}
 \begin{eqnarray}
 E(G) &:=& \sum_{i=1}^{N} |\lambda_i| \\
 \mathit{LE(G)} &:=& \sum_{i=1}^{N} \left| \mu_i - \frac{2m}{n} \right|
@@ -903,7 +903,7 @@ energy(g)
 laplacianEnergy(g)
 @
 
-\subsubsection*{Estrada \cite{estrada_2000} and Laplacian Estrada \cite{fath-tabar_2009} indices:}
+\subsubsection*{Estrada \cite{estrada_2000} and Laplacian Estrada \cite{fath-tabar_2009} Indices:}
 \begin{eqnarray}
 \mathit{EE(G)} &:=& \sum_{i=1}^{N} e^{\lambda_i} \\
 \mathit{LEE(G)} &:=& \sum_{i=1}^{N} e^{\mu_i}
@@ -914,7 +914,7 @@ estrada(g)
 laplacianEstrada(g)
 @
 
-\subsubsection*{Spectral radius:}
+\subsubsection*{Spectral Radius:}
 \begin{equation}
 \mathit{SpRad(G)} := \max_i \left\{|\lambda_i|\right\}
 \end{equation}
@@ -922,9 +922,9 @@ laplacianEstrada(g)
 spectralRadius(g)
 @
 
-\subsection{Subgraph measures}
+\subsection{Subgraph Measures}
 
-\subsubsection*{One-edge-deleted subgraph complexity \cite{kim_wilhelm_2008}:}
+\subsubsection*{One-edge-deleted Subgraph Complexity \cite{kim_wilhelm_2008}:}
 \begin{eqnarray}
 C_{\mathit{1e,ST}}(G) &:=& \frac{N_{\mathit{1e,ST}} - 1}{m_{\mathit{cu}}-1} \\
 C_{\mathit{1e,Spec}}(G) &:=& \frac{N_{\mathit{1e,Spec}} - 1}{m_{\mathit{cu}} - 1}
@@ -939,7 +939,7 @@ oneEdgeDeletedSubgraphComplexity(g)
 oneEdgeDeletedSubgraphComplexity(g, sg.1ed)
 @
 
-\subsubsection*{Two-edges-deleted subgraph complexity \cite{kim_wilhelm_2008}:}
+\subsubsection*{Two-edges-deleted Subgraph Complexity \cite{kim_wilhelm_2008}:}
 \begin{equation}
 C_{\mathit{2e,Spec}}(G) := \frac{N_{\mathit{2e,Spec}} - 1}
   {\binom{m_{\mathit{cu}}}{2} - 1}
@@ -977,7 +977,7 @@ globalClusteringCoeff(g, loc=loccc)
 
 \subsection{ID numbers}
 
-\subsubsection*{Randi\'{c} connectivity ID number \cite{randic1984molecular}:} 
+\subsubsection*{Randi\'{c} Connectivity ID Number \cite{randic1984molecular}:} 
 \begin{equation}
 \mathit{CID} := N + \sum_{^{m}p_{ij}} w_{ij},
 \end{equation}
@@ -993,7 +993,7 @@ connectivityID(g)
 connectivityID(g, deg=vec.degree)
 @
 
-\subsubsection*{MINCID:} % TODO citation: Ivanciuc and Balaban, 1996b
+\subsubsection*{MINCID \cite{ivanciuc1996design}:}
 
 \begin{equation}
 \mathit{MINCID} := N + \sum_{^{\min}p_{ij}} w_{ij},
@@ -1005,7 +1005,7 @@ minConnectivityID(g)
 minConnectivityID(g, deg=vec.degree)
 @
 
-\subsubsection*{Prime ID number \cite{randic1984molecular}:}
+\subsubsection*{Prime ID Number \cite{randic1984molecular}:}
 
 \begin{equation}
 \mathit{PID} := N + \sum_{^{m}p_{ij}} w_{ij},
@@ -1021,7 +1021,7 @@ primeID(g)
 primeID(g, deg=vec.degree)
 @
 
-\subsubsection*{Conventional bond order ID number:} % TODO citation: Randi'c and Jurs, 1989
+\subsubsection*{Conventional Bond Order ID Number \cite{randić1989fragment}:}
 
 \begin{equation}
 \mathit{\pi ID} := N + \sum_{^mp_{ij}} w_{ij},
@@ -1038,7 +1038,7 @@ The conventional bond order must be set as the \texttt{"weight"} edge data attri
 bondOrderID(g)
 @
 
-\subsubsection*{Balaban ID number:} % TODO citation: Balaban, 1987
+\subsubsection*{Balaban ID Number \cite{blaban_artemi}:}
 
 \begin{equation}
 \mathit{BID} := N + \sum_{^mp_{ij}} w_{ij},
@@ -1055,7 +1055,7 @@ balabanID(g)
 balabanID(g, dist=mat.dist)
 @
 
-\subsubsection*{MINBID:} % TODO citation: Ivanciuc and Balaban, 1996b
+\subsubsection*{MINBID \cite{ivanciuc1996design}:}
 
 \begin{equation}
 \mathit{MINBID} := N + \sum_{^{\min}p_{ij}} w_{ij},
@@ -1067,7 +1067,7 @@ minBalabanID(g)
 minBalabanID(g, dist=mat.dist)
 @
 
-\subsubsection*{Weighted ID number:} % TODO citation: Szymanski, M"uller et al., 1986b
+\subsubsection*{Weighted ID Number \cite{szymanski1986identification}:}
 
 \begin{equation}
 \mathit{WID} := N - \frac{1}{N} + \frac{\mathit{ID}^*}{N^2},
@@ -1083,7 +1083,7 @@ where \(^{\sigma}\chi\) is the distance-sum-connectivity matrix.
 weightedID(g)
 @
 
-\subsubsection*{Hu-Xu ID number:} % TODO citation: Hu and Xu, 1997
+\subsubsection*{Hu-Xu ID Number \cite{hu1994hall}:}
 
 \begin{equation}
 \mathit{HXID} := \sum_{i=1}^{N} \mathit{AID}_i^2
@@ -1104,7 +1104,7 @@ huXuID(g)
 huXuID(g, deg=vec.degree)
 @
 
-\section{Calculating multiple descriptors at once}
+\section{Calculating Multiple Descriptors at Once}
 
 The \texttt{calculateDescriptors} function provides a simple interface
 to calculate a set of descriptors on a list of input graphs.  The result
