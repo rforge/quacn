@@ -17,8 +17,9 @@ given graph.  This is an adjacency matrix where each edge is weighted
 according to the reciprocal square root of the product of the adjacent
 vertices' distance sum.
 }
-\references{% TODO Szymanski, M"uller et al., 1986b
-}
+\references{K. Szymanski, W. Mueller, J. Knop, and N. Trinajsti\'{c}.
+  On the Identification Numbers for Chemical Structures.
+  International Journal of Quantum Chemistry, 30(S20):173-183, 1986}
 \author{Michael Schutte}
 
 \examples{

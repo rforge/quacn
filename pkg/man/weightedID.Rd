@@ -16,8 +16,9 @@ ID number (WID) and the self-returning ID number (SID).  The former is
 based on the sum of all walks weighted according to vertex distance
 degrees.  The latter is limited to self-returning walks.
 }
-\references{% Szymanski, M"uller et al., 1986b
-}
+\references{K. Szymanski, W. Mueller, J. Knop, and N. Trinajsti\'{c}.
+  On the Identification Numbers for Chemical Structures.
+  International Journal of Quantum Chemistry, 30(S20):173-183, 1986}
 \author{Michael Schutte}
 
 \examples{

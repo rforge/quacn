@@ -15,8 +15,8 @@ primeID(g, deg=NULL)
 distinct prime numbers to each different pair of vertex degrees
 associated with an edge.
 }
-\references{% TODO Randi'c, 1986b
-}
+\references{M. Randic. Molecular ID numbers: By Design.
+  Journal of Chemical Information and Computer Sciences, 26(3):134-136, 1986}
 \author{Michael Schutte}
 
 \examples{

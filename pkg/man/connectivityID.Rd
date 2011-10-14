@@ -14,7 +14,8 @@ connectivityID(g, deg=NULL)
 \value{The resulting floating point value is a weighted path sum which
 stresses local features and takes the vertex degree into account.
 }
-\references{% TODO Randi'c, 1984b
+\references{M. Randic. On Molecular Identification Numbers.
+  Journal of Chemical Information and Computer Sciences, 24(3):164-175, 1984
 }
 \author{Michael Schutte}
 

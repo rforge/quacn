@@ -16,8 +16,9 @@ minConnectivityID(g, deg=NULL)
 sums the weights of all the shortest paths in the graph.  This results
 in different values only if the graph contains cycles.
 }
-\references{% TODO Ivanciuc and Balaban, 1996b
-}
+\references{O. Ivanciuc and A. Balaban. Design of Topological Indices. Part 3.
+  New Identification Numbers for Chemical Structures: MINID and MINSID.
+  Croatica chemica acta, 69:9-16, 1996}
 \author{Michael Schutte}
 
 \examples{

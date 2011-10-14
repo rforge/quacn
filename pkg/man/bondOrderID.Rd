@@ -14,8 +14,8 @@ bondOrderID(g)
 \value{The resulting floating point number is a weighted path sum which
   takes the different bonds into account.
 }
-\references{% TODO Randi'c and Jurs, 1989
-}
+\references{M. Randi\'{c} and P. Jurs. On a Fragment Approach to Structure-activity Correlations.
+  Quantitative Structure-Activity Relationships, 8(1):39-48, 1989}
 \author{Michael Schutte}
 
 \examples{

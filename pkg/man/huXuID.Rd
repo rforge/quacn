@@ -19,8 +19,8 @@ huXuID(g, deg=NULL)
 sums based on the vertex degree, the atomic numbers, and edge
 multiplicity.
 }
-\references{% TODO Hu and Xu, 1997
-}
+\references{C. Hu and L. Xu. On Hall and Kier's Topological State and Total Topological Index.
+  Journal of Chemical Information and Computer Sciences, 34(6):1251-1258, 1994}
 \author{Michael Schutte}
 
 \examples{

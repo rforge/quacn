@@ -14,8 +14,8 @@ balabanID(g, dist=NULL)
 \value{The return value is the Balaban ID number of the graph, a
 weighted path count based on the vertex distance degree.
 }
-\references{% TODO Balaban, 1987
-}
+\references{A. T. Balaban. Numerical Modelling of Chemical Structures: Local Graph Invariants and Topological
+  Indices. In Graph Theory and Topology in Chemistry, R. King and D. Rouvray, Eds., pp. 159-176, 1987}
 \author{Michael Schutte}
 
 \examples{
