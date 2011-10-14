@@ -5,15 +5,17 @@ huXuID <- function(g, deg=NULL) {
     deg <- graph::degree(g)
 
   n <- nodes(g)
+  nd <- .nodeDataVector(g, "atom")
   e <- edges(g)
+  ed <- .edgeDataMatrix(g, "weight")
 
   deg[deg == 0] <- 0.5
-  Z <- sapply(n, function(v) as.integer(nodeData(g, v, "atom")))
+  Z <- sapply(n, function(v) as.integer(nd[[v]]))
   hxdeg <- deg * sqrt(Z)
 
   weightfunc <- function(i, from, to) {
     sqrt(
-     (as.numeric(edgeData(g, from, to, "weight")) / (i + 1)) *
+     (as.numeric(ed[[from, to]]) / (i + 1)) *
      (1 / (hxdeg[[from]] * hxdeg[[to]]))
     )
   }
