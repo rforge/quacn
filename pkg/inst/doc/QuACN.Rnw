@@ -693,7 +693,6 @@ spanningTreeSensitivity(g)
 spanningTreeSensitivity(g, sg.1ed)
 @
 
-% TODO correct citation
 \subsubsection*{Distance degree/code centric indices \cite{dehmer_match_dist}:}
 \begin{eqnarray}
 I_{\mathrm{C,deg}}(G) &:=& -\sum_{i=1}^D \frac{d_i}{N} \log_2 \frac{d_i}{N}, \\
@@ -728,9 +727,7 @@ I^{\lambda}_{f}(G) := \lambda \left( \log(N) + \sum_{i=1}^{N}{p(v_i)\log(p(v_i))
 p(v_i):={\frac{f(v_i)}{\sum_{j=1}^{N}f(v_j)}},
 \end{equation}
 where $p^V(v_i)$ are the vertex probabilities, and $\lambda > 0$ is a scaling constant. This measure can be interpreted as the distance between the entropy defined in equation \ref{eq:if} and maximum entropy ($\log(N)$).
-
-% TODO citation?
-We integrated 4 different information functionals \cite{dehmer_functionals_2008}:
+We integrated 4 different information functionals \cite{dehmer_functionals_2008, dehmer_degree_2010}:
 
 \begin{enumerate}
 \item An information functional using the $j$-spheres (\textit{"sphere"}):
@@ -980,8 +977,7 @@ globalClusteringCoeff(g, loc=loccc)
 
 \subsection{ID numbers}
 
-\subsubsection*{Randi\'{c} connectivity ID number:} % TODO citation: Randi'c, 1984b
-
+\subsubsection*{Randi\'{c} connectivity ID number \cite{randic1984molecular}:} 
 \begin{equation}
 \mathit{CID} := N + \sum_{^{m}p_{ij}} w_{ij},
 \end{equation}
@@ -1009,7 +1005,7 @@ minConnectivityID(g)
 minConnectivityID(g, deg=vec.degree)
 @
 
-\subsubsection*{Prime ID number:} % TODO citation: Randi'c, 1986b
+\subsubsection*{Prime ID number \cite{randic1984molecular}:}
 
 \begin{equation}
 \mathit{PID} := N + \sum_{^{m}p_{ij}} w_{ij},

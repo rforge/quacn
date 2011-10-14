@@ -17,7 +17,9 @@ variableZagreb(g, deg = NULL)
 \value{This method returns the variable Zagreb index of a graph
   as a double-precision floating point value.
 }
-\references{TODO
+\references{S. Nikolic and G. Kovacevic and A. Milicevic and N.
+Trinajstic: The Zagreb Indices 30 Years After.  Croatica Chemica Acta,
+76:113-124, 2003
 }
 \author{
 Lavanya Sivakumar, Michael Schutte
