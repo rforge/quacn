@@ -747,11 +747,11 @@ where $ c_k > 0$.
   f^{C}(v_i) := c_1\beta^{L_G(v_i,1)}(v_i) + c_2\beta^{L_G(v_i,2)}(v_i) + \cdots + c_{\rho(G)}\beta^{L_G(v_i,\rho(G))}(v_i),
 \end{equation}
 where $ c_k > 0$.
-\item Calculates the degree degree association index(\textit{"degree"}) \cite{dehmer_hindawi_2010}:
+\item Calculates the degree-degree association index(\textit{"degree"}) \cite{dehmer_hindawi_2010}:
 \begin{equation} 
   f^{\Delta}(v_i) := \alpha^{c_1 \Delta^G(v_i,1) + c_2 \Delta^G(v_i,2) + \cdots + c_{\rho(G)} \Delta^G(v_i,{\rho(G)})},
 \end{equation}
-where $ c_k > 0$, $1 \leq k \leq \rho(G)$ and $\alpha>0$. Note that \(f^{\Delta}\) is well-defined for \(\alpha > 0\).
+where $ c_k > 0$, $1 \leq k \leq \rho(G)$ and $\alpha>0$. Note that \(f^{\Delta}\) is well-defined for \(\alpha > 0\).  Please consider that the results of the degree-degree association index are often very close to zero and can only be represented with a special data type (see the hint at the end of this section).
 \end{enumerate}
 
 
@@ -800,6 +800,7 @@ It has following input parameters:
 
 \end{itemize}
 
+Note that some combinations of these settings can cause the descriptor to return \textit{NaN}. In that case it is the user's responsibility to check for \textit{warnings}.  For \texttt{infofunct="degree"} in particular, also see the note below.
 
 The method returns a list with following entries:
 \begin{itemize}
@@ -808,8 +809,6 @@ The method returns a list with following entries:
 \item \textit{pis}: contains the probability distribution, see formula \ref{eq:pis}
 \item \textit{fvi}: contains the values of the used information functional for each vertex $v_i$
 \end{itemize}
-
-Note, that some combinations of these settings can cause the descriptor to return \textit{NaN}. In that case it is the user's responsibility to check for \textit{warnings}. Moreover, the functional using degree degree (\textit{infofunct=degree}) associations is using the \texttt{Rmpfr} package to calcualte very small numbers. Thus, it can happen that some results are from the R-class \textit{mpfr}. This has to be considered fors further analysis.
 
 <<>>=
 l1 <- infoTheoreticGCM(g)
@@ -820,6 +819,17 @@ l5 <- infoTheoreticGCM(g, mat.dist, coeff="exp", infofunct="degree", lambda=1000
 l1
 l5
 @ 
+
+The functional based on degree-degree associations (\texttt{infofunct="degree"}) will often result in values that cannot be represented with standard R data types.  This problem manifests itself in \textit{NaN} return values.  The issue can be avoided by specifying a floating-point precision value greater than 53, using the \textit{prec} parameter (\texttt{prec=128} is usually enough).  In this case, the \texttt{Rmpfr} package will be used and the resulting list will contain vectors of the class \textit{mpfr}.  For the most part, these behave just like the usual numeric vectors, except that all calculations will result in \textit{mpfr} vectors.  \texttt{as.double} can be used to convert such a vector back to the regular \textit{numeric} class once the result is in the representable range (between about \(10^{-380}\) and \(10^{380}\)).  For example:
+
+<<>>=
+l5mpfr <- infoTheoreticGCM(g, mat.dist, coeff="exp", infofunct="degree", lambda=1000, prec=128)
+l5mpfr$entropy
+l5mpfr$entropy * 2^3
+as.double(l5mpfr$entropy * 2^3)
+@
+
+For more details about \textit{mpfr} vectors, please consult the \texttt{Rmpfr} documentation.
 
 \subsection{Eigenvalue-based Descriptors}
 
