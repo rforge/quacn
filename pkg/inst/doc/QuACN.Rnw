@@ -727,7 +727,7 @@ I^{\lambda}_{f}(G) := \lambda \left( \log(N) + \sum_{i=1}^{N}{p(v_i)\log(p(v_i))
 p(v_i):={\frac{f(v_i)}{\sum_{j=1}^{N}f(v_j)}},
 \end{equation}
 where $p^V(v_i)$ are the vertex probabilities, and $\lambda > 0$ is a scaling constant. This measure can be interpreted as the distance between the entropy defined in equation \ref{eq:if} and maximum entropy ($\log(N)$).
-We integrated 4 different information functionals \cite{dehmer_functionals_2008, dehmer_degree_2010}:
+We integrated 4 different information functionals \cite{dehmer_functionals_2008, dehmer_hindawi_2010}:
 
 \begin{enumerate}
 \item An information functional using the $j$-spheres (\textit{"sphere"}):
