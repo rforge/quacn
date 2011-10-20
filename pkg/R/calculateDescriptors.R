@@ -162,7 +162,10 @@ calculateDescriptors <- function(graphs, ..., labels = FALSE) {
     "vertexDegree",                                       # 3006
     "balabanlike1",                                       # 3007
     "balabanlike2",                                       # 3008
-    "graphVertexComplexity"                               # 3009
+    "graphVertexComplexity",                              # 3009
+    "informationBondIndex",                               # 3010
+    "edgeEqualityMIC",                                    # 3011
+    "edgeMagnitudeMIC"                                    # 3012
   ),
   # group 4000
   c(

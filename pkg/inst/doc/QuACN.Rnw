@@ -603,6 +603,43 @@ graphVertexComplexity(g)
 graphVertexComplexity(g, mat.dist)
 @ 
 
+% TODO citations
+\subsubsection*{Information bond index \cite{dosmorov}:}
+\begin{equation}
+I_B := |E| \cdot \log_2 |E| - \sum_m |E_m| \cdot \log_2 |E_m|,
+\end{equation}
+where \(E_m\) is the subset of \(E\) of edges with a multiplicity of \(m\).  The sum runs over all the different edge multiplicities in the graph.
+
+This descriptor expects the conventional bond order in the \texttt{"weight"} edge data attribute of the input graph.
+
+<<>>=
+informationBondIndex(g)
+@
+
+\subsubsection*{Mean information content on the edge equality \cite{bonchev_1981}:}
+\begin{equation}
+^E\overline{I}^E_\chi = -\sum_g \frac{|E_g|}{|E|} \cdot \log_2 \frac{|E_g|}{|E|},
+\end{equation}
+where \(E_g\) is the subset of \(E\) of edges with an edge connectivity of \(g\).  The sum runs over all the different connectivity values of the edges in the graph.
+
+<<>>=
+edgeEqualityMIC(g)
+edgeEqualityMIC(g, vec.degree)
+@
+
+\subsubsection*{Mean information content on the edge magnitude \cite{bonchev_1981}:}
+\begin{equation}
+^E\overline{I}^M_\chi = -\sum_{(i, j) \in E}
+  \frac{(\delta_i \delta_j)^{-1/2}}{R(G)} \cdot
+  \log_2 \frac{(\delta_i \delta_j)^{-1/2}}{R(G)},
+\end{equation}
+where \(R(G)\) is the Randi\'{c} connectivity index.
+
+<<>>=
+edgeMagnitudeMIC(g)
+edgeMagnitudeMIC(g, vec.degree)
+@
+
 \subsection{More recent Graph Complexity Measures}
 
 \subsubsection*{Medium Articulation \cite{kim_wilhelm_2008}:}

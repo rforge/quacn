@@ -59,6 +59,9 @@ calculateDescriptors(graphs, ..., labels = FALSE)
     3007 \tab balabanlike1 \cr
     3008 \tab balabanlike2 \cr
     3009 \tab graphVertexComplexity \cr
+    3010 \tab informationBondIndex \cr
+    3011 \tab edgeEqualityMIC \cr
+    3012 \tab edgeMagnitudeMIC \cr
     4000 \tab --- all of 4xxx \cr
     4001 \tab mediumArticulation \cr
     4002 \tab efficiency \cr
