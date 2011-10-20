@@ -4,7 +4,7 @@ informationBondIndex <- function(g) {
 
   m <- numEdges(g)
 
-  bonds <- .edgeDataMatrix(g, "weight")
+  bonds <- .edgeDataMatrix(g, "bond")
   bonds <- bonds[upper.tri(bonds)]
   eqcls <- as.numeric(table(bonds[bonds != 0]))
 

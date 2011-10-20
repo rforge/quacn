@@ -85,7 +85,7 @@ Some descriptors, which are specially marked throughout this document, require v
 
 \begin{itemize}
 \item \texttt{"atom"}: Atomic number of a graph vertex.
-\item \texttt{"weight"}: Conventional bond order of an edge, i.e. 1 for single bonds, 2 for double bonds, 3 for triple bonds and 1.5 for aromatic bonds.
+\item \texttt{"bond"}: Conventional bond order of an edge, i.e. 1 for single bonds, 2 for double bonds, 3 for triple bonds and 1.5 for aromatic bonds.
 \end{itemize}
 
 These can be set as follows:
@@ -93,8 +93,8 @@ These can be set as follows:
 <<>>=
 nodeDataDefaults(g, "atom") <- 6
 nodeData(g, "6", "atom") <- 8
-edgeDataDefaults(g, "weight") <- 1
-edgeData(g, "2", "3", "weight") <- 2
+edgeDataDefaults(g, "bond") <- 1
+edgeData(g, "2", "3", "bond") <- 2
 @
 
 If existing networks are to be analyzed with \texttt{QuACN}, R offers several ways to import them. (It is important that the networks are represented by \textit{graphNEL}-objects.) Note that there is no general procedure to get networks into an R workspace. Some possibilities to import network data are listed below:
@@ -610,7 +610,7 @@ I_B := |E| \cdot \log_2 |E| - \sum_m |E_m| \cdot \log_2 |E_m|,
 \end{equation}
 where \(E_m\) is the subset of \(E\) of edges with a multiplicity of \(m\).  The sum runs over all the different edge multiplicities in the graph.
 
-This descriptor expects the conventional bond order in the \texttt{"weight"} edge data attribute of the input graph.
+This descriptor expects the conventional bond order in the \texttt{"bond"} edge data attribute of the input graph.
 
 <<>>=
 informationBondIndex(g)
@@ -1079,7 +1079,7 @@ w_{ij} = \prod_{b=1}^m \pi^*_b,
 \end{equation}
 where \(\pi^*_b\) is the conventional bond order of the \(b\)th edge.
 
-The conventional bond order must be set as the \texttt{"weight"} edge data attribute of the input graph.
+The conventional bond order must be set as the \texttt{"bond"} edge data attribute of the input graph.
 
 <<>>=
 bondOrderID(g)
@@ -1144,7 +1144,7 @@ w_{ij} &:=& \prod_{a=2}^{m+1}
 \end{eqnarray}
 where \(Z_a\) is the atomic number of \(v_a\).
 
-The \texttt{huXuID} method requires the input graph to store the atomic numbers in the \texttt{"atom"} vertex data attribute and the conventional bond order in the \texttt{"weight"} edge data attribute.
+The \texttt{huXuID} method requires the input graph to store the atomic numbers in the \texttt{"atom"} vertex data attribute and the conventional bond order in the \texttt{"bond"} edge data attribute.
 
 <<>>=
 huXuID(g)
