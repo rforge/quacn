@@ -79,6 +79,11 @@ calculateDescriptors(graphs, ..., labels = FALSE)
     5006 \tab infoTheoreticGCM: pathlength, lin \cr
     5007 \tab infoTheoreticGCM: degree, exp \cr
     5008 \tab infoTheoreticGCM: degree, lin \cr
+    5009 \tab infoTheoreticLabeledV1: exp \cr
+    5010 \tab infoTheoreticLabeledV1: lin \cr
+    5011 \tab infoTheoreticLabeledV2 \cr
+    5012 \tab infoTheoreticLabeledE: exp \cr
+    5013 \tab infoTheoreticLabeledE: lin \cr
     6000 \tab --- all of 6xxx \cr
     6001 \tab eigenvalueBased: adjacencyMatrix, s=1 \cr
     6002 \tab eigenvalueBased: adjacencyMatrix, s=2 \cr

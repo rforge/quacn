@@ -868,6 +868,53 @@ as.double(l5mpfr$entropy * 2^3)
 
 For more details about \textit{mpfr} vectors, please consult the \texttt{Rmpfr} documentation.
 
+\subsubsection*{Parametric entropy measures for labeled graphs \cite{dehmer_topo_labeled}:}
+These three functionals are similar to the ones above, but additionally use vertex or edge labels in order to distinguish between different bond types and heteroatoms.  For practical reasons, they are not implemented as part of \textit{infoTheoreticGCM}.
+
+\(f^{V_1}\) and \(f^{V_2}\) require the atomic number or chemical symbol in the \texttt{"atom"} vertex data attribute.  \(f^E\) needs the conventional bond order in the \texttt{"bond"} vertex attribute.
+
+The functionals are defined as
+\begin{eqnarray}
+f^{V_1}(v_i) &:=& \sum_{k=1}^{\rho(G)} \sum_{\mu=1}^{|A_V^G|}
+  c_k^{l_v^{\mu}} \left| S_k^{l_v^{\mu}}(v_i, G) \right|, \\
+f^{V_2}(v_i) &:=& \sum_{\mu=1}^{|A_V^G|} \left( c_{l_v^{\mu}} \cdot
+  \sum_{k=1}^{\rho(G)} \left| V_{l_v^{\mu}}(\mathcal{L}_G(v_i, k)) \right| \right), \\
+f^E(v_i) &:=& \sum_{k=1}^{\rho(G)} c_k \cdot \omega(\mathcal{L}_G(v_i, k)).
+\end{eqnarray}
+\(S_j^{l_v^{\mu}}\) is the set of vertices on the \(j\)-sphere of \(v_i\) with the node label \(l_v^{\mu}\).  \(|A_V^G|\) is the number of distinct node labels.  \(\mathcal{L}_G(v_i, j)\) is called a local information graph regarding \(v_i\).  Its vertex set consists of the vertices on the \(j\)-sphere of \(v_i\) and all vertices along all the shortest paths from \(v_i\) to these vertices.  Its edge set contains all edges that make up these shortest paths.  \(\omega(\mathcal{L}_G(v_i, j))\) is defined as
+\begin{eqnarray}
+\omega(\mathcal{L}_G(v_i, j)) &:=& \sum_{\mu=1}^{k_j} \omega(P_{\mu}^j(v_i)), \\
+\omega(P_{\mu}^j(v_i)) &:=& \omega(e_1^{\mu}) + \cdots + \omega(e_j^{\mu}),
+\end{eqnarray}
+\(k_j\) being the number of shortest paths of length \(j\) from \(v_i\), and \(\omega(e_i^{\mu})\) the conventional bond order of the \(i\)th edge along the path \(P_{\mu}^j\).
+
+The \(c\) values are understood as follows:
+\begin{itemize}
+\item \(f^{V_1}(v_i)\): \(c_j^{l_v^{\mu}}\) is the weighting coefficient for vertices on the \(j\)-sphere of \(v_i\) whose label is \(l_v^{\mu}\).  It can be defined by passing as the \textit{coeffMatrix} parameter to \textit{infoTheoreticLabeledV1} a matrix whose columns represent the elements and whose rows the values of \(j\); the columns have to be named according to the chemical symbols.  The matrix chosen by default represents \(c_j^a = c_j - m_a / 238\), where \(m_a\) is the atomic mass of the atom \(a\).  Values for \(c_j\) can be selected using \textit{coeff} and \textit{custCoeff} as described above; the default is \texttt{"lin"}.
+\item \(f^{V_2}(v_i)\): \(c_{l_v^{\mu}}\) is the weighting coefficient for vertices whose label is \(l_v^{\mu}\).  Different values can be chosen by passing a list in the \textit{ci} parameter to \textit{infoTheoreticLabeledV2} which maps chemical symbols to coefficients.  By default, all \(c_{l_v^{\mu}}\) are \(1\).
+\item \(f^E(v_i)\): \(c_k\) is the weighting coefficient for paths of length \(k\).  The coefficient values can be set using the \textit{coeff}/\textit{custCoeff} mechanism described above; \texttt{"lin"} is selected by default.
+\end{itemize}
+
+For all functions, \textit{lambda} can be used to set a scaling constant different from the default \(1000\).
+
+<<>>=
+lv1 <- infoTheoreticLabeledV1(g, coeff="exp")
+lv1$entropy
+lv2 <- infoTheoreticLabeledV2(g, ci=list(`C` = 0.8, `O` = 1))
+lv2$entropy
+le <- infoTheoreticLabeledE(g, coeff="quad")
+le$entropy
+@
+
+\cite{dehmer_topo_labeled} also defines functionals \(f^{V_1,E}\) and \(f^{V_2,E}\) as the sum of a vertex- and an edge-labeled-based functional.  Given the result of \textit{infoTheoreticLabeledE} and one of \textit{infoTheoreticLabeledV1} or \textit{infoTheoreticLabeledV2}, the \textit{infoTheoreticSum} method can be used to calculate these sums correctly.
+
+<<>>=
+lv1e <- infoTheoreticSum(lv1, le)
+lv1e$entropy
+lv2e <- infoTheoreticSum(lv2, le)
+lv2e$entropy
+@
+
 \subsection{Eigenvalue-based Descriptors}
 
 This class contains eigenvalue-based Descriptors proposed in Dehmer et. al \cite{dehmer_hindawi_2010}. 

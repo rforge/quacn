@@ -111,6 +111,22 @@ calculateDescriptors <- function(graphs, ..., labels = FALSE) {
   name
 }
 
+.metaInfoTheoretic <- function(funct, coeff) {
+  if (is.null(coeff))
+    name <- paste(".", funct, sep="")
+  else
+    name <- paste(paste(".", funct, sep=""), coeff, sep="_")
+  assign(name,
+    function(g, lambda=1000) {
+      args <- list(`g` = g, `lambda` = lambda)
+      if (!is.null(coeff))
+        args[["coeff"]] <- coeff
+      result <- do.call(funct, args)
+      result[c("entropy", "distance")]
+  }, parent.env(environment()))
+  name
+}
+
 .metaEigenvalueBased <- function(matrix_function) {
   name <- paste(".eigenvalueBased", matrix_function, sep="_")
   assign(name,
@@ -186,7 +202,12 @@ calculateDescriptors <- function(graphs, ..., labels = FALSE) {
     .metaInfoTheoreticGCM("pathlength", "exp"),           # 5005
     .metaInfoTheoreticGCM("pathlength", "lin"),           # 5006
     .metaInfoTheoreticGCM("degree", "exp"),               # 5007
-    .metaInfoTheoreticGCM("degree", "lin")                # 5008
+    .metaInfoTheoreticGCM("degree", "lin"),               # 5008
+    .metaInfoTheoretic("infoTheoreticLabeledV1", "exp"),  # 5009
+    .metaInfoTheoretic("infoTheoreticLabeledV1", "lin"),  # 5010
+    .metaInfoTheoretic("infoTheoreticLabeledV2", NULL),   # 5011
+    .metaInfoTheoretic("infoTheoreticLabeledE", "exp"),   # 5012
+    .metaInfoTheoretic("infoTheoreticLabeledE", "lin")    # 5013
   ),
   # group 6000
   c(
