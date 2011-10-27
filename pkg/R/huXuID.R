@@ -5,7 +5,7 @@ huXuID <- function(g, deg=NULL) {
     deg <- graph::degree(g)
 
   n <- nodes(g)
-  nd <- .nodeDataVector(g, "atom")
+  nd <- .nodeDataVector(g, "atom->number")
   e <- edges(g)
   ed <- .edgeDataMatrix(g, "bond")
 

@@ -84,15 +84,15 @@ g
 Some descriptors, which are specially marked throughout this document, require vertex and/or edge weights.  Known attributes are:
 
 \begin{itemize}
-\item \texttt{"atom"}: Atomic number of a graph vertex.
+\item \texttt{"atom"}: Atomic number (such as \texttt{8}) or chemical symbol (such as \texttt{"O"}) of a graph vertex.
 \item \texttt{"bond"}: Conventional bond order of an edge, i.e. 1 for single bonds, 2 for double bonds, 3 for triple bonds and 1.5 for aromatic bonds.
 \end{itemize}
 
 These can be set as follows:
 
 <<>>=
-nodeDataDefaults(g, "atom") <- 6
-nodeData(g, "6", "atom") <- 8
+nodeDataDefaults(g, "atom") <- "C"
+nodeData(g, "6", "atom") <- "O"
 edgeDataDefaults(g, "bond") <- 1
 edgeData(g, "2", "3", "bond") <- 2
 @
@@ -1144,7 +1144,7 @@ w_{ij} &:=& \prod_{a=2}^{m+1}
 \end{eqnarray}
 where \(Z_a\) is the atomic number of \(v_a\).
 
-The \texttt{huXuID} method requires the input graph to store the atomic numbers in the \texttt{"atom"} vertex data attribute and the conventional bond order in the \texttt{"bond"} edge data attribute.
+The \texttt{huXuID} method requires the input graph to store the atomic numbers or chemical symbols in the \texttt{"atom"} vertex data attribute and the conventional bond order in the \texttt{"bond"} edge data attribute.
 
 <<>>=
 huXuID(g)

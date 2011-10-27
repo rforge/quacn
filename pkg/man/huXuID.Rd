@@ -10,7 +10,7 @@ huXuID(g, deg=NULL)
     data attribute containing one of the values 1 (single bond), 2
     (double bond), 3 (triple bond) or 1.5 (aromatic bond), and each
     vertex must have an "atom" data attribute specifying its atomic
-    number.}
+    number or chemical symbol.}
   \item{deg}{the degree of each node of g.  Will be automatically
     calculated if not supplied.}
 }
