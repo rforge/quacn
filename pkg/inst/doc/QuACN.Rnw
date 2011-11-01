@@ -630,10 +630,10 @@ edgeEqualityMIC(g, vec.degree)
 \subsubsection*{Mean information content on the edge magnitude \cite{bonchev_1981}:}
 \begin{equation}
 ^E\overline{I}^M_\chi = -\sum_{(i, j) \in E}
-  \frac{(\delta_i \delta_j)^{-1/2}}{R(G)} \cdot
-  \log_2 \frac{(\delta_i \delta_j)^{-1/2}}{R(G)},
+  \frac{(k_i k_j)^{-1/2}}{R(G)} \cdot
+  \log_2 \frac{(k_i k_j)^{-1/2}}{R(G)},
 \end{equation}
-where \(R(G)\) is the Randi\'{c} connectivity index.
+where \(R(G)\) is the Randi\'{c} connectivity index and \(k_i\) are the vertex degrees.
 
 <<>>=
 edgeMagnitudeMIC(g)
@@ -651,7 +651,7 @@ with the redundancy
 \mathit{MA}_R(G) &:=&
   4 \left( \frac{R(G) - R_{\mathrm{path}}(G)} {R_{\mathrm{clique}}(G) - R_{\mathrm{path}}(G)} \right)
   \left( 1 - \frac{R(G) - R_{\mathrm{path}}(G)}{R_{\mathrm{clique}}(G) - R_{\mathrm{path}}(G)} \right) \\
-R(G) &:=& \frac{1}{m} \sum_{i,j>i} \log(d_i d_j) \\
+R(G) &:=& \frac{1}{|E|} \sum_{i,j>i} \log(d_i d_j) \\
 R_{\mathrm{clique}}(G) &=& 2 \log(N-1) \\
 R_{\mathrm{path}}(G) &=& 2 \frac{N-2}{N-1} \log 2
 \end{eqnarray}
@@ -660,7 +660,7 @@ and the mutual information
 \mathit{MA}_I(G) &:=&
   4 \left( \frac{I(G) - I_{\mathrm{clique}}(G)}{I_{\mathrm{path}}(G) - I_{\mathrm{clique}}(G)} \right)
   \left( 1 - \frac{I(G) - I_{\mathrm{clique}}(G)}{I_{\mathrm{path}}(G) - I_{\mathrm{clique}}(G)} \right) \\
-I(G) &:=& \frac{1}{m} \sum_{i,j>i} \log \left(\frac{2m}{d_i d_j}\right) \\
+I(G) &:=& \frac{1}{|E|} \sum_{i,j>i} \log \left(\frac{2 |E|}{d_i d_j}\right) \\
 I_{\mathrm{clique}}(G) &=& \log \frac{N}{N-1} \\
 I_{\mathrm{path}}(G) &=& \log(N-1) - \frac{N-3}{N-1} \log 2
 \end{eqnarray}
@@ -685,9 +685,9 @@ efficiency(g, mat.dist)
 \begin{equation}
 \mathit{Cr}(G) := 4 c_r (1 - c_r)
 \end{equation}
-where \(c_r = \frac{r - 2 \cos \frac{\pi}{N + 1}}{N - 1 - 2 \cos
-\frac{\pi}{N + 1}}\) and \(r\) is the largest eigenvalue of the
-adjacency matrix of the graph.
+where \[
+  c_r := \frac{r - 2 \cos \frac{\pi}{N + 1}}{N - 1 - 2 \cos \frac{\pi}{N + 1}}
+\] and \(r\) is the largest eigenvalue of the adjacency matrix of the graph.
 <<>>=
 graphIndexComplexity(g)
 @
@@ -697,11 +697,14 @@ graphIndexComplexity(g)
 \mathit{OdC(G)} := - \frac{1}{log(N-1)}
   \sum_{n=0}^{k_{\mathrm{max}}-1} \tilde{a}_n \log \tilde{a}_n,
 \end{equation}
-with \(\tilde{a}_n = \frac{a_n}{\sum_{m=0}^{k_{\mathrm{max}}-1} a_m}\)
-and \(a_n = \sum_{i=1}^{k_{\mathrm{max}-N}} c_{i,i+N}\), where
-\(k_{\mathrm{max}}\) is the maximum degree of all nodes in the graph,
-and \(c_{ij}\) is the number of all neighbors with degree \(j \ge i\) of
-all nodes with degree \(i\).
+with
+\begin{eqnarray}
+  \tilde{a}_n &:=& \frac{a_n}{\sum_{m=0}^{k_{\mathrm{max}}-1} a_m}, \\
+  a_n &:=& \sum_{i=1}^{k_{\mathrm{max}-N}} c_{i,i+N},
+\end{eqnarray}
+where \(k_{\mathrm{max}}\) is the maximum degree of all nodes in the graph, and
+\(c_{ij}\) is the number of all neighbors with degree \(j \ge i\) of all nodes
+with degree \(i\).
 <<>>=
 offdiagonal(g)
 offdiagonal(g, vec.degree)
@@ -711,19 +714,22 @@ offdiagonal(g, vec.degree)
 \begin{equation}
 \mathit{STS(G)} := \frac{-\sum_l a_l \log a_l}{\log m_{\mathit{cu}}},
 \end{equation}
-with \(m_{\mathit{cu}} = n^{1.68}-10\), \(a_l = \frac{S_{ij}^l}{\sum_r^k
-S_{ij}^r}\), \(S_{ij} = s_{ij}
-- (\min\{s_{ij}\} - 1)\) and \(\{S_{ij}^1, S_{ij}^2, \ldots,
-S_{ij}^k\}\) being an ordered list of all \(k\) different \(S_{ij}\).
-\(s_{ij}\) is the number of spanning trees in the graph minus the number
-of spanning trees of the subgraph with the edge \(\{v_i, v_j\}\)
-deleted.  Analogously, the spanning tree sensitivity differences measure
-is defined as
+with \(m_{\mathit{cu}} = N^{1.68}-10\),
+\begin{eqnarray}
+  a_l &:=& \frac{S_{ij}^l}{\sum_r^k S_{ij}^r}, \\
+  S_{ij} &:=& s_{ij} - (\min\{s_{ij}\} - 1),
+\end{eqnarray}
+\(\{S_{ij}^1, S_{ij}^2, \ldots, S_{ij}^k\}\) being an ordered list of all \(k\)
+different \(S_{ij}\).  \(s_{ij}\) is the number of spanning trees in the graph
+minus the number of spanning trees of the subgraph with the edge \(\{v_i,
+v_j\}\) deleted.  Analogously, the spanning tree sensitivity differences
+measure is defined as
 \begin{equation}
 \mathit{STSD(G)} := \frac{-\sum_l b_l \log b_l}{\log m_{\mathit{cu}}},
 \end{equation}
-with \(b_l = \frac{\mathit{Ld}_l}{\sum_r^d \mathit{Ld}_r}\), where
-\(\{\mathit{Ld}_1, \mathit{Ld}_2, \ldots, \mathit{Ld}_d\}\) is the
+with \[
+  b_l = \frac{\mathit{Ld}_l}{\sum_r^d \mathit{Ld}_r}
+\], where \(\{\mathit{Ld}_1, \mathit{Ld}_2, \ldots, \mathit{Ld}_d\}\) is the
 ordered list of all unique differences \(S_{ij}^m - S_{ij}^{m-1}\).
 <<>>=
 spanningTreeSensitivity(g)
@@ -989,7 +995,7 @@ For a detailed description of this class see Dehmer et. al \cite{dehmer_hindawi_
 \subsubsection*{Graph Energy and Laplacian Energy \cite{gutman_zhou_2006}:}
 \begin{eqnarray}
 E(G) &:=& \sum_{i=1}^{N} |\lambda_i| \\
-\mathit{LE(G)} &:=& \sum_{i=1}^{N} \left| \mu_i - \frac{2m}{n} \right|
+\mathit{LE(G)} &:=& \sum_{i=1}^{N} \left| \mu_i - \frac{2 |E|}{N} \right|
 \end{eqnarray}
 where \(\lambda_k\) are the eigenvalues of the adjacency matrix and \(\mu_k\) those of the Laplacian matrix of the graph.
 <<>>=
@@ -1027,7 +1033,7 @@ C_{\mathit{1e,Spec}}(G) &:=& \frac{N_{\mathit{1e,Spec}} - 1}{m_{\mathit{cu}} - 1
 are different with regard to the number of spanning trees.  Similarly,
 \(N_{\mathit{1e,Spec}}\) is the number of one-edge-deleted subgraphs
 which are different with regard to spectra of the Laplacian and signless
-Laplacian matrix.  \(m_\mathit{cu}\) is defined as \(n^{1.68}-10\).
+Laplacian matrix.  \(m_\mathit{cu}\) is defined as \(N^{1.68}-10\).
 <<>>=
 oneEdgeDeletedSubgraphComplexity(g)
 oneEdgeDeletedSubgraphComplexity(g, sg.1ed)
@@ -1060,7 +1066,7 @@ localClusteringCoeff(g, deg=vec.degree)
 
 \subsubsection*{Global Clustering Coefficient \cite{watts2003small, watts1998collective}:}
 \begin{equation}
-C(G):= \sum_{v \in N(g)} := \frac{1}{N}*C_v
+C(G):= \sum_{v \in N(g)} := \frac{1}{N} \cdot C_v
 \end{equation}
 
 <<>>=
@@ -1077,10 +1083,10 @@ globalClusteringCoeff(g, loc=loccc)
 \end{equation}
 where \(^{m}p_{ij}\) are all paths of length \(m > 0\), and \(w_{ij}\) is a path weight defined as
 \begin{equation}
-w_{ij} = \prod_{b=1}^m \left( \delta_{b(1)} \delta_{b(2)} \right)_b^{-1/2},
+w_{ij} = \prod_{b=1}^m \left( k_{b(1)} k_{b(2)} \right)_b^{-1/2},
 \label{eq:cid-weight}
 \end{equation}
-with the sum running over all edges in the path and \(b(1)\), \(b(2)\) referring to the two vertices incident to the \(b\)th edge.
+with the sum running over all edges in the path and \(k_{b(1)}\), \(k_{b(2)}\) referring to the degrees of the two vertices incident to the \(b\)th edge.
 
 <<>>=
 connectivityID(g)
@@ -1186,10 +1192,10 @@ with
 \begin{eqnarray}
 \mathit{AID}_i &:=& \sum_{j=1}^N w_{ij}, \\
 w_{ij} &:=& \prod_{a=2}^{m+1}
-  \left( \frac{\pi^*_{a-1,a}} \cdot \frac{1}{\delta'_{a-1} \cdot \delta'_a} \right)^{1/2}, \\
-\delta'_a &:=& \delta_a \cdot \sqrt{Z_a},
+  \left( \frac{\pi^*_{a-1,a}} \cdot \frac{1}{k'_{a-1} \cdot k'_a} \right)^{1/2}, \\
+k'_a &:=& k_a \cdot \sqrt{Z_a},
 \end{eqnarray}
-where \(Z_a\) is the atomic number of \(v_a\).
+where \(Z_a\) is the atomic number of \(v_a\) and \(k_a\) is the degree of the vertex \(v_a\).
 
 The \texttt{huXuID} method requires the input graph to store the atomic numbers or chemical symbols in the \texttt{"atom"} vertex data attribute and the conventional bond order in the \texttt{"bond"} edge data attribute.
 
