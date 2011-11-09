@@ -530,7 +530,7 @@ bonchev2(g)
 bonchev2(g, mat.dist)
 bonchev2(g, mat.dist, wiener(g))
 @
-\subsubsection*{BERTZ Complexity Index \cite{bertz_1981}:}
+\subsubsection*{Bertz Complexity Index \cite{bertz_1981}:}
 \begin{equation}\label{eq_total_information_bertz}
 C(G):= 2N \log(N) - \sum_{i=1}^{k} |N_i| \log \left( |N_i| \right).
 \end{equation}
