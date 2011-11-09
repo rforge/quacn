@@ -180,7 +180,7 @@ balabanJ(g, mat.dist)
 @ 
 where $|E(G)|:= |E|$ denotes the number of edges of the complex network, $DS_i$ denotes the distance sum (row sum) of $v_i$ and $\mu := |E| + 1 - N$ denotes the cyclomatic number.
 
-\subsubsection*{Mean distance deviation \cite{skorobogatov}:}
+\subsubsection*{Mean Distance Deviation \cite{skorobogatov}:}
 
 See subsection \ref{dobr}.
 % \begin{equation}
@@ -495,7 +495,7 @@ narumiKatayama(g)
 narumiKatayama(g, vec.degree)
 @
 
-\subsection{Classical Entropy-based descriptors}
+\subsection{Classical Entropy-based Descriptors}
 \label{sec:clE}
 These measures are based on grouping the elements of an arbitrary graph invariant (vertices, edges, and distances etc.) using an equivalence criterion.
 
@@ -604,7 +604,7 @@ graphVertexComplexity(g, mat.dist)
 @ 
 
 % TODO citations
-\subsubsection*{Information bond index \cite{dosmorov}:}
+\subsubsection*{Information Bond Index \cite{dosmorov}:}
 \begin{equation}
 I_B := |E| \cdot \log_2 |E| - \sum_m |E_m| \cdot \log_2 |E_m|,
 \end{equation}
@@ -616,7 +616,7 @@ This descriptor expects the conventional bond order in the \texttt{"bond"} edge 
 informationBondIndex(g)
 @
 
-\subsubsection*{Mean information content on the edge equality \cite{bonchev_1981}:}
+\subsubsection*{Mean Information Content on the Edge Equality \cite{bonchev_1981}:}
 \begin{equation}
 ^E\overline{I}^E_\chi = -\sum_g \frac{|E_g|}{|E|} \cdot \log_2 \frac{|E_g|}{|E|},
 \end{equation}
@@ -627,7 +627,7 @@ edgeEqualityMIC(g)
 edgeEqualityMIC(g, vec.degree)
 @
 
-\subsubsection*{Mean information content on the edge magnitude \cite{bonchev_1981}:}
+\subsubsection*{Mean Information Content on the Edge magnitude \cite{bonchev_1981}:}
 \begin{equation}
 ^E\overline{I}^M_\chi = -\sum_{(i, j) \in E}
   \frac{(k_i k_j)^{-1/2}}{R(G)} \cdot
@@ -640,7 +640,7 @@ edgeMagnitudeMIC(g)
 edgeMagnitudeMIC(g, vec.degree)
 @
 
-\subsubsection*{Symmetry index \cite{mowshowitz_dehmer_2010}:}
+\subsubsection*{Symmetry Index \cite{mowshowitz_dehmer_2010}:}
 \begin{equation}
 S(G) := \frac{1}{N} \sum_{i=1}^h |A_i| \log |A_i| + \log |\mathrm{Aut}(G)|,
 \end{equation}
@@ -650,7 +650,7 @@ where \(\mathrm{Aut}(G)\) is the automorphism group with \(h\) orbits \(A_i\), \
 symmetryIndex(g)
 @
 
-\subsection{More recent Graph Complexity Measures}
+\subsection{More Recent Graph Complexity Measures}
 
 \subsubsection*{Medium Articulation \cite{kim_wilhelm_2008}:}
 \begin{equation}
@@ -702,7 +702,7 @@ where \[
 graphIndexComplexity(g)
 @
 
-\subsubsection*{Offdiagonal complexity \cite{kim_wilhelm_2008}:}
+\subsubsection*{Offdiagonal Complexity \cite{kim_wilhelm_2008}:}
 \begin{equation}
 \mathit{OdC(G)} := - \frac{1}{log(N-1)}
   \sum_{n=0}^{k_{\mathrm{max}}-1} \tilde{a}_n \log \tilde{a}_n,
@@ -884,7 +884,7 @@ as.double(l5mpfr$entropy * 2^3)
 
 For more details about \textit{mpfr} vectors, please consult the \texttt{Rmpfr} documentation.
 
-\subsubsection*{Parametric entropy measures for labeled graphs \cite{dehmer_topo_labeled}:}
+\subsubsection*{Parametric Entropy Measures for Labeled Graphs \cite{dehmer_topo_labeled}:}
 These three functionals are similar to the ones above, but additionally use vertex or edge labels in order to distinguish between different bond types and heteroatoms.  For practical reasons, they are not implemented as part of \textit{infoTheoreticGCM}.
 
 \(f^{V_1}\) and \(f^{V_2}\) require the atomic number or chemical symbol in the \texttt{"atom"} vertex data attribute.  \(f^E\) needs the conventional bond order in the \texttt{"bond"} vertex attribute.
