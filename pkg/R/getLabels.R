@@ -37,6 +37,7 @@ getLabels <- function(l){
   informationBondIndex=expression(I[B]),
   edgeEqualityMIC=expression(I[chi]^E),
   edgeMagnitudeMIC=expression(I[chi]^M),
+  symmetryIndex=expression(S),
   offdiagonal=expression(OdC),
   spanningTreeSensitivity.STS=expression(STS),
   spanningTreeSensitivity.STSD=expression(STSD),

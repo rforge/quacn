@@ -640,6 +640,16 @@ edgeMagnitudeMIC(g)
 edgeMagnitudeMIC(g, vec.degree)
 @
 
+\subsubsection*{Symmetry index \cite{mowshowitz_dehmer_2010}:}
+\begin{equation}
+S(G) := \frac{1}{N} \sum_{i=1}^h |A_i| \log |A_i| + \log |\mathrm{Aut}(G)|,
+\end{equation}
+where \(\mathrm{Aut}(G)\) is the automorphism group with \(h\) orbits \(A_i\), \(1 \le i \le h\).
+
+<<>>=
+symmetryIndex(g)
+@
+
 \subsection{More recent Graph Complexity Measures}
 
 \subsubsection*{Medium Articulation \cite{kim_wilhelm_2008}:}

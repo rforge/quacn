@@ -181,7 +181,8 @@ calculateDescriptors <- function(graphs, ..., labels = FALSE) {
     "graphVertexComplexity",                              # 3009
     "informationBondIndex",                               # 3010
     "edgeEqualityMIC",                                    # 3011
-    "edgeMagnitudeMIC"                                    # 3012
+    "edgeMagnitudeMIC",                                   # 3012
+    "symmetryIndex"                                       # 3013
   ),
   # group 4000
   c(

@@ -62,6 +62,7 @@ calculateDescriptors(graphs, ..., labels = FALSE)
     3010 \tab informationBondIndex \cr
     3011 \tab edgeEqualityMIC \cr
     3012 \tab edgeMagnitudeMIC \cr
+    3013 \tab symmetryIndex \cr
     4000 \tab --- all of 4xxx \cr
     4001 \tab mediumArticulation \cr
     4002 \tab efficiency \cr
