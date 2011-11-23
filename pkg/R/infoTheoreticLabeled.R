@@ -120,7 +120,7 @@ infoTheoreticLabeledE <- function(g, dist=NULL, coeff="lin", custCoeff=NULL, lam
     asp <- asp[asp.lns != 1]
 
     # get graphNEL names
-    loc.nods <- sapply(asp, function(a) nam[a + 1])
+    loc.nods <- sapply(asp, function(a) nam[a + 1], simplify = FALSE)
 
     # get edges and replace them with their edge labels
     loc.weights <- sapply(loc.nods, function(ln) {
