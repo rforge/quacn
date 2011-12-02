@@ -16,8 +16,19 @@
 \title{\texttt{\textbf{QuACN}}: \textbf{Qu}antitative \textbf{A}nalyze of \textbf{C}omplex \textbf{N}etworks}
 \author{Laurin AJ Mueller, Michael Schutte, Karl G Kugler, Matthias Dehmer\footnote{Corresponding author.}}
 \begin{document}
+
+
 \maketitle
+
+  \begin{figure}[h]
+  \hspace{-1cm}
+  \centering
+  \includegraphics[width=4cm]{logo.jpg}
+  \hspace{-1cm}
+  \end{figure}
+
 \tableofcontents
+\newpage
 \section{Overview}
 For information about the actual build see the projects website:
 
