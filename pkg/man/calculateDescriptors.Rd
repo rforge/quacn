@@ -63,6 +63,12 @@ calculateDescriptors(graphs, ..., labels = FALSE)
     3011 \tab edgeEqualityMIC \cr
     3012 \tab edgeMagnitudeMIC \cr
     3013 \tab symmetryIndex \cr
+    3014 \tab bonchev3 \cr
+    3015 \tab graphDistanceComplexity \cr
+    3016 \tab distanceDegreeMIC \cr
+    3017 \tab distanceDegreeEquality \cr
+    3018 \tab distanceDegreeCompactness \cr
+    3019 \tab informationLayerIndex \cr
     4000 \tab --- all of 4xxx \cr
     4001 \tab mediumArticulation \cr
     4002 \tab efficiency \cr

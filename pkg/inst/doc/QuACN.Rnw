@@ -524,12 +524,11 @@ topologicalInfoContent(g, mat.dist, vec.degree)
 @ 
 
 \subsubsection*{Bonchev - Trinajsti\'{c} Indices \cite{bonchev_Trinajstic_1977}:}
-\begin{equation}
-I_D(G) := - \frac{1}{N}\log\left( \frac{1}{N} \right)- \sum_{i=1}^{\rho(G)} \frac{2k_i}{N^2}\log\left( \frac{2k_i}{N^2} \right), \label{eq_mean_information_bonchev}
-\end{equation}
-\begin{equation}
-I^W_D(G) := W(G) \log(W(G)) -  \sum_{i=1}^{\rho(G)} i k_i \log(i).
-\end{equation}
+\begin{eqnarray}
+I_D(G) &:=& - \frac{1}{N}\log\left( \frac{1}{N} \right)- \sum_{i=1}^{\rho(G)} \frac{2k_i}{N^2}\log\left( \frac{2k_i}{N^2} \right), \label{eq_mean_information_bonchev} \\
+I^W_D(G) &:=& W(G) \log(W(G)) -  \sum_{i=1}^{\rho(G)} i k_i \log(i), \\
+I^E_D(G) &:=& -\sum_{i=0}^{\rho(G)} \frac{2 k_i}{N (N-1)} \log \frac{2 k_i}{N (N-1)}.
+\end{eqnarray}
 %
 \(\rho(G)\) is the diameter of the graph (the maximum distance between two nodes). $k_i$ is the occurrence of a distance possessing value $i$ in the distance matrix of $G$.
 <<keep.source=TRUE>>=
@@ -540,6 +539,9 @@ bonchev1(g, mat.dist)
 bonchev2(g)
 bonchev2(g, mat.dist)
 bonchev2(g, mat.dist, wiener(g))
+#I^E_D(G)
+bonchev3(g)
+bonchev3(g, mat.dist)
 @
 \subsubsection*{Bertz Complexity Index \cite{bertz_1981}:}
 \begin{equation}\label{eq_total_information_bertz}
@@ -602,7 +604,7 @@ balabanlike2(g, mat.dist)
 
 \subsubsection*{Graph Vertex Complexity Index \cite{raychaudhury_1984}:}
 \begin{equation}
-I_V(G):= \sum_{i=1}^{N}v^c_i,
+I_{VC}^v(G):= \sum_{i=1}^{N}v^c_i,
 \end{equation}
 where $v^c_i$ is the so-called vertex complexity expressed by
 \begin{equation}
@@ -614,7 +616,21 @@ graphVertexComplexity(g)
 graphVertexComplexity(g, mat.dist)
 @ 
 
-% TODO citations
+\subsubsection*{Graph distance complexity \cite{raychaudhury_1984}:}
+\begin{equation}
+I_{VC}(G) = \frac{1}{N} \sum_{i=1}^N I_{DC, \delta_D}(v_i),
+\end{equation}
+$I_{DC, \delta_D}$ being is the local invariant
+\begin{equation}
+I_{DC, \delta_D}(v_i) = -\sum_{j=1}^{\mathrm{ecc}(v_i)} a^i_j \cdot \frac{j}{\delta_D(v_i)} \log \frac{j}{\delta_D(v_i)},
+\end{equation}
+where $\mathrm{ecc}(v_i)$ denotes the eccentricity of the vertex $v_i$, $a^i_j$ is the number of vertices in its $j$-sphere, and $\delta_D(v_i)$ is its distance degree.
+
+<<>>=
+graphDistanceComplexity(g)
+graphDistanceComplexity(g, mat.dist)
+@
+
 \subsubsection*{Information Bond Index \cite{dosmorov}:}
 \begin{equation}
 I_B := |E| \cdot \log_2 |E| - \sum_m |E_m| \cdot \log_2 |E_m|,
@@ -659,6 +675,50 @@ where \(\mathrm{Aut}(G)\) is the automorphism group with \(h\) orbits \(A_i\), \
 
 <<>>=
 symmetryIndex(g)
+@
+
+\subsubsection*{Mean Information Content of Distance Degrees \cite{skorobogatov}:}
+\begin{equation}
+I_{\delta_D}(G) := -\sum_{i=1}^N \frac{\delta_D(v_i)}{2 W} \log \frac{\delta_D(v_i)}{2 W},
+\end{equation}
+where $\delta_D(v_i)$ is the distance degree of the $i$th vertex and $W$ is the Wiener index.
+
+<<>>=
+distanceDegreeMIC(g)
+distanceDegreeMIC(g, mat.dist)
+@
+
+\subsubsection*{Mean Information Content of Distance-Degree Equality \cite{bonchev_2}:}
+\begin{equation}
+I_{D, \delta_D}(G) = -\sum_{i=1}^k \frac{|N_i|}{N} \log \frac{|N_i|}{N},
+\end{equation}
+where $N_1, N_2, \ldots, N_k$ is the vertex partition of $N(G)$ such that each $N_i$ contains vertices having the same distance degree $\delta_D$.
+
+<<>>=
+distanceDegreeEquality(g)
+distanceDegreeEquality(g, mat.dist)
+@
+
+\subsubsection*{Compactness Measure Based on Distance Degrees \cite{basak_1994}:}
+\begin{equation}
+I_{C, \delta_D}(G) = 2 W \log(2 W) - \sum_k q_k \log q_k,
+\end{equation}
+where $W$ is the Wiener index and $q_k$ is the sum of the distance degrees of all vertices located at a topological distance of $k$ from the center of the graph.
+
+<<>>=
+distanceDegreeCompactness(g)
+distanceDegreeCompactness(g, mat.dist)
+@
+
+\subsubsection*{Information Layer Index \cite{konstantinova_2006}:}
+\begin{equation}
+I_{Sp} = -\sum_{i=1}^N \sum_{j=1}^{\mathrm{ecc}(v_i)} \frac{a^i_j}{N} \log \frac{a^i_j}{N},
+\end{equation}
+where $\mathrm{ecc}(v_i)$ denotes the eccentricity of the vertex $v_i$ and $a^i_j$ is the number of vertices in its $j$-sphere.
+
+<<>>=
+informationLayerIndex(g)
+informationLayerIndex(g, mat.dist)
 @
 
 \subsection{More Recent Graph Complexity Measures}

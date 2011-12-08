@@ -182,7 +182,13 @@ calculateDescriptors <- function(graphs, ..., labels = FALSE) {
     "informationBondIndex",                               # 3010
     "edgeEqualityMIC",                                    # 3011
     "edgeMagnitudeMIC",                                   # 3012
-    "symmetryIndex"                                       # 3013
+    "symmetryIndex",                                      # 3013
+    "bonchev3",                                           # 3014
+    "graphDistanceComplexity",                            # 3015
+    "distanceDegreeMIC",                                  # 3016
+    "distanceDegreeEquality",                             # 3017
+    "distanceDegreeCompactness",                          # 3018
+    "informationLayerIndex"                               # 3019
   ),
   # group 4000
   c(
