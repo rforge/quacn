@@ -39,7 +39,10 @@ calculateDescriptors <- function(graphs, ..., labels = FALSE) {
     values
   })
 
-  result <- data.frame(do.call(rbind, result))
+  cn <- names(result[[1]])
+  result <- matrix(unlist(result), byrow=TRUE, ncol=length(cn))
+  colnames(result) <- cn
+  result <- data.frame(result)
 
   if (labels)
     colnames(result) <- sapply(colnames(result), getLabels)
