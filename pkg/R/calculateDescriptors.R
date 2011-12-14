@@ -28,7 +28,7 @@ calculateDescriptors <- function(graphs, ..., labels = FALSE) {
         valueName <- sub("^\\.", "", func)
         valueName <- sub("^.*@", "", valueName)
         if (length(value) == 1)
-          values[[valueName]] <- value
+          values[[valueName]] <- unlist(value)
         else {
           for (name in names(value))
             values[[paste(valueName, name, sep=".")]] <- value[[name]]
