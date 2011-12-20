@@ -34,6 +34,7 @@ calculateDescriptors(graphs, ..., labels = FALSE)
     1005 \tab compactness \cr
     1006 \tab productOfRowSums \cr
     1007 \tab hyperDistancePathIndex \cr
+    1008 \tab dobrynin \cr
     2000 \tab --- all of 2xxx \cr
     2001 \tab totalAdjacency \cr
     2002 \tab zagreb1 \cr

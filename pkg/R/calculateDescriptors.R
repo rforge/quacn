@@ -99,6 +99,14 @@ calculateDescriptors <- function(graphs, ..., labels = FALSE) {
 }
 
 .degreeHelper <- function(g) graph::degree(g)
+
+.dobrynin <- function(g, dist=NULL) {
+  dobrynin(g, dist)[c("eccentricityGraph", "avgeccOfG", "ecentricGraph",
+                      "graphIntegration", "unipolarity", "variation",
+                      "centralization", "avgDistance",
+                      "meanDistVertexDeviation")]
+}
+
 .topologicalInfoContent <- function(g, dist=NULL, deg=NULL) {
   topologicalInfoContent(g, dist, deg)[["entropy"]]
 }
@@ -151,8 +159,8 @@ calculateDescriptors <- function(graphs, ..., labels = FALSE) {
     "meanDistanceDeviation",                              # 1004
     "compactness",                                        # 1005
     "productOfRowSums",                                   # 1006
-    "hyperDistancePathIndex"                              # 1007
-    # "dobrynin"                                          # 1008 TODO
+    "hyperDistancePathIndex",                             # 1007
+    ".dobrynin"                                           # 1008
   ),
   # group 2000
   c(
