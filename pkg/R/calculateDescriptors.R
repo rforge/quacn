@@ -1,11 +1,16 @@
-calculateDescriptors <- function(graphs, ..., labels = FALSE) {
+calculateDescriptors <- function(graphs, ..., labels=FALSE, log=FALSE) {
   argv <- list(...)
 
   if (class(graphs) != "list") {
     graphs <- list(graphs)
   }
 
-  result <- lapply(graphs, function(g) {
+  result <- lapply(1:length(graphs), function(n) {
+    g <- graphs[[n]]
+    if (log)
+      cat("Calculating selected descriptors for network",
+          n, "of", length(graphs), "\n")
+
     values <- list()
     cache <- new.env()
     i <- 1
