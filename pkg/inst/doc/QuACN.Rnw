@@ -650,11 +650,11 @@ balabanlike2(g, mat.dist)
 \subsubsection*{Graph Vertex Complexity Index \cite{raychaudhury_1984}:}
 \begin{equation}
 \calcdesc{3009}
-I_{VC}^v(G):= \sum_{i=1}^{N}v^c_i,
+I_{VC}^v(G):= \frac{1}{N} \sum_{i=1}^{N}v^c_i,
 \end{equation}
 where $v^c_i$ is the so-called vertex complexity expressed by
 \begin{equation}
-v^c_i:= \sum_{j=0}^{\sigma(v_i)} \frac{k^{v_i}_j}{N} \log \left( \frac{k^{v_i}_j}{N} \right).
+v^c_i:= -\sum_{j=0}^{\sigma(v_i)} \frac{k^{v_i}_j}{N} \log \left( \frac{k^{v_i}_j}{N} \right).
 \end{equation}
 $k^{v_i}_k$ is the number of distances starting from $V_i \in N(G)$ equal to $j$.
 <<>>=
