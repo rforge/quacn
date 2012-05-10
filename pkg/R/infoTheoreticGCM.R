@@ -52,7 +52,7 @@ infoTheoreticGCM <- function(g, dist=NULL, coeff="lin", infofunct="sphere", lamb
 }
 
 .functionalPathlength <- function(g, dist,ci){
-  require("igraph")
+  require("igraph0")
 
   ig <- igraph.from.graphNEL(g)
   vs <- V(ig)
@@ -71,7 +71,7 @@ infoTheoreticGCM <- function(g, dist=NULL, coeff="lin", infofunct="sphere", lamb
 }
 
 .functionalLocalProperty <- function(g, dist,ci){
-  require("igraph")
+  require("igraph0")
 
   ig <- igraph.from.graphNEL(g)
   vs <- V(ig)

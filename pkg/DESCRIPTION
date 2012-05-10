@@ -9,4 +9,4 @@ Description: Quantitative Analysis of Complex Networks. This package offers a se
 License: LGPL
 LazyLoad: yes
 LazyData: yes
-Depends: graph, RBGL, igraph (>= 0.5.5-1), combinat, Rmpfr
+Depends: graph, RBGL, igraph0, combinat, Rmpfr
