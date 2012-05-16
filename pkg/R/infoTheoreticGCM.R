@@ -1,4 +1,4 @@
-infoTheoreticGCM <- function(g, dist=NULL, coeff="lin", infofunct="sphere", lambda=1000, custCoeff=NULL, alpha=0.5, prec=53){
+infoTheoreticGCM <- function(g, dist=NULL, coeff="lin", infofunct="sphere", lambda=1000, custCoeff=NULL, alpha=0.5, prec=53, flag.alpha=FALSE){
   require("graph")
   if (prec > 53)
     require("Rmpfr")
@@ -22,7 +22,7 @@ infoTheoreticGCM <- function(g, dist=NULL, coeff="lin", infofunct="sphere", lamb
   # actually calculate the functional
   nan.message <- "check your parameters"
   if (infofunct == allowed.functionals[1]) {          # "sphere"
-    fvi <- .functionalJSphere(g, dist=dist, ci=ci)
+    fvi <- .functionalJSphere(g, dist=dist, ci=ci, alpha=alpha, flag=flag.alpha)
   } else if (infofunct == allowed.functionals[2]) {   # "pathlength"
     fvi <- .functionalPathlength(g, dist=dist, ci=ci)
   } else if (infofunct == allowed.functionals[3]) {   # "vertcent"
@@ -35,7 +35,7 @@ infoTheoreticGCM <- function(g, dist=NULL, coeff="lin", infofunct="sphere", lamb
   .infoTheoretic(fvi, lambda, nan.message)
 }  
 
-.functionalJSphere <- function(g, dist, ci){
+.functionalJSphere <- function(g, dist, ci, alpha, flag){
   #calculate Spheres
   nam <- nodes(g)
   Sj <- lapply(nam,function(n){
@@ -47,9 +47,13 @@ infoTheoreticGCM <- function(g, dist=NULL, coeff="lin", infofunct="sphere", lamb
      sum(s*ci[1:length(s)])
   })
   names(fvi) <- nam
-  return (fvi)
-
+  if(flag==FALSE){
+    return (fvi)
+  }else{
+    return (0.5^fvi)
+  }
 }
+
 
 .functionalPathlength <- function(g, dist,ci){
   require("igraph0")
