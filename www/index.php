@@ -54,10 +54,18 @@ echo $contents; } ?>
 	<ul><li><a href="http://gmplib.org/">GMP</a></li></ul>
    <ul><li><a href="http://www.mpfr.org/">MPFR</a></li></ul>
 <!-- 	<li>Available Descriptors</li> -->
-	<li>Publications</li>
-	<ul><li>Mueller LAJ, Kugler KG, Dander A, Graber A, Dehmer M (2011) <em>QuACN: an R package for analyzing complex biological networks quantitatively.</em> Bioinformatics 27: 140–141.</li></ul>
-	<ul><li>Mueller LAJ, Kugler KG, Dehmer M (2011) <em>Stuctural Analysis of Molecular Networks : AMES Mutagenicity.</em>BIOCOMP, Las Vegas</li></ul>
-   <ul><li>Kugler KG, Mueller LAJ, Dehmer M (2011) <em>Integrative Network Biology: Graph Prototyping for Co-Expression Cancer Networks.</em> PLoS ONE 6(7): e22843. doi:10.1371/journal.pone.0022843</li></ul>
+  <li>Citation</li>
+  <ul><li>Mueller LAJ, Kugler KG, Dander A, Graber A, Dehmer M (2011) <em>QuACN: an R package for analyzing complex biological networks quantitatively.</em> Bioinformatics 27: 140–141.</li></ul>
+
+	<li>Related Publications</li>
+  <ul><li>Netzer M, Kugler KG, Müller LA, Weinberger KM, Graber A, Baumgartner C, Dehmer M. (2012) <em>A network-based feature selection approach to identify metabolic signatures in disease.</em>J Theor Biol. 2012 Oct 7;310:216-22. Epub 2012 Jul 4.</li></ul>
+  <ul><li>Mueller LA, Kugler KG, Netzer M, Graber A, Dehmer M. (2011) <em>A network-based approach to classify the three domains of life.</em>Biol Direct. 2011 Oct 13;6:53.</li></ul>
+  <ul><li>Mueller LA, Kugler KG, Graber A, Emmert-Streib F, Dehmer M (2011) <em>Structural measures for network biology using QuACN.</em>BMC Bioinformatics. Dec 24;12:492.</li></ul>
+  <ul><li>Mueller LAJ, Kugler KG, Dehmer M (2011) <em>Stuctural Analysis of Molecular Networks : AMES Mutagenicity.</em>BIOCOMP, Las Vegas</li></ul>
+ <ul><li>Kugler KG, Mueller LAJ, Graber A, Dehmer M (2011) <em>Integrative Network Biology: Graph Prototyping for Co-Expression Cancer Networks.</em> PLoS ONE 6(7): e22843. doi:10.1371/journal.pone.0022843</li></ul>
+  <ul><li>Mueller LAJ, Kugler KG, Dander A, Graber A, Dehmer M (2011) <em>QuACN: an R package for analyzing complex biological networks quantitatively.</em> Bioinformatics 27: 140–141.</li></ul>
+
+
 </ol>
 
 <ul></ul>
