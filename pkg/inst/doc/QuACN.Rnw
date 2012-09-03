@@ -75,8 +75,12 @@ library("RBGL")
 @ 
 We generate a random graph with 8 nodes.  This graph will be used to explain the implemented methods. To analyze a network the network has to be represented by a \textit{graphNEL}-object, which is part of the Bioconductor \texttt{graph} package.\\
 
-<<label=randGraph,include=FALSE>>=
+<<eval=TRUE>>=
 library("QuACN")
+@ 
+
+<<label=randGraph,include=FALSE>>=
+
 set.seed(666)
 g <- randomGraph(1:8, 1:5, 0.36)
 g

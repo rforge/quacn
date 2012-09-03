@@ -6,9 +6,9 @@ symmetryIndex <- function(g, dist=NULL, deg=NULL) {
   if (is.null(deg))
     deg <- graph::degree(g)
 
-  ig <- igraph.from.graphNEL(g)
+  ig <- igraph0::igraph.from.graphNEL(g)
   Ai <- .cardNi(g, dist, deg)
-  aut <- as.numeric(graph.automorphisms(ig)[["group_size"]])
+  aut <- as.numeric(igraph0::graph.automorphisms(ig)[["group_size"]])
 
   1/numNodes(g) * sum(Ai * log2(Ai)) + log2(aut)
 }
