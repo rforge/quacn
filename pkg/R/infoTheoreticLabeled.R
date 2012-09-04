@@ -46,7 +46,7 @@ infoTheoreticLabeledV2 <- function(g, ci=NULL, lambda=1000) {
   if (class(g)[1] != "graphNEL")
     stop("'g' has to be a 'graphNEL' object")
 
-  labels <- .nodeDataVector(g, "atom->symbol")
+  labels <- QuACN:::.nodeDataVector(g, "atom->symbol")
   uniq.labels <- unique(labels)
   if (is.null(ci)) {
     ci <- rep(1, length(uniq.labels))
@@ -62,23 +62,23 @@ infoTheoreticLabeledV2 <- function(g, ci=NULL, lambda=1000) {
   n <- numNodes(g)
   nn <- nodes(g)
 
-  # determine number of all possible shortest paths
+
   fvi <- sapply(nn, function(vi) {
     asp <- igraph::get.all.shortest.paths(ig, from=as.character(vi))$res
     asp.lns <- sapply(asp, length)
-
-    # which nodes are in local information graphs of length ll?
+    ## which nodes are in local information graphs of length ll?
     nod.loc <- sapply(2:max(asp.lns), function(ll) {
       unique(unlist(asp[asp.lns == ll]))
     }, simplify=FALSE)
 
-    # match them with the labels
+    
+    ## match them with the labels
     nod.loc.lab <- sapply(nod.loc, function(nl) {
       a <- sort(as.numeric(nl))
-      labels[a]
+      labels[as.character(a)]
     }, simplify=FALSE)
 
-    # count labels for local information graphs of each length
+    ## count labels for local information graphs of each length
     fvi.detail <- sapply(nod.loc.lab, function(nll) {
       sapply(uniq.labels,function(tl) {
 	length(nll[nll == tl])
@@ -86,7 +86,7 @@ infoTheoreticLabeledV2 <- function(g, ci=NULL, lambda=1000) {
     }, simplify=FALSE)
     fvi.detail <- do.call(cbind, fvi.detail)
 
-    # sum it up for each label
+    ## sum it up for each label
     sums <- apply(fvi.detail, 1, sum)
 
     sum(ci*sums[match(names(ci), names(sums))])
@@ -94,7 +94,7 @@ infoTheoreticLabeledV2 <- function(g, ci=NULL, lambda=1000) {
 
   names(fvi) <- nodes(g)
 
-  .infoTheoretic(fvi, lambda)
+  QuACN:::.infoTheoretic(fvi, lambda)
 }
 
 infoTheoreticLabeledE <- function(g, dist=NULL, coeff="lin", custCoeff=NULL, lambda=1000) {
