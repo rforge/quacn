@@ -4,5 +4,5 @@ minConnectivityID <- function(g, deg=NULL) {
   if (is.null(deg))
     deg <- graph::degree(g)
 
-  .weightedMinPathSum(g, function(i, from, to) (1 / sqrt(deg[[from]] * deg[[to]])))
+  .weightedMinPathSum(g, weightfunc=function(i, from, to) (1 / sqrt(deg[[from]] * deg[[to]])))
 }

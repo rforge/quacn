@@ -51,8 +51,7 @@ infoTheoreticLabeledV2 <- function(g, ci=NULL, lambda=1000) {
   if (is.null(ci)) {
     ci <- rep(1, length(uniq.labels))
     names(ci) <- uniq.labels
-  }
-  else if (is.list(ci)) {
+  }  else if (is.list(ci)) {
     tmp <- as.numeric(ci)
     names(tmp) <- names(ci)
     ci <- tmp
@@ -61,10 +60,11 @@ infoTheoreticLabeledV2 <- function(g, ci=NULL, lambda=1000) {
 
   ig <- igraph::igraph.from.graphNEL(g)
   n <- numNodes(g)
+  nn <- nodes(g)
 
   # determine number of all possible shortest paths
-  fvi <- sapply(1:n, function(vi) {
-    asp <- igraph::get.all.shortest.paths(ig, from=vi)$res
+  fvi <- sapply(nn, function(vi) {
+    asp <- igraph::get.all.shortest.paths(ig, from=as.character(vi))$res
     asp.lns <- sapply(asp, length)
 
     # which nodes are in local information graphs of length ll?
@@ -75,7 +75,7 @@ infoTheoreticLabeledV2 <- function(g, ci=NULL, lambda=1000) {
     # match them with the labels
     nod.loc.lab <- sapply(nod.loc, function(nl) {
       a <- sort(as.numeric(nl))
-      labels[a + 1]
+      labels[a]
     }, simplify=FALSE)
 
     # count labels for local information graphs of each length

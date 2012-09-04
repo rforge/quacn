@@ -6,5 +6,5 @@ connectivityID <- function(g, deg=NULL) {
 
   n <- nodes(g)
   e <- edges(g)
-  .weightedPathSum(e, NULL, function(i, from, to) (1 / sqrt(deg[[from]] * deg[[to]])))
+  .weightedPathSum(e, NULL, weightfunc=function(i, from, to) (1 / sqrt(deg[[from]] * deg[[to]])))
 }

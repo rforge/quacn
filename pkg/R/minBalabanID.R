@@ -6,5 +6,5 @@ minBalabanID <- function(g, dist=NULL) {
 
   distdeg <- rowSums(dist)
 
-  .weightedMinPathSum(g, function(i, from, to) (1 / sqrt(distdeg[[from]] * distdeg[[to]])))
+  .weightedMinPathSum(g, weightfunc= function(i, from, to) (1 / sqrt(distdeg[[from]] * distdeg[[to]])))
 }
