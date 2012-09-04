@@ -59,12 +59,12 @@ infoTheoreticLabeledV2 <- function(g, ci=NULL, lambda=1000) {
   }
   ci <- ci[uniq.labels]
 
-  ig <- igraph0::igraph.from.graphNEL(g)
+  ig <- igraph::igraph.from.graphNEL(g)
   n <- numNodes(g)
 
   # determine number of all possible shortest paths
-  fvi <- sapply(0:(n - 1), function(vi) {
-    asp <- igraph0::get.all.shortest.paths(ig, from=vi)
+  fvi <- sapply(1:n, function(vi) {
+    asp <- igraph::get.all.shortest.paths(ig, from=vi)$res
     asp.lns <- sapply(asp, length)
 
     # which nodes are in local information graphs of length ll?
@@ -107,20 +107,20 @@ infoTheoreticLabeledE <- function(g, dist=NULL, coeff="lin", custCoeff=NULL, lam
 
   bonds <- .edgeDataMatrix(g, "bond")
 
-  ig <- igraph0::igraph.from.graphNEL(g)
+  ig <- igraph::igraph.from.graphNEL(g)
   nam <- nodes(g)
   n <- length(nam)
 
-  fvi <- sapply(0:(n - 1), function(vi) {
+  fvi <- sapply(1:n, function(vi) {
     # create local information graphs
-    asp <- igraph0::get.all.shortest.paths(ig, from=vi)
+    asp <- igraph::get.all.shortest.paths(ig, from=vi)$res
     asp.lns <- sapply(asp, length)
     asp <- asp[order(asp.lns)]
     asp.lns <- sapply(asp, length)
     asp <- asp[asp.lns != 1]
 
     # get graphNEL names
-    loc.nods <- sapply(asp, function(a) nam[a + 1], simplify = FALSE)
+    loc.nods <- sapply(asp, function(a) nam[a], simplify = FALSE) ##TODO check
 
     # get edges and replace them with their edge labels
     loc.weights <- sapply(loc.nods, function(ln) {
