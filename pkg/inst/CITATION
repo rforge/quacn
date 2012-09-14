@@ -10,6 +10,7 @@
               year = 2011,
      	      journal="Bioinformatics",
          volume="27",
-         pages="140-141",,
+         pages="140-141",
               textVersion =
-              paste("Mueller LAJ, Kugler KG, Dander A, Graber A, Dehmer M (2011) QuACN: an R package for analyzing complex biological networks quantitatively. Bioinformatics 27: 140–141")
+              paste("Mueller LAJ, Kugler KG, Dander A, Graber A, Dehmer M (2011) QuACN: an R package for analyzing complex biological networks quantitatively. Bioinformatics 27: 140-141")
+)
