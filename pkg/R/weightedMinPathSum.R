@@ -1,6 +1,6 @@
 .weightedMinPathSum <- function(g, weightfunc) {
   n <- nodes(g)
-  ig <- igraph::igraph.from.graphNEL(g, weight=FALSE)
+  ig <- .G2IG(g)
 
   sum(sapply(1:length(n), function(v) {
     sp <- igraph::get.all.shortest.paths(ig, from=v)$res

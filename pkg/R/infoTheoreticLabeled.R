@@ -59,7 +59,7 @@ infoTheoreticLabeledV2 <- function(g, ci=NULL, lambda=1000) {
   }
   ci <- ci[uniq.labels]
 
-  ig <- igraph::igraph.from.graphNEL(g, weight=FALSE)
+  ig <- .G2IG(g)
   n <- numNodes(g)
 
   # determine number of all possible shortest paths
@@ -107,7 +107,7 @@ infoTheoreticLabeledE <- function(g, dist=NULL, coeff="lin", custCoeff=NULL, lam
 
   bonds <- .edgeDataMatrix(g, "bond")
 
-  ig <- igraph::igraph.from.graphNEL(g, weight=FALSE)
+  ig <- .G2IG(g)
   nam <- nodes(g)
   n <- length(nam)
 

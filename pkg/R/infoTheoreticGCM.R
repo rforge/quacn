@@ -56,7 +56,7 @@ infoTheoreticGCM <- function(g, dist=NULL, coeff="lin", infofunct="sphere", lamb
 
 
 .functionalPathlength <- function(g, dist,ci){
-  ig <- igraph::igraph.from.graphNEL(g, weight=FALSE)
+  ig <- .G2IG(g)
   vs <- igraph::V(ig)
   lvs <- length(vs$name)
   fvi <- rep(0,lvs)
@@ -74,7 +74,7 @@ infoTheoreticGCM <- function(g, dist=NULL, coeff="lin", infofunct="sphere", lamb
 
 .functionalLocalProperty <- function(g, dist,ci){
 
-  ig <- igraph::igraph.from.graphNEL(g, weight=FALSE)
+  ig <- .G2IG(g)
   vs <- igraph::V(ig)
   lvs <- length(vs$name)
   fvi <- rep(0,lvs)

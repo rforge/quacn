@@ -6,7 +6,7 @@ symmetryIndex <- function(g, dist=NULL, deg=NULL) {
   if (is.null(deg))
     deg <- graph::degree(g)
 
-  ig <- igraph::igraph.from.graphNEL(g, weight=FALSE)
+  ig <- .G2IG(g)
   Ai <- .cardNi(g, dist, deg)
   aut <- as.numeric(igraph::graph.automorphisms(ig)[["group_size"]])
 
