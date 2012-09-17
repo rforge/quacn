@@ -1,4 +1,5 @@
 .weightedMinPathSum <- function(g, weightfunc) {
+  stopifnot(.validateGraph(g))
   n <- nodes(g)
   ig <- .G2IG(g)
 

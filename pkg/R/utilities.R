@@ -7,3 +7,9 @@
  ig <- igraph::igraph.from.graphNEL(g, weight = keep.weights)
  return(ig)
 }
+
+##helper function to check whether a graph is unweighted and undirected
+##this mode is currently the only one supported by QuACN
+.validateGraph <- function(g){
+  return(!any(edgeData(g, attr="weight")>1) & !edgemode(g)=="directed")
+}

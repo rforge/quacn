@@ -1,6 +1,8 @@
 infoTheoreticLabeledV1 <- function(g, dist=NULL, coeff="lin", custCoeff=NULL, coeffMatrix=NULL, lambda=1000) {
   if (class(g)[1] != "graphNEL")
     stop("'g' has to be a 'graphNEL' object")
+  stopifnot(.validateGraph(g))
+  
   if (is.null(dist))
     dist <- distanceMatrix(g)
 

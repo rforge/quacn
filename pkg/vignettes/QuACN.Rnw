@@ -73,7 +73,7 @@ This section shows how to create networks in R to use them with \texttt{QuACN}.
 library("graph")
 library("RBGL")
 @ 
-We generate a random graph with 8 nodes.  This graph will be used to explain the implemented methods. To analyze a network the network has to be represented by a \textit{graphNEL}-object, which is part of the Bioconductor \texttt{graph} package.\\
+We generate a random unweighted undirected graph with 8 nodes.  This graph will be used to explain the implemented methods. To analyze a network the network has to be represented by a \textit{graphNEL}-object, which is part of the Bioconductor \texttt{graph} package.\\
 
 <<eval=TRUE>>=
 library("QuACN")
@@ -128,7 +128,7 @@ If existing networks are to be analyzed with \texttt{QuACN}, R offers several wa
 \subsection{Extract the Largest Connected Subgraph}
 Many of the topological network descriptors that are implemented in \texttt{QuACN} only work on connected graphs. Often this is not the case with biological networks, so that the largest connected component (LCC) has to be extracted first. For extracting the LCC we provide the method \texttt{getLargestSubgraph(g)}, as shown in \cite{Hahne2008}:
 <<>>=
-g2 <- randomGraph(paste("A", 1:100, sep=""), 1:4, p=0.03)
+g2 <- randomGraph(paste("A", 1:100, sep=""), 1:4, p=0.03, weights=FALSE)
 lcc <- getLargestSubgraph(g2)
 lcc
 @

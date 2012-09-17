@@ -9,6 +9,8 @@ distanceMatrix <- function(g, keep.weights=FALSE) {
   if(class(g)[1]!="graphNEL"){
     stop("'g' has to be a 'graphNEL' object")
   }
+  stopifnot(.validateGraph(g))
+  
   if(any(unlist(edgeData(g, attr="weight")) >1) & keep.weights){
     warning("When calculating distanceMatrix() the edge weight information will be ignored")
   }
