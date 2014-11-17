@@ -5,6 +5,10 @@ oneEdgeDeletedSubgraphComplexity <- function(g, one.eds=NULL) {
     stop("'g' has to be a 'graphNEL' object")
   stopifnot(.validateGraph(g))
   
+  if(numEdges(g)==0)
+    stop("No edges in current graph object")
+  #################################
+  
   if (is.null(one.eds))
     one.eds <- edgeDeletedSubgraphs(g)
 
