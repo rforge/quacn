@@ -1,13 +1,14 @@
 Package: QuACN
 Type: Package
 Title: QuACN: Quantitative Analysis of Complex Networks
-Version: 1.7.4
-Date: 2012-10-09
-Author: Laurin Mueller, Michael Schutte, Karl Kugler, Matthias Dehmer
-Maintainer: Laurin Mueller <laurin@eigenlab.net>
+Version: 1.7.5
+Date: 2014-11-17
+Author: Karl G. Kugler, Matthias Wieser,  Matthias Dehmer, Michael Schutte, Laurin A.J. Mueller
+Maintainer: Karl Kugler <kg.kugler@gmail.com>
 Description: Quantitative Analysis of Complex Networks. This package offers a set of topological network measures to analyze complex Networks structurally.
 License: LGPL
 LazyLoad: yes
 LazyData: yes
-Depends: graph, RBGL, combinat, Rmpfr
+Depends: graph, RBGL, combinat
+Suggests: Rmpfr
 Imports: igraph

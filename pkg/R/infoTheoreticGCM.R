@@ -1,5 +1,4 @@
 infoTheoreticGCM <- function(g, dist=NULL, coeff="lin", infofunct="sphere", lambda=1000, custCoeff=NULL, alpha=0.5, prec=53, flag.alpha=FALSE){
-  require("graph")
   if (prec > 53)
     require("Rmpfr")
 
