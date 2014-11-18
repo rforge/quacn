@@ -1,4 +1,4 @@
 .chemicalElements <- function(){
-    data(sysdata, envir=environment())
-    return(chemicalElements)
+  ##data("sysdata.rda", environment=environment())
+  chemicalElements
 }

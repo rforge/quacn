@@ -8,7 +8,6 @@ Maintainer: Karl G. Kugler <kg.kugler@gmail.com>
 Description: Quantitative Analysis of Complex Networks. This package offers a set of topological network measures to analyze complex Networks structurally.
 License: LGPL
 LazyLoad: yes
-LazyData: yes
 Depends: graph, RBGL, combinat
 Suggests: Rmpfr
 Imports: igraph
