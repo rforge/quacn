@@ -1,4 +1,5 @@
 .nodeDataVector <- function(g, att) {
+  data(sysdata, envir=environment())
   if (class(g)[1] != "graphNEL")
     stop("'g' has to be a 'graphNEL' object")
   stopifnot(.validateGraph(g))

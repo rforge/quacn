@@ -103,7 +103,11 @@ infoTheoreticGCM <- function(g, dist=NULL, coeff="lin", infofunct="sphere", lamb
     as.double(ci), as.integer(length(ci)),
     double(size))[[6]]
 
-  fvi <- alpha ^ if (prec > 53) mpfr(expts, prec) else expts
+  fvi <- alpha ^ if (prec > 53) {
+    Rmpfr::mpfr(expts, prec)}
+  else {
+    expts
+  }
   names(fvi) <- nodes(g)
 
   fvi

@@ -12,6 +12,7 @@ infoTheoreticLabeledV1 <- function(g, dist=NULL, coeff="lin", custCoeff=NULL, co
   # if there is no coefficient matrix, create one from coeff/custCoeff
   # and the masses of the atoms in the graph
   if (is.null(coeffMatrix)) {
+    data(sysdata, envir=environment())
     diam <- max(dist)
     ci <- .infoTheoreticCoeff(coeff, custCoeff, diam)
     coeffMatrix <- matrix(0, nrow=diam, ncol=length(uniq.labels))
